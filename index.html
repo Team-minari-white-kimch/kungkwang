@@ -952,6 +952,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <div class="sheet-h"><h2 id="calH">휴대폰 자동 보정</h2><button type="button" class="icon-btn x" id="closeCal" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <p class="cal-lead">쿵쾅이 기준 소리를 직접 내고 들어서, 이 휴대폰 마이크에 맞게 dB를 맞춰요. 휴대폰 한 대로 8초면 끝나요.</p>
   <ol class="cal-steps">
+    <li><b>이어폰·블루투스 빼기</b><span>유선 이어폰을 빼고, 블루투스(버즈·에어팟·스피커·차량)는 잠시 꺼 주세요. 기준 소리가 휴대폰 스피커로 나와야 해요.</span></li>
     <li><b>미디어 볼륨을 최대로</b><span>볼륨 버튼으로 미디어(음악) 소리를 끝까지 올려 주세요.</span></li>
     <li><b>조용한 곳, 탁자 위에</b><span>화면이 위로 오게 놓고, 케이스가 마이크·스피커를 막지 않는지 확인해요.</span></li>
     <li><b>자동 보정 시작</b><span>2초 동안 주변 소리를 듣고, 6초 동안 기준 소리를 내며 들어요.</span>
@@ -1417,6 +1418,13 @@ if (typeof module !== 'undefined') module.exports = KE;
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { out.textContent = '마이크를 켤 수 없어요. 앱 주소에서 열고 마이크를 허용해 주세요.'; return; }
+    // 이어폰·블루투스 연결 감지(브라우저가 기기 이름을 알려 줄 때만)
+    const EAR = /bluetooth|headset|headphone|earphone|earbud|buds|airpods|hands-?free|이어폰|헤드셋|헤드폰|블루투스/i;
+    try {
+      const devs = await navigator.mediaDevices.enumerateDevices(), trk = stream.getAudioTracks()[0];
+      const hit = (trk && EAR.test(trk.label)) || devs.some((d) => (d.kind === 'audiooutput' && d.deviceId === 'default' || d.kind === 'audioinput' && d.deviceId === 'default') && EAR.test(d.label));
+      if (hit) { stream.getTracks().forEach((t) => t.stop()); out.innerHTML = '<b>이어폰이나 블루투스 기기가 연결돼 있어요</b><br><span class="note">연결을 끊고 다시 눌러 주세요. 기준 소리가 휴대폰 스피커로 나와야 해요.</span>'; return; }
+    } catch (e) {}
     const ctx = new (window.AudioContext || window.webkitAudioContext)(); await ctx.resume();
     const rec = new MediaRecorder(stream), parts = []; rec.ondataavailable = (e) => parts.push(e.data);
     b.disabled = true; out.innerHTML = '주변 소리 듣는 중…'; rec.start();
@@ -1428,7 +1436,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         const y = await decodeTo16k(await new Blob(parts).arrayBuffer()), r = KE.analyze(y, { cal: 0 }), hop = r.hop;
         const mean = (t0, t1) => { const xs = r.Lf.slice(Math.floor(t0 / hop), Math.floor(t1 / hop)); return 10 * Math.log10(xs.reduce((s, v) => s + 10 ** (v / 10), 0) / xs.length); };
         const bg = mean(0.3, 1.8), tone = mean(3.0, 7.6), snr = tone - bg;
-        if (!isFinite(tone) || snr < 10) { out.innerHTML = `<b>기준 소리가 잘 안 들렸어요</b> <span class="note">(주변보다 ${isFinite(snr) ? snr.toFixed(0) : 0} dB 큼)</span><br><span class="note">볼륨을 최대로 올리고, 더 조용한 곳에서 다시 해 주세요.</span>`; return; }
+        if (!isFinite(tone) || snr < 10) { out.innerHTML = `<b>기준 소리가 잘 안 들렸어요</b> <span class="note">(주변보다 ${isFinite(snr) ? snr.toFixed(0) : 0} dB 큼)</span><br><span class="note">이어폰·블루투스가 연결돼 있지 않은지, 볼륨이 최대인지 확인하고 조용한 곳에서 다시 해 주세요.</span>`; return; }
         const c = Math.max(60, Math.min(140, Math.round(SELF_REF - tone)));
         $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'self'); } catch (e) {}
         out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.</span>`; toast(`자동 보정 완료 · 보정값 ${c}`);
