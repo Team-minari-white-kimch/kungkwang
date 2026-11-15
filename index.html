@@ -804,6 +804,15 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 #calSheet{max-height:88vh;overflow:auto}
 .cal-adv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
 .cal-adv summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--fg2);margin-bottom:12px}
+.calchip{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--line2);background:var(--surface);font-size:13px;font-weight:600;color:var(--fg);cursor:pointer;word-break:keep-all}
+.calchip i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--warn)}
+.calchip.ok i{background:var(--ok, #1f9d55)}
+.calchip span{color:var(--accent);font-weight:700;white-space:nowrap}
+.src-tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--fg2);margin-left:6px}
+.src-tag.ok{background:color-mix(in srgb,#1f9d55 14%,transparent);color:#1a7f47}
+.src-tag.warn{background:var(--warn-soft);color:var(--fg)}
+.src-note{font-size:13px;color:var(--fg2);background:var(--sunk);border-radius:10px;padding:10px 12px;margin:6px 0 10px;line-height:1.55;word-break:keep-all}
+.src-note .txtbtn{font-size:13px;padding:0 2px;min-height:auto}
 </style>
 
 <header class="bar gut">
@@ -843,6 +852,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
         <button class="rec" id="micBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><b>녹음 시작</b><small>30초 동안 들어요</small></button>
         <p class="sub">휴대폰을 바닥이나 식탁에 두고 눌러 주세요</p>
         <div class="micmsg" id="micMsg" role="alert" hidden></div>
+        <button type="button" class="calchip" id="calChip"></button>
         <button class="link-btn" id="openPick" type="button" aria-haspopup="dialog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>또는 녹음 파일 올리기</button>
       </div>
       <button class="recent" id="recent" type="button" hidden></button>
@@ -1371,6 +1381,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   try { const c = localStorage.getItem(CALKEY); if (c) { $('#cal').value = c; $('#calV').textContent = c; } } catch (e) {}
   $('#cal').addEventListener('change', () => { try { localStorage.setItem(CALKEY, $('#cal').value); } catch (e) {} });
   let calRaw = null, tone = null;
+  function calState() { try { return localStorage.getItem(CALKEY + '.how'); } catch (e) { return null; } }
   const openCal = () => { $('#calSheet').hidden = false; $('#sheetBg').hidden = false; $('#closeCal').focus(); };
   const closeCal = () => { $('#calSheet').hidden = true; if ($('#sheet').hidden) $('#sheetBg').hidden = true; stopTone(); };
   function stopTone() { if (tone) { try { tone.src.stop(); tone.ctx.close(); } catch (e) {} tone = null; $('#calTone').textContent = '보정용 소리 재생'; } }
@@ -1407,6 +1418,12 @@ if (typeof module !== 'undefined') module.exports = KE;
   /* 휴대폰 1대 자동 보정: 기준음(핑크 노이즈, 디지털 -12 dBFS 근처)을 최대 볼륨으로 내며 같은 휴대폰이 녹음.
      SELF_REF = 기준음을 낼 때 휴대폰 마이크에 들어가는 소리 크기 추정치(dB(A)). 실측으로 조정 필요. */
   const SELF_REF = 85;
+  function updateCalChip() { const h = calState(), c = $('#calChip'); if (!c) return;
+    c.className = 'calchip ' + (h ? 'ok' : 'warn');
+    c.innerHTML = h ? `<i></i>dB 보정됨 · ${$('#cal').value}<span>다시 보정 ›</span>` : `<i></i>dB 보정 전 · 처음 한 번만<span>자동 보정 ›</span>`; }
+  $('#calChip').addEventListener('click', () => openCal());
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-opencal]')) { go('analyze'); setTimeout(openCal, 50); } });
+  updateCalChip();
   function pinkBuffer(ctx, sec) {
     const n = Math.floor(ctx.sampleRate * sec), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
     let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
@@ -1438,7 +1455,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         const bg = mean(0.3, 1.8), tone = mean(3.0, 7.6), snr = tone - bg;
         if (!isFinite(tone) || snr < 10) { out.innerHTML = `<b>기준 소리가 잘 안 들렸어요</b> <span class="note">(주변보다 ${isFinite(snr) ? snr.toFixed(0) : 0} dB 큼)</span><br><span class="note">이어폰·블루투스가 연결돼 있지 않은지, 볼륨이 최대인지 확인하고 조용한 곳에서 다시 해 주세요.</span>`; return; }
         const c = Math.max(60, Math.min(140, Math.round(SELF_REF - tone)));
-        $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'self'); } catch (e) {}
+        $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'self'); } catch (e) {} updateCalChip();
         out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.</span>`; toast(`자동 보정 완료 · 보정값 ${c}`);
         if (last) run(last.y, last.label);
       } catch (e) { out.textContent = '보정하지 못했어요. 다시 눌러 주세요.'; }
@@ -1448,7 +1465,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#calApply').addEventListener('click', () => {
     const ref = +$('#calRef').value; if (calRaw == null || !ref) return;
     const c = Math.max(60, Math.min(140, Math.round(ref - calRaw)));
-    $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); } catch (e) {}
+    $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'meter'); } catch (e) {} updateCalChip();
     $('#calOut').innerHTML = `보정 완료 · 보정값 <b>${c}</b> <span class="note">이 휴대폰에 저장돼요</span>`; toast(`보정값 ${c}로 맞췄어요`);
     if (last) run(last.y, last.label);
   });
@@ -1477,15 +1494,19 @@ if (typeof module !== 'undefined') module.exports = KE;
     const label = { '직접충격 1분 등가소음도': '1분 평균', '직접충격 최고소음도': '최고 소음', '공기전달 5분 등가소음도': '5분 평균 (음악·TV)' };
     const sub = { '직접충격 1분 등가소음도': (c) => c.note.startsWith('녹음이') ? '녹음 전체 평균' : '1분 창 최댓값', '직접충격 최고소음도': () => `기준 넘은 횟수 ${r.overLmax}회 (3회↑ 초과)`, '공기전달 5분 등가소음도': () => '녹음 전체 평균' };
     const comp = Object.entries(r.counts).sort((a, b) => b[1] - a[1]);
+    const lb = r.label || '', isEx = /예시/.test(lb), isMic = lb === '마이크 녹음', calHow = calState();
+    const srcTag = isEx ? '<span class="src-tag">예시</span>' : isMic ? (calHow ? '<span class="src-tag ok">보정됨</span>' : '<span class="src-tag warn">보정 전</span>') : '<span class="src-tag warn">파일 · dB 참고용</span>';
+    const srcNote = isEx ? '' : isMic ? (calHow ? '' : '<p class="src-note">이 휴대폰은 아직 보정 전이라 dB가 실제와 다를 수 있어요. <button type="button" class="txtbtn" data-opencal>자동 보정하기</button></p>')
+      : '<p class="src-note">다른 앱으로 녹음한 파일은 앱마다 소리 크기를 다르게 저장해서 dB는 참고용이에요. 소리 종류 구분은 그대로 쓸 수 있고, 정확한 dB는 쿵쾅으로 직접 녹음해 주세요.</p>';
     el.innerHTML = `
       <div class="sum">
-        <div class="sum-meta"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초 녹음</span></div>
+        <div class="sum-meta"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초 녹음</span>${srcTag}</div>
         <h1 class="sum-t">${main}${comp.length > 1 ? ` <span class="sum-more">외 ${comp.length - 1}가지</span>` : ''}</h1>
         <p class="sum-lead st-${worst}"><span class="sdot"></span><span>${lead}</span></p>
         ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
       </div>
       ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">이 기록으로 알리기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts"><button class="primary" id="save" type="button">일지에 저장</button><a class="btn" href="#analyze">다시 분석</a></div>`}
-      ${rows.length ? `<div class="blk"><h2>기준과 비교</h2><div class="cmp">${rows.map((c) => `
+      ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
         <div class="cmp-r"><div><div class="cmp-k">${label[c.k]}</div><div class="cmp-s">${sub[c.k](c)}</div></div>
           <div class="cmp-v num"><b>${c.v.toFixed(1)}</b><span>/ ${c.lim} dB</span></div><span class="pill ${c.st}">${stTxt[c.st]}</span></div>`).join('')}</div></div>` : ''}
       <div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>
