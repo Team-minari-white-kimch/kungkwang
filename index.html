@@ -804,10 +804,10 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 #calSheet{max-height:88vh;overflow:auto}
 .cal-adv{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
 .cal-adv summary{cursor:pointer;font-size:14px;font-weight:700;color:var(--fg2);margin-bottom:12px}
-.calchip{display:inline-flex;align-items:center;gap:8px;margin-top:10px;padding:8px 14px;border-radius:999px;border:1px solid var(--line2);background:var(--surface);font-size:13px;font-weight:600;color:var(--fg);cursor:pointer;word-break:keep-all}
-.calchip i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--warn)}
-.calchip.ok i{background:var(--ok, #1f9d55)}
-.calchip span{color:var(--accent);font-weight:700;white-space:nowrap}
+.stage-acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.calchip i{width:8px;height:8px;border-radius:50%;flex:none;background:#E8A23A}
+.calchip.ok i{background:#1f9d55}
+.calchip.ok{color:var(--fg2)}
 .src-tag{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--sunk);color:var(--fg2);margin-left:6px}
 .src-tag.ok{background:color-mix(in srgb,#1f9d55 14%,transparent);color:#1a7f47}
 .src-tag.warn{background:var(--warn-soft);color:var(--fg)}
@@ -852,8 +852,10 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
         <button class="rec" id="micBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><b>녹음 시작</b><small>30초 동안 들어요</small></button>
         <p class="sub">휴대폰을 바닥이나 식탁에 두고 눌러 주세요</p>
         <div class="micmsg" id="micMsg" role="alert" hidden></div>
-        <button type="button" class="calchip" id="calChip"></button>
-        <button class="link-btn" id="openPick" type="button" aria-haspopup="dialog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>또는 녹음 파일 올리기</button>
+        <div class="stage-acts">
+        <button class="link-btn" id="openPick" type="button" aria-haspopup="dialog"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>녹음 파일 올리기</button>
+          <button type="button" class="link-btn calchip" id="calChip" aria-label="dB 보정"></button>
+        </div>
       </div>
       <button class="recent" id="recent" type="button" hidden></button>
       <div class="status" id="aiStatus"><span class="dot busy"></span><span>AI 소리 인식 모델을 불러오는 중…</span></div>
@@ -1419,8 +1421,8 @@ if (typeof module !== 'undefined') module.exports = KE;
      SELF_REF = 기준음을 낼 때 휴대폰 마이크에 들어가는 소리 크기 추정치(dB(A)). 실측으로 조정 필요. */
   const SELF_REF = 85;
   function updateCalChip() { const h = calState(), c = $('#calChip'); if (!c) return;
-    c.className = 'calchip ' + (h ? 'ok' : 'warn');
-    c.innerHTML = h ? `<i></i>dB 보정됨 · ${$('#cal').value}<span>다시 보정 ›</span>` : `<i></i>dB 보정 전 · 처음 한 번만<span>자동 보정 ›</span>`; }
+    c.className = 'link-btn calchip ' + (h ? 'ok' : 'warn');
+    c.innerHTML = h ? `<i></i>보정됨 ${$('#cal').value}` : `<i></i>dB 보정하기`; }
   $('#calChip').addEventListener('click', () => openCal());
   document.addEventListener('click', (e) => { if (e.target.closest('[data-opencal]')) { go('analyze'); setTimeout(openCal, 50); } });
   updateCalChip();
