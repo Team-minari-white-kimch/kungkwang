@@ -1365,7 +1365,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const start = new Date($('#when').value || Date.now());
     const ym = yamnetOf(y);
     const r = KE.analyze(y, { cal: +$('#cal').value, start, yamnet: ym });
-    r.label = label; r.ym = ym; lastRes = r; render(r); renderRecent(r);
+    r.label = label; r.ym = ym; r.how = /예시/.test(label) ? 'ex' : label === '마이크 녹음' ? (calState() ? 'cal' : 'raw') : 'file'; lastRes = r; render(r); renderRecent(r);
   }
   function renderRecent(r) {
     const b = $('#recent'), n = Object.values(r.counts).reduce((a, c) => a + c, 0);
@@ -1424,7 +1424,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     c.className = 'link-btn calchip ' + (h ? 'ok' : 'warn');
     c.innerHTML = h ? `<i></i>보정됨 ${$('#cal').value}` : `<i></i>dB 보정하기`; }
   $('#calChip').addEventListener('click', () => openCal());
-  document.addEventListener('click', (e) => { if (e.target.closest('[data-opencal]')) { go('analyze'); setTimeout(openCal, 50); } });
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-opencal]')) openCal(); });
   updateCalChip();
   function pinkBuffer(ctx, sec) {
     const n = Math.floor(ctx.sampleRate * sec), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
@@ -1458,8 +1458,8 @@ if (typeof module !== 'undefined') module.exports = KE;
         if (!isFinite(tone) || snr < 10) { out.innerHTML = `<b>기준 소리가 잘 안 들렸어요</b> <span class="note">(주변보다 ${isFinite(snr) ? snr.toFixed(0) : 0} dB 큼)</span><br><span class="note">이어폰·블루투스가 연결돼 있지 않은지, 볼륨이 최대인지 확인하고 조용한 곳에서 다시 해 주세요.</span>`; return; }
         const c = Math.max(60, Math.min(140, Math.round(SELF_REF - tone)));
         $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'self'); } catch (e) {} updateCalChip();
-        out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.</span>`; toast(`자동 보정 완료 · 보정값 ${c}`);
-        if (last) run(last.y, last.label);
+        out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.</span>`;
+        if (last && last.label === '마이크 녹음' && location.hash.startsWith('#result')) { run(last.y, last.label); closeCal(); toast('보정 완료 · 방금 녹음을 다시 계산했어요'); } else { toast(`자동 보정 완료 · 보정값 ${c}`); if (last) run(last.y, last.label); }
       } catch (e) { out.textContent = '보정하지 못했어요. 다시 눌러 주세요.'; }
     };
   });
@@ -1496,9 +1496,9 @@ if (typeof module !== 'undefined') module.exports = KE;
     const label = { '직접충격 1분 등가소음도': '1분 평균', '직접충격 최고소음도': '최고 소음', '공기전달 5분 등가소음도': '5분 평균 (음악·TV)' };
     const sub = { '직접충격 1분 등가소음도': (c) => c.note.startsWith('녹음이') ? '녹음 전체 평균' : '1분 창 최댓값', '직접충격 최고소음도': () => `기준 넘은 횟수 ${r.overLmax}회 (3회↑ 초과)`, '공기전달 5분 등가소음도': () => '녹음 전체 평균' };
     const comp = Object.entries(r.counts).sort((a, b) => b[1] - a[1]);
-    const lb = r.label || '', isEx = /예시/.test(lb), isMic = lb === '마이크 녹음', calHow = calState();
+    const lb = r.label || '', how = r.how || (/예시/.test(lb) ? 'ex' : lb === '마이크 녹음' ? (calState() ? 'cal' : 'raw') : 'file'), isEx = how === 'ex', isMic = how === 'cal' || how === 'raw', calHow = how === 'cal';
     const srcTag = isEx ? '<span class="src-tag">예시</span>' : isMic ? (calHow ? '<span class="src-tag ok">보정됨</span>' : '<span class="src-tag warn">보정 전</span>') : '<span class="src-tag warn">파일 · dB 참고용</span>';
-    const srcNote = isEx ? '' : isMic ? (calHow ? '' : '<p class="src-note">이 휴대폰은 아직 보정 전이라 dB가 실제와 다를 수 있어요. <button type="button" class="txtbtn" data-opencal>자동 보정하기</button></p>')
+    const srcNote = isEx ? '' : isMic ? (calHow ? '' : (fromLog ? '<p class="src-note">보정 전에 녹음한 기록이라 dB는 참고용이에요.</p>' : '<p class="src-note">이 휴대폰은 아직 보정 전이라 dB가 실제와 다를 수 있어요. 지금 8초만 보정하면 <b>이 녹음도 다시 계산</b>돼요. <button type="button" class="txtbtn" data-opencal>자동 보정하기 ›</button></p>'))
       : '<p class="src-note">다른 앱으로 녹음한 파일은 앱마다 소리 크기를 다르게 저장해서 dB는 참고용이에요. 소리 종류 구분은 그대로 쓸 수 있고, 정확한 dB는 쿵쾅으로 직접 녹음해 주세요.</p>';
     el.innerHTML = `
       <div class="sum">
@@ -1562,7 +1562,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const k = Math.max(1, Math.ceil(r.Lf.length / 600)), Lf = [];
     for (let i = 0; i < r.Lf.length; i += k) Lf.push(+Math.max(...r.Lf.slice(i, i + k)).toFixed(1));
     return { main: r.main, counts: r.counts, checks: r.checks.map((c) => ({ k: c.k, v: +c.v.toFixed(1), lim: c.lim, st: c.st, note: c.note })), night: r.night, period: r.period, start: r.start.getTime(), durSec: r.durSec,
-      Lf, hop: r.hop * k, lmax: r.lmax, overLmax: r.overLmax, leq1: r.leq1, label: r.label, cal: r.cal,
+      Lf, hop: r.hop * k, lmax: r.lmax, overLmax: r.overLmax, leq1: r.leq1, label: r.label, cal: r.cal, how: r.how,
       ev: r.ev.slice(0, 300).map((e) => ({ t: +e.t.toFixed(2), span: +e.span.toFixed(2), type: e.type, peak: +e.peak.toFixed(1), conf: +e.conf.toFixed(2), why: e.why })) };
   }
   const restore = (x) => ({ ...x, start: new Date(x.start), ym: null });
@@ -1582,14 +1582,14 @@ if (typeof module !== 'undefined') module.exports = KE;
       const isMix = type.startsWith('mix:'), y = isMix ? KE.mix(MX[type.slice(4)], 20 + i) : KE.synth(type, 20 + i, adj);
       const r = KE.analyze(y, { cal: 100, start: d });
       r.label = isMix ? `예시_섞인소리_${MX[type.slice(4)].map((p) => T[p[0]].name.replace(/\(.*\)|\s/g, '')).filter((v, j, A) => A.indexOf(v) === j).join('+')}.wav` : `예시_${T[type].name.replace(/[()\s]/g, '')}.wav`;
-      out.push({ ts: d.getTime(), type: r.main || (isMix ? 'other' : type), count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, counts: r.counts, leq1: +r.leq1.toFixed(1), example: true, res: snapshot(r) });
+      out.push({ ts: d.getTime(), type: r.main || (isMix ? 'other' : type), count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), example: true, res: snapshot(r) });
     });
     out.sort((a, b) => a.ts - b.ts);
     return (exCache = out);
   }
   function entries() { if (exMode === null) exMode = !log.length; isExample = exMode; return exMode ? exampleLog() : log; }
   function addEntry(r) {
-    exMode = false; log.push({ cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
+    exMode = false; log.push({ cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
     log.sort((a, b) => a.ts - b.ts);
     try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); log[log.length - 1].res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
   }
@@ -1670,7 +1670,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const d = new Date(e.ts), on = pick.has(e.ts);
     return `<div class="gr${on ? ' on' : ''}" role="listitem">${sel ? `<label class="ck" aria-label="${fmt(d)} 선택"><input type="checkbox" data-sel="${e.ts}" ${on ? 'checked' : ''}></label>` : ''}<a class="ga" href="#log-${e.ts}">
       <span class="gt num"><b>${pad(d.getHours())}:${pad(d.getMinutes())}</b>${sel ? '' : `<small>${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]})</small>`}</span>
-      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}</small></span>
+      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small></span>
       <span class="pill ${e.over}">${stTxt[e.over]}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></div>`;
   }
   function dayLabel(t) {
@@ -1782,7 +1782,9 @@ if (typeof module !== 'undefined') module.exports = KE;
     const by = {}; E.forEach((e) => { by[e.type] = (by[e.type] || 0) + e.count; });
     const total = E.reduce((s, e) => s + e.count, 0), nightN = E.filter((e) => e.night).reduce((s, e) => s + e.count, 0);
     const d = new Date(), cal = E.find((e) => e.cal)?.cal ?? +$('#cal').value;
-    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}`);
+    const HOW = { cal: '보정 후 직접 녹음', raw: '보정 전 직접 녹음', file: '녹음 파일(dB 참고)' };
+    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}${e.how && HOW[e.how] ? ` · ${HOW[e.how]}` : ''}`);
+    const nCal = E.filter((e) => e.how === 'cal').length;
     return `층간소음 피해 기록 일지${isExample ? '  (※ 기능 설명용 예시 데이터)' : ''}
 
 ■ 기록 개요
@@ -1794,7 +1796,7 @@ if (typeof module !== 'undefined') module.exports = KE;
 ${lines.join('\n')}
 
 ■ 측정·판정 방법
-  · 측정 기기: 피해 세대 휴대폰 마이크, A특성 가중, 125ms 응답, 보정값 ${cal}dB
+  · 측정 기기: 피해 세대 휴대폰 마이크, A특성 가중, 125ms 응답, 보정값 ${cal}dB${nCal ? ` (쿵쾅 자동 보정 후 측정 ${nCal}건)` : ''}
   · 소리 분류: 공개 소리 인식 AI(Google YAMNet) + 층간소음 판별 규칙 (기기 안에서 처리, 녹음 원본 외부 전송 없음)
   · 판정 기준: 「공동주택 층간소음의 범위와 기준에 관한 규칙」 직접충격 소음
     최고소음도 주간 57dB·야간 52dB(1시간 3회 이상 초과 시) / 1분 등가 주간 39dB·야간 34dB
