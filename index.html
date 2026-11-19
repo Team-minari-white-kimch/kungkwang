@@ -1029,6 +1029,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 /* journal tools */
 .board:not(.jt-on) #sForm,.board:not(.jt-on) .rhead,.board:not(.jt-on) .ck{display:none!important}
 .board:not(.jt-on) .gr .ga{padding-left:14px}
+#jTool{display:none!important}
 .jtool[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .phd{display:flex;align-items:center;gap:10px;min-height:56px;padding:2px 0 6px;width:100%}
 .phd-b{width:40px;height:40px;min-height:40px;border-radius:12px;display:grid;place-items:center;color:var(--fg);flex:none;margin-left:-8px;text-decoration:none}
@@ -1707,6 +1708,23 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .d3l{margin:10px 0 0;display:flex;flex-direction:column;gap:6px}
 .d3l>div{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
 .d3l dt{color:var(--fg2)}.d3l dd{margin:0;color:var(--fg2)}.d3l dd b{color:var(--fg);font-size:14.5px;font-weight:800}.d3l dd b.ac{color:var(--accent)}
+
+#v-report .seg2{margin-bottom:8px}
+.rlhd{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%}.rlhd span{font-size:12px;color:var(--fg2)}
+.btn.sm{min-height:36px;padding:0 14px;font-size:13px;border-radius:10px}
+.rlchips{display:flex;gap:6px;overflow-x:auto;width:100%;padding:2px 0;scrollbar-width:none}.rlchips button{flex:none;min-height:34px;padding:0 13px;border-radius:999px;border:1px solid var(--line2);background:var(--surface);color:var(--fg);font:inherit;font-size:13px;white-space:nowrap}
+.rlchips button[aria-pressed=true]{background:var(--fg);color:var(--bg);border-color:var(--fg);font-weight:700}
+.rl-day{display:flex;justify-content:space-between;width:100%;padding:8px 4px 0;font-size:13px}.rl-day span{color:var(--fg2)}
+.rlc{position:relative;display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 12px 12px 14px;font:inherit;color:var(--fg);cursor:pointer;box-sizing:border-box}
+.rlc:hover{border-color:var(--accent)}
+.rlc .gt b{font-size:15px;font-weight:800}
+.rlc-b{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;line-height:1.4;word-break:keep-all}.rlc-b b{font-size:14px;font-weight:700}.rlc-b small{font-size:12.5px;color:var(--fg2)}
+.rlc-m{align-self:flex-start;font-size:11px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:6px;padding:1px 7px}
+.rlc .chev{color:var(--fg2);flex:none}
+.rv-m{display:flex;gap:8px;align-items:center;padding:0 2px 6px}.exk3{font-size:11px;color:var(--fg2);background:var(--sunk);border-radius:6px;padding:1px 7px}
+.rv-l{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}.rv-l>div{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:14px}.rv-l dt{color:var(--fg2);font-size:13px}.rv-l dd{margin:0;word-break:keep-all}
+.rv-n{font-size:12px;color:var(--fg2);margin:10px 2px 4px;word-break:keep-all}
+.rv-a{display:flex;gap:8px;margin-top:10px}.rv-a .btn{flex:1;min-height:46px}.rv-a .btn[hidden]{display:none}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -1857,6 +1875,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <!-- STEP 3 -->
   <section class="view" id="v-report" aria-labelledby="h1-report" hidden>
     <div class="phd"><div class="phd-t"><h1 id="h1-report">해결</h1><p class="phd-s" id="rSub"></p></div></div>
+    <nav class="seg2" aria-label="해결 보기"><a href="#report" id="rgM">대응 방법</a><a href="#rlog" id="rgL">대응 기록</a></nav>
     <section class="pg" id="pg" aria-label="해결 과정 관리"></section>
     <div class="warn-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg><p><b>직접 찾아가지 마세요.</b> 문 두드리기·보복 소음은 갈등을 키우고 법적 책임이 생길 수 있어요. 위협을 느끼면 112.</p></div>
     <details class="moreopts" hidden><summary>알리는 방법 5가지 모두 보기</summary><nav class="opts" id="opts" aria-label="알리는 방법"></nav></details>
@@ -1978,6 +1997,12 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <ul id="mqList"></ul>
   <p>위협을 느끼면 <b>112</b>에 신고하세요.</p>
   <button type="button" class="btn" id="mqClose">닫기</button></div></div>
+<div class="sheet" id="rvSheet" role="dialog" aria-modal="true" aria-labelledby="rvH" hidden>
+  <div class="grab" aria-hidden="true"></div>
+  <div class="sheet-h"><h2 id="rvH">대응 기록</h2><button type="button" class="icon-btn x" id="rvClose" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="rvBody"></div>
+  <div class="rv-a"><button type="button" class="btn" id="rvDel">삭제</button><button type="button" class="btn" id="rvEdit">고치기</button><button type="button" class="btn primary" id="rvDoc">경위서 보기</button></div>
+</div>
 <div class="sheet" id="rlSheet" role="dialog" aria-modal="true" aria-labelledby="rlH" hidden>
   <div class="grab" aria-hidden="true"></div>
   <div class="sheet-h"><h2 id="rlH">대응 기록 추가</h2><button type="button" class="icon-btn x" id="rlClose" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -2224,10 +2249,12 @@ if (typeof module !== 'undefined') module.exports = KE;
 
   /* ---------- 메뉴(해시) ---------- */
   const VIEWS = ['analyze', 'result', 'journal', 'report', 'rdetail', 'family', 'more'];
+  let rtab = 'how';
   function show() {
     const h = location.hash.slice(1), rid = h.startsWith('r-') && OPTS.some((o) => o.id === h.slice(2)) ? h.slice(2) : null;
     const lts = h.startsWith('log-') ? +h.slice(4) : null, le = lts ? entries().concat(log).find((e) => e.ts === lts && e.res) : null;
-    const v0 = rid ? 'rdetail' : le ? 'result' : (VIEWS.includes(h) || h === 'stats') ? h : 'analyze', v = v0 === 'stats' ? 'journal' : v0;
+    const v0 = rid ? 'rdetail' : le ? 'result' : (VIEWS.includes(h) || h === 'stats' || h === 'rlog') ? h : 'analyze', v = v0 === 'stats' ? 'journal' : v0 === 'rlog' ? 'report' : v0;
+    if (v === 'report') { rtab = v0 === 'rlog' ? 'log' : 'how'; }
     if (v === 'journal') { jtab = v0 === 'stats' ? 'dash' : 'board'; }
     if (rid) { cur = rid; renderNav(); renderPanel(); }
     let shown = null; if (le) { shown = restore(le.res); shown._harm = le.harm ? { kinds: [...(le.harm.kinds || [])], lv: le.harm.lv || 0, memo: le.harm.memo || '' } : null; render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
@@ -3341,13 +3368,15 @@ ${lines.join('\n')}
     const P = progState(), recN = E.length, rid = P.st ? P.st.id : null;
     const OI = { neighbor: '<path d="M4 5h16v11H8l-4 4z"/>', office: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/>', committee: '<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2.5 19c.6-3 3-4.5 5.5-4.5s4.9 1.5 5.5 4.5M10.5 19c.6-3 3-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/>', center: '<path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/>', dispute: '<path d="M12 3v18M5 7h14M7 7l-3 7h6zM17 7l-3 7h6z"/>' };
     const small = MYAPT && !aptEval(MYAPT).big;
+    $('#rgM').toggleAttribute('aria-current', rtab === 'how'); $('#rgL').toggleAttribute('aria-current', rtab === 'log'); if (rtab === 'how') $('#rgM').setAttribute('aria-current', 'page'); else $('#rgL').setAttribute('aria-current', 'page');
+    $$('#v-report .warn-box').forEach((w) => { w.hidden = rtab === 'log'; });
+    if (rtab === 'log') { renderRlog(); return; }
     $('#pg').innerHTML = aptCardHTML() + `
       <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 5 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
         const sp = false;
         return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b><small>${dn ? md(PG.done[o.id]) + ' 완료' : sp ? '건너뛴 단계' : sk ? '위원회가 없으면 건너뛰어도 돼요' : o.s}</small></span>${rc ? '<span class="badge rcb">추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ul>
-      <div class="rmh"><h2>대응 기록</h2><button type="button" class="txtbtn" id="rlAdd">+ 기록 추가</button></div>
-      ${allRlog().length ? `<ol class="rlog">${allRlog().sort((a, b) => b.ts - a.ts).map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `<li class="${x.ex ? 'ex' : ''}"><button type="button" class="rl-go" ${x.ex ? `data-rlex="1"` : `data-rledit="${x.ts}"`}><span class="rl-d num">${d.getMonth() + 1}/${d.getDate()}<small>${pad(d.getHours())}:${pad(d.getMinutes())}</small></span><span class="rl-b"><b>${o ? o.sh : '기타'}</b> ${esc(x.what)}${x.res ? `<small>→ ${esc(x.res)}</small>` : ''}</span></button>${x.ex ? '<span class="exk2">예시</span>' : `<button type="button" class="rl-x" data-rldel="${x.ts}" aria-label="삭제">×</button>`}</li>`; }).join('')}</ol><p class="rl-hint">누르면 고칠 수 있어요 · 분쟁조정 경위서에 자동으로 들어가요</p>` : '<button type="button" class="rl-empty" id="rlAdd2">관리사무소에 말한 날, 이웃의 반응 같은 대응 내용을 남겨 두면 분쟁조정 때 경위서로 이어져요. <b>+ 첫 기록 남기기</b></button>'}`;
+      `;
     $$('#pg [data-pf]').forEach((r) => { const f = () => { PG.focus = r.dataset.pf; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); }; r.addEventListener('click', f); r.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f(); } }); });
     $$('#pg [data-pdone]').forEach((b) => b.addEventListener('click', () => { PG.done[b.dataset.pdone] = Date.now(); delete PG.focus; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); toast('잘하셨어요 · 완료로 표시했어요'); }));
     $$('#pg [data-pundo]').forEach((b) => b.addEventListener('click', () => { delete PG.done[b.dataset.pundo]; if (PG.skip) delete PG.skip[b.dataset.pundo]; pgSave(); renderProgress(); toast('되돌렸어요'); }));
@@ -3359,6 +3388,35 @@ ${lines.join('\n')}
     $('#rlAdd') && $('#rlAdd').addEventListener('click', () => openRL());
     $$('#pg [data-pck]').forEach((c) => c.addEventListener('change', () => { PG.ck[c.dataset.pck] = c.checked; pgSave(); renderProgress(); }));
   }
+  let rlf = 'all';
+  function renderRlog() {
+    const L = allRlog().sort((a, b) => b.ts - a.ts), ms = [['all', '전체']].concat(OPTS.map((o) => [o.id, o.sh]).filter(([id]) => L.some((x) => x.m === id)));
+    if (!ms.some(([k]) => k === rlf)) rlf = 'all';
+    const F = L.filter((x) => rlf === 'all' || x.m === rlf);
+    let html = `<div class="rlhd"><span class="num">${L.length}건 · 분쟁조정 경위서에 자동으로 들어가요</span><button type="button" class="btn primary sm" id="rlAdd">+ 기록 추가</button></div>
+      <div class="chips rlchips" role="group" aria-label="방법별 보기">${ms.map(([k, l]) => `<button type="button" data-rlf="${k}" aria-pressed="${rlf === k}">${l}</button>`).join('')}</div>`;
+    if (!L.length) html += '<button type="button" class="rl-empty" id="rlAdd2">관리사무소에 말한 날, 이웃의 반응 같은 대응 내용을 남겨 두면 분쟁조정 때 경위서로 이어져요. <b>+ 첫 기록 남기기</b></button>';
+    let day = '';
+    F.forEach((x) => { const d = new Date(x.ts), dl = dayLabel(x.ts), o = OPTS.find((q) => q.id === x.m);
+      if (dl !== day) { day = dl; const n = F.filter((y) => dayLabel(y.ts) === dl).length; html += `<div class="rl-day"><b>${dl}</b><span>${n}건</span></div>`; }
+      html += `<button type="button" class="rlc" data-rlv="${x.ts}" data-ex="${x.ex ? 1 : ''}">${x.ex ? '<span class="exk2">예시</span>' : ''}<span class="gt num"><b>${pad(d.getHours())}:${pad(d.getMinutes())}</b></span><span class="rlc-b"><span class="rlc-m">${o ? o.sh : '기타'}</span><b>${esc(x.what)}</b>${x.res ? `<small>→ ${esc(x.res)}</small>` : ''}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`; });
+    $('#pg').innerHTML = html;
+    $('#rlAdd').addEventListener('click', () => openRL());
+    $('#rlAdd2') && $('#rlAdd2').addEventListener('click', () => openRL());
+    $$('#pg [data-rlf]').forEach((b) => b.addEventListener('click', () => { rlf = b.dataset.rlf; renderRlog(); }));
+    $$('#pg [data-rlv]').forEach((b) => b.addEventListener('click', () => openRV(+b.dataset.rlv, !!b.dataset.ex)));
+  }
+  let rvTs = null;
+  function openRV(ts, ex) { const x = allRlog().find((q) => q.ts === ts && !!q.ex === ex); if (!x) return; rvTs = ex ? null : ts; const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m);
+    $('#rvBody').innerHTML = `<div class="rv-m"><span class="rlc-m">${o ? o.sh : '기타'}</span>${ex ? '<span class="exk3">예시</span>' : ''}</div>
+      <dl class="rv-l"><div><dt>날짜·시간</dt><dd class="num">${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}</dd></div><div><dt>방법</dt><dd>${o ? o.t : '기타'}</dd></div><div><dt>한 일</dt><dd>${esc(x.what)}</dd></div><div><dt>결과·반응</dt><dd>${x.res ? esc(x.res) : '<span class="note">적지 않음</span>'}</dd></div></dl>
+      <p class="rv-n">이 기록은 분쟁조정 경위서의 '해결을 위해 거친 절차'에 날짜순으로 들어가요.</p>`;
+    $('#rvEdit').hidden = ex; $('#rvDel').hidden = ex; $('#rvSheet').hidden = false; $('#sheetBg').hidden = false; }
+  const closeRV = () => { $('#rvSheet').hidden = true; $('#sheetBg').hidden = true; };
+  $('#rvClose').addEventListener('click', closeRV);
+  $('#rvEdit').addEventListener('click', () => { const t = rvTs; closeRV(); openRL(t); });
+  $('#rvDel').addEventListener('click', () => { PG.rlog = (PG.rlog || []).filter((x) => x.ts !== rvTs); pgSave(); closeRV(); renderProgress(); toast('지웠어요'); });
+  $('#rvDoc').addEventListener('click', () => { closeRV(); go('r-dispute'); });
   function renderOpts() {
     try { renderProgress(); } catch (e) { console.error(e); }
     $('#opts').innerHTML = OPTS.map((o, i) => `<a class="opt" href="#r-${o.id}"><span class="k">${i + 1}</span><b>${o.t}</b><span class="lv">${o.lv}</span><small>${o.s}</small></a>`).join('');
