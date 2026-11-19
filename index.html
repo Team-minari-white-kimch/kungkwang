@@ -61,7 +61,7 @@ body,button,input,textarea,select{word-break:keep-all;overflow-wrap:anywhere}
 .tabs{display:flex;gap:4px;background:var(--sunk);border-radius:12px;padding:4px;margin-left:auto}
 .tab{display:flex;align-items:center;gap:8px;border:0;background:transparent;color:var(--fg2);font:inherit;font-size:14px;font-weight:500;padding:7px 14px;border-radius:9px;cursor:pointer;text-decoration:none;white-space:nowrap}
 .tab .n{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:700;background:var(--line);color:var(--fg2)}
-.tab svg{display:none;width:22px;height:22px}
+.tab svg{display:block;width:18px;height:18px}
 .tab[aria-current="page"]{background:var(--surface);color:var(--fg);font-weight:700;box-shadow:0 1px 3px rgba(33,20,45,.12)}
 .tab[aria-current="page"] .n{background:var(--accent);color:var(--accent-ink)}
 .tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -633,7 +633,9 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   .tab{flex-direction:column;gap:2px;font-size:11px;padding:6px 4px;flex:1}
   .tab .n{display:none}
   .tab svg{display:block}
-  .tab[aria-current="page"]{box-shadow:none;background:var(--accent-soft);color:var(--accent)}
+  .tab[aria-current="page"]{box-shadow:none;background:transparent;color:var(--accent);font-weight:700}
+  .tab svg{width:23px;height:23px}
+  .tab{font-size:10.5px;padding:5px 2px}
   main{padding-bottom:110px}
   .hero h1{font-size:25px}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -918,6 +920,78 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .ck-l .auto{margin-left:auto;font-size:11px;font-weight:700;color:var(--ok);white-space:nowrap}
 .ck-l label.on span:first-of-type{color:var(--fg2);text-decoration:line-through}
 .pg h3{font-size:13.5px;margin:0;color:var(--fg2)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+#recent{display:none!important}
+.hm-top{position:relative;height:0;z-index:3}
+.hm-top .icon-btn{position:absolute;right:10px;top:10px;background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3);color:#fff}
+.hm-brand{font-size:20px;font-weight:900;letter-spacing:-.02em}
+.greet{position:relative;overflow:hidden;border-radius:18px;padding:18px 18px 20px;background:linear-gradient(135deg,#7100EE,#6020A8 60%,#4B1A88);color:#fff;display:flex;justify-content:space-between;align-items:flex-end;min-height:96px}
+.greet small{display:block;font-size:13px;opacity:.85}
+.greet b{display:block;font-size:19px;margin:2px 0 4px;letter-spacing:-.02em}
+.greet span{font-size:12.5px;opacity:.85}
+.g-bld{width:120px;height:80px;position:absolute;right:6px;bottom:-4px}
+.greet>div{position:relative;z-index:1}
+.recent2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;text-align:left;width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);min-height:0}
+.recent2 .k{font-size:13px;color:var(--fg2);font-weight:700}
+.recent2 .d{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg);flex-wrap:wrap}
+.recent2 .d i{width:16px;height:16px;border-radius:50%;background:var(--accent);display:grid;place-items:center;flex:none}
+.recent2 .chev{grid-row:1/span 2;grid-column:2;color:var(--fg3,var(--fg2));font-size:20px}
+.fp{display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto;width:100%}
+.fp-hd{display:flex;align-items:center;gap:8px}
+.fp-hd h1{font-size:20px;margin:0;flex:1;text-align:center}
+.fp-hd .side{width:40px}
+.fhero{position:relative;overflow:hidden;border-radius:18px;background:linear-gradient(135deg,var(--accent-soft),color-mix(in srgb,var(--accent-soft) 40%,var(--surface)));padding:18px;min-height:112px;display:flex;align-items:center}
+.fhero b{display:block;font-size:16px}
+.fhero span{font-size:12.5px;color:var(--fg2)}
+.fhero svg{position:absolute;right:4px;bottom:0;width:150px;height:112px}
+.fhero>div{position:relative;z-index:1;max-width:58%}
+.fcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.fcard .row{display:flex;align-items:center;gap:8px}
+.fcard .row b{font-size:14.5px}
+.avs{display:flex;gap:6px;align-items:center;flex:1;flex-wrap:wrap}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;flex:none}
+.av.add{background:var(--accent-soft);color:var(--accent);border:0;padding:0;min-height:36px;font-size:20px}
+.fcard .mg{min-height:36px;border-radius:999px;font-size:13px;color:var(--accent);border-color:var(--accent);padding:4px 14px}
+.ftabs{display:flex;border-bottom:1px solid var(--line)}
+.ftabs button{flex:1;border:0;border-radius:0;background:transparent;min-height:42px;font-size:14px;color:var(--fg2);border-bottom:2px solid transparent;padding:0 4px}
+.ftabs button[aria-pressed=true]{color:var(--accent);font-weight:700;border-bottom-color:var(--accent)}
+.flist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.flist a{display:flex;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line);color:var(--fg);text-decoration:none}
+.flist li:first-child a{border-top:0}
+.flist .dotn{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+.flist .tx{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.flist .tx b{font-size:14px}
+.flist .tx span{font-size:12.5px;color:var(--fg)}
+.flist .tx small{font-size:11.5px;color:var(--fg2)}
+.fjoin{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fjoin .btn{min-height:72px;flex-direction:column;gap:2px;font-weight:700}
+.fjoin .btn small{font-weight:400;font-size:12px;opacity:.8}
+.mlist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.mlist a,.mlist button{display:flex;align-items:center;gap:12px;width:100%;padding:14px 16px;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;color:var(--fg);text-decoration:none;text-align:left;min-height:62px;font:inherit}
+.mlist li:first-child a,.mlist li:first-child button{border-top:0}
+.mlist .mi{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.mlist .tx{flex:1;display:flex;flex-direction:column;gap:2px}
+.mlist .tx b{font-size:15px}
+.mlist .tx small{font-size:12.5px;color:var(--fg2)}
+.mlist .chev{color:var(--fg2);font-size:18px}
+.msec{font-size:13px;font-weight:700;color:var(--fg2);margin:6px 2px -4px}
+.jcal{display:flex;flex-direction:column;gap:12px;margin-bottom:14px}
+.jper{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.jper button{min-height:40px;border-radius:12px;font-size:14px;background:var(--sunk);border-color:transparent;color:var(--fg2)}
+.jper button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.calc{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 12px 14px}
+.calc-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.calc-h b{font-size:15px}
+.calc-h button{width:36px;height:36px;min-height:36px;padding:0;border:0;background:transparent;font-size:18px;color:var(--fg2)}
+.calc-g{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;text-align:center}
+.calc-g .w{font-size:12px;color:var(--fg2);padding:4px 0}
+.calc-g button{position:relative;min-height:38px;height:38px;padding:0;border:0;background:transparent;font-size:13.5px;border-radius:50%;width:38px;margin:0 auto;color:var(--fg)}
+.calc-g button:disabled{color:var(--line2);cursor:default}
+.calc-g button.has::after{content:"";position:absolute;bottom:3px;left:50%;width:5px;height:5px;margin-left:-2.5px;border-radius:50%;background:var(--accent)}
+.calc-g button.has.over::after{background:var(--bad)}
+.calc-g button.today{box-shadow:inset 0 0 0 1.5px var(--line2)}
+.calc-g button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.calc-g button[aria-pressed=true]::after{background:#fff}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -976,11 +1050,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span><b>쿵쾅</b><small>층간소음, 감정 대신 기록으로</small></span>
     </a>
-    <nav class="tabs" aria-label="단계 메뉴">
-      <a class="tab" href="#analyze" data-view="analyze"><span class="n">1</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h2l2-5 3 10 3-8 2 3h4"/></svg>소리 분석</a>
-      <a class="tab" href="#journal" data-view="journal"><span class="n">2</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9h16M9 4v16"/></svg>소음 일지</a>
-      <a class="tab" href="#report" data-view="report"><span class="n">3</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a1 1 0 0 1 1-1h9l1 2h4a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-5l-1-2H5"/></svg>알리기</a>
-    </nav>
+    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#journal" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><a class="tab" href="#stats" data-view="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="6" y="11" width="3" height="7" rx="1"/><rect x="11" y="6" width="3" height="12" rx="1"/><rect x="16" y="13" width="3" height="5" rx="1"/></svg>리포트</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a><a class="tab" href="#more" data-view="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="18.5" r="1.4"/></svg>더보기</a></nav>
   </div>
 </header>
 
@@ -990,11 +1060,12 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <!-- STEP 1 -->
   <section class="view" id="v-analyze" aria-labelledby="h1-analyze">
     <div class="home">
-      <div class="home-top">
-        <div><div class="eyebrow">STEP 1 · 소리 분석</div><h1 id="h1-analyze">어떤 소리였나요?</h1>
-          <p>녹음하면 AI가 소리 종류와<br>기준 초과 여부를 알려 드려요.</p></div>
-        <button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button>
-      </div>
+      <div class="hm-top">
+        <button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
+      <div class="greet"><div><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 바로 녹음하세요</span></div>
+        <svg class="g-bld" viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="22" width="44" height="58" rx="3" fill="#fff" opacity=".28"/><rect x="58" y="8" width="54" height="72" rx="3" fill="#fff" opacity=".4"/><rect x="66" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="15" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/></svg></div>
+      <h1 id="h1-analyze" class="sr">소리 녹음</h1>
+      <button class="recent2" id="recent2" type="button"></button>
       <div class="card set-panel" id="setPanel" hidden>
         <h2>측정 설정</h2>
         <div class="fields" style="margin-top:0">
@@ -1031,7 +1102,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <!-- STEP 2 -->
   <section class="view" id="v-journal" aria-labelledby="h1-journal" hidden>
     <div class="jhead">
-      <div class="eyebrow">STEP 2 · 소음 일지</div>
+      <div class="eyebrow sr" id="jEye">소음일지</div>
       <div class="jrow">
         <h1 id="h1-journal">내 소음 기록</h1>
         <span class="sp"></span>
@@ -1039,9 +1110,10 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
         <button class="mini" id="exBtn" type="button" aria-pressed="false" title="예시 일지 보기/끄기">예시</button>
         <a class="btn primary next-top" href="#report">다음: 알리기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
-      <div class="jseg" role="tablist" aria-label="보기 방식"><button type="button" role="tab" data-jt="dash" aria-pressed="true">요약</button><button type="button" role="tab" data-jt="board" aria-pressed="false">기록 <span class="jn num" id="jN"></span></button></div>
+      <div class="jseg" hidden role="tablist" aria-label="보기 방식"><button type="button" role="tab" data-jt="dash" aria-pressed="true">요약</button><button type="button" role="tab" data-jt="board" aria-pressed="false">기록 <span class="jn num" id="jN"></span></button></div>
     </div>
     <div id="jDash" class="dash"></div>
+    <div class="jcal" id="jCal" hidden></div>
     <div class="card board" id="jBoard" hidden>
       <form class="bsearch" id="sForm" role="search">
         <select id="qField" aria-label="검색 조건"><option value="all">전체</option><option value="type">소리 종류</option><option value="date">날짜</option><option value="verdict">판정</option><option value="time">시간대</option><option value="file">파일 이름</option></select>
@@ -1094,6 +1166,12 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
     </div>
   </section>
 
+  <section class="view" id="v-family" aria-labelledby="h1-family" hidden>
+    <div class="fp" id="famPage"></div>
+  </section>
+  <section class="view" id="v-more" aria-labelledby="h1-more" hidden>
+    <div class="fp" id="morePage"></div>
+  </section>
   <footer>
     <p><b>측정 한계</b> 휴대폰 마이크로 잰 값은 공인 측정이 아니라 참고값입니다. 법적 판정은 이웃사이센터 등의 현장 측정으로 정해집니다. AI 분류 결과에는 'AI 추정' 표시를 붙였습니다.</p>
     <p><b>절차</b> 공동주택관리법 제20조(층간소음의 방지 등), 같은 법 시행령 제21조의2(층간소음관리위원회 구성 의무 700세대)</p>
@@ -1388,18 +1466,22 @@ if (typeof module !== 'undefined') module.exports = KE;
   const stTxt = { over: '기준 초과', near: '기준 근접', ok: '기준 이내', na: '해당 없음' };
 
   /* ---------- 메뉴(해시) ---------- */
-  const VIEWS = ['analyze', 'result', 'journal', 'report', 'rdetail'];
+  const VIEWS = ['analyze', 'result', 'journal', 'report', 'rdetail', 'family', 'more'];
   function show() {
     const h = location.hash.slice(1), rid = h.startsWith('r-') && OPTS.some((o) => o.id === h.slice(2)) ? h.slice(2) : null;
     const lts = h.startsWith('log-') ? +h.slice(4) : null, le = lts ? entries().concat(log).find((e) => e.ts === lts && e.res) : null;
-    const v = rid ? 'rdetail' : le ? 'result' : VIEWS.includes(h) ? h : 'analyze';
+    const v0 = rid ? 'rdetail' : le ? 'result' : (VIEWS.includes(h) || h === 'stats') ? h : 'analyze', v = v0 === 'stats' ? 'journal' : v0;
+    if (v === 'journal') { jtab = v0 === 'stats' ? 'dash' : 'board'; }
     if (rid) { cur = rid; renderNav(); renderPanel(); }
     let shown = null; if (le) { shown = restore(le.res); shown._harm = le.harm ? { kinds: [...(le.harm.kinds || [])], lv: le.harm.lv || 0, memo: le.harm.memo || '' } : null; render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
     VIEWS.forEach((k) => { $('#v-' + k).hidden = k !== v; });
-    const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : v === 'rdetail' ? 'report' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
-    $('footer').hidden = v === 'analyze' || v === 'result';
+    const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : (v === 'rdetail' || v === 'report') ? 'more' : v0 === 'stats' ? 'stats' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+    $('footer').hidden = v !== 'more';
     if (v === 'journal') renderJournal(); else $('#selBar').hidden = true;
     if (v === 'report') { try { renderProgress(); } catch (e) {} }
+    if (v === 'family') renderFamPage();
+    if (v === 'more') renderMore();
+    if (v === 'analyze') renderHomeRecent();
     if (v === 'result' && (shown || lastRes)) { const rr = shown || lastRes; requestAnimationFrame(() => drawChart(rr)); }
     if (v === 'result' && !lastRes) { location.replace('#analyze'); return; }
     window.scrollTo({ top: 0 });
@@ -1672,7 +1754,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   const dd = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()} 참여`; };
   function famChip() { const t = $('#famBtnT'); if (t) t.textContent = FAM && famMe() ? `가족 ${famActive().length}명` : '가족'; }
   function openFam(v) { famView = v || (famMe() ? 'list' : 'start'); famArg = null; famDraw(); $('#famSheet').hidden = false; $('#sheetBg').hidden = false; }
-  function closeFam() { $('#famSheet').hidden = true; if ($('#sheet').hidden && $('#calSheet').hidden) $('#sheetBg').hidden = true; }
+  function closeFam() { $('#famSheet').hidden = true; if ($('#sheet').hidden && $('#calSheet').hidden) $('#sheetBg').hidden = true;  if (location.hash === '#family') renderFamPage(); }
   function go2(v, a) { famView = v; famArg = a; famDraw(); $('#famSheet').scrollTop = 0; }
   const stepper = (id, v) => `<div class="fam-step"><button type="button" data-st="${id}" data-d="-1" aria-label="줄이기">−</button><b class="num" id="${id}">${v}</b><button type="button" data-st="${id}" data-d="1" aria-label="늘리기">+</button></div>`;
   function famDraw() {
@@ -1770,8 +1852,61 @@ if (typeof module !== 'undefined') module.exports = KE;
   document.addEventListener('click', (e) => { if (e.target.closest('[data-openfam]')) openFam(); });
   $('#closeFam').addEventListener('click', closeFam);
   $('#sheetBg').addEventListener('click', () => { if (!$('#famSheet').hidden) closeFam(); });
-  function refreshJ() { try { if (location.hash.startsWith('#journal')) show(); } catch (e) {} }
+  function refreshJ() { try { if (/^#(journal|stats|family)/.test(location.hash)) show(); } catch (e) {} }
   famChip();
+
+  /* ---------- 홈 최근 기록 ---------- */
+  function renderHomeRecent() {
+    const b = $('#recent2'); if (!b) return;
+    const L = log.length ? log : [], e = L[L.length - 1];
+    const today = new Date(); today.setHours(0, 0, 0, 0); const nT = L.filter((x) => x.ts >= today.getTime()).length;
+    $('#greetS').textContent = nT ? `오늘 소음 기록 ${nT}건이 쌓였어요` : '소리가 나면 바로 녹음하세요';
+    if (!e) { b.innerHTML = '<span class="k">최근 소음 기록</span><span class="chev">›</span><span class="d" style="color:var(--fg2)">아직 기록이 없어요 · 예시 일지 보기</span>'; b.onclick = () => { exMode = true; go('journal'); }; return; }
+    const d = new Date(e.ts);
+    b.innerHTML = `<span class="k">최근 소음 기록</span><span class="chev">›</span><span class="d"><i><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></i>${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())} · ${T[e.type].name} <span class="pill ${e.over}">${stTxt[e.over]}</span></span>`;
+    b.onclick = () => { location.hash = 'log-' + e.ts; };
+  }
+  /* ---------- 가족공유 화면 ---------- */
+  const AVC = ['#7C5CE0', '#E58B6D', '#4FA3A5', '#D9739B', '#5C8FD9', '#C29A3C'];
+  const avColor = (n) => AVC[[...n].reduce((a, c) => a + c.charCodeAt(0), 0) % AVC.length];
+  const FAMSVG = '<svg viewBox="0 0 150 112" aria-hidden="true"><circle cx="110" cy="40" r="40" fill="#fff" opacity=".6"/><g><rect x="34" y="52" width="40" height="60" rx="18" fill="#7FC8B6"/><circle cx="54" cy="36" r="15" fill="#F6D2BC"/><path d="M39 33c0-10 7-15 15-15s15 5 15 13c-5-3-10-4-15-4s-10 2-15 6z" fill="#3B2F45"/></g><g><rect x="70" y="70" width="28" height="42" rx="12" fill="#BFD7F2"/><circle cx="84" cy="58" r="11" fill="#F6D2BC"/><path d="M73 56c0-7 5-11 11-11s11 4 11 10c-4-2-7-3-11-3s-7 1-11 4z" fill="#3B2F45"/></g><g><rect x="96" y="48" width="42" height="64" rx="18" fill="#F2988A"/><circle cx="117" cy="32" r="15" fill="#F6D2BC"/><path d="M100 36c0-14 7-20 17-20s17 6 17 20v18h-6V34c-3-4-7-6-11-6s-8 2-11 6v20h-6z" fill="#3B2F45"/></g></svg>';
+  let fTab = '';
+  function renderFamPage() {
+    const P = $('#famPage'), me = famMe();
+    const head = `<div class="fp-hd"><span class="side"></span><h1 id="h1-family">가족 공동 일지</h1><button type="button" class="icon-btn side" data-openfam aria-label="가족 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button></div>
+      <div class="fhero"><div><b>${me ? esc(FAM.name) : '우리 가족의'}</b><span>소음 기록을 함께 관리해요</span></div>${FAMSVG}</div>`;
+    if (!me) { P.innerHTML = head + `<div class="fcard"><b style="font-size:15px">가족과 함께 기록해요</b><span class="note" style="font-size:13px;line-height:1.55">가족이 각자 휴대폰으로 녹음해도 한 일지에 모여요. 누가 언제 들었는지 함께 남아 상담·조정 때 근거가 탄탄해져요.</span>
+      <div class="fjoin"><button type="button" class="btn primary" data-fo="create">가족 만들기<small>코드 발급</small></button><button type="button" class="btn" data-fo="join">코드로 참여<small>6자리 입력</small></button></div></div>`;
+      $$('#famPage [data-fo]').forEach((b) => b.addEventListener('click', () => openFam(b.dataset.fo))); return; }
+    const A = famActive(), E = [...entries()].reverse(), au = (e) => authorOf(e) || me.nick;
+    if (fTab && !A.some((m) => m.nick === fTab)) fTab = '';
+    const L = E.filter((e) => !fTab || au(e) === fTab).slice(0, 30);
+    P.innerHTML = head + `<div class="fcard"><div class="row"><b>가족 구성원 ${A.length}명</b></div><div class="row"><span class="avs">${A.map((m) => `<span class="av" style="background:${avColor(m.nick)}" title="${esc(m.nick)}">${esc(m.nick.slice(0, 1))}</span>`).join('')}${isOwner() && A.length < FAM.max ? '<button type="button" class="av add" id="fpAdd" aria-label="초대">+</button>' : ''}</span><button type="button" class="btn mg" data-openfam>구성원 관리</button></div></div>
+      <div class="ftabs">${['', ...A.map((m) => m.nick)].map((n) => `<button type="button" data-ft="${esc(n)}" aria-pressed="${fTab === n}">${n ? esc(n) : '전체'}</button>`).join('')}</div>
+      ${L.length ? `<ul class="flist">${L.map((e) => { const d = new Date(e.ts), n = au(e); return `<li><a href="#log-${e.ts}"><span class="dotn"></span><span class="av" style="background:${avColor(n)};width:34px;height:34px">${esc(n.slice(0, 1))}</span><span class="tx"><b>${esc(n)}</b><span>${harmTxt(e.harm) || T[e.type].name + ' · ' + stTxt[e.over]}</span><small class="num">${d.getMonth() + 1}월 ${d.getDate()}일 (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}</small></span><span class="chev" style="color:var(--fg2)">›</span></a></li>`; }).join('')}</ul>` : '<p class="note" style="text-align:center;padding:20px">아직 기록이 없어요.</p>'}
+      ${isExample ? '<p class="fam-poc">예시 일지를 가족 구성원에게 나눠 보여 주고 있어요.</p>' : ''}`;
+    $$('#famPage [data-ft]').forEach((b) => b.addEventListener('click', () => { fTab = b.dataset.ft; renderFamPage(); }));
+    $('#fpAdd') && $('#fpAdd').addEventListener('click', () => { issue(); famSave(); openFam('code'); });
+  }
+  /* ---------- 더보기 ---------- */
+  const MI = (p) => `<span class="mi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg></span>`;
+  function renderMore() {
+    const item = (tag, attr, ic, t, sub) => `<li><${tag} ${attr}>${MI(ic)}<span class="tx"><b>${t}</b><small>${sub}</small></span><span class="chev">›</span></${tag}></li>`;
+    $('#morePage').innerHTML = `<div class="fp-hd"><span class="side"></span><h1 id="h1-more">더보기</h1><span class="side"></span></div>
+      <p class="msec">알리고 해결하기</p>
+      <ul class="mlist">${item('a', 'href="#report"', '<path d="M4 21V5a1 1 0 0 1 1-1h9l1 2h4a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-5l-1-2H5"/>', '비대면 중재 요청 · 알리기', '이웃·관리사무소·센터에 보낼 글을 AI가 써 줘요')}
+        ${item('a', 'href="#report" data-topg', '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/>', '층간소음 해결 과정 관리', '지금 단계와 준비 서류를 확인해요')}</ul>
+      <p class="msec">측정</p>
+      <ul class="mlist">${item('button', 'type="button" data-opencal', '<path d="M4 12h3l2-6 4 12 2-6h5"/>', '휴대폰 dB 보정', calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '8초면 끝나요 · 아직 보정 전')}
+        ${item('button', 'type="button" id="mPick"', '<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>', '녹음 파일 올리기', '다른 앱 녹음 · 예시 파일')}</ul>
+      <p class="msec">도움말</p>
+      <ul class="mlist">${item('button', 'type="button" id="mOnb"', '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/>', '사용법 다시 보기', '녹음 → 일지 → 알리기')}
+        ${item('button', 'type="button" id="mEx"', '<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>', '예시 일지 둘러보기', '34건 예시로 기능 살펴보기')}</ul>`;
+    $('#mPick').addEventListener('click', () => openPick());
+    $('#mOnb').addEventListener('click', () => showOnb());
+    $('#mEx').addEventListener('click', () => { exMode = true; go('stats'); });
+    $('#morePage [data-topg]').addEventListener('click', () => setTimeout(() => $('#pg') && $('#pg').scrollIntoView({ block: 'start' }), 80));
+  }
   const openPick = () => { $('#sheet').hidden = false; $('#sheetBg').hidden = false; $('#closePick').focus(); };
   const closePick = () => { $('#sheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#openPick').addEventListener('click', openPick);
@@ -1918,7 +2053,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); log[log.length - 1].res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
   }
   let jtab = 'dash', dmenu = 'heat', dper = 7;
-  const SF = { au: '', field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
+  const SF = { day: '', per: 0, au: '', field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
   const svgEl = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
   function dashboard(E0) {
     const cut = dper === 'all' ? 0 : Date.now() - dper * 864e5, E = E0.filter((e) => e.ts >= cut);
@@ -2023,6 +2158,8 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (SF.to && dayKey > SF.to) return false;
     if (SF.types.size && ![e.type, ...Object.keys(e.counts || {})].some((t) => SF.types.has(t))) return false;
     if (SF.au && authorOf(e) !== SF.au) return false;
+    if (SF.day && dayKey !== SF.day) return false;
+    if (SF.per && e.ts < Date.now() - SF.per * 864e5) return false;
     if (SF.tz === 'day' && e.night) return false; if (SF.tz === 'night' && !e.night) return false;
     if (SF.vd.size && !SF.vd.has(e.over)) return false;
     if (SF.minDb && e.lmax < +SF.minDb) return false;
@@ -2040,26 +2177,46 @@ if (typeof module !== 'undefined') module.exports = KE;
     toast(`${S2.size}건을 지웠습니다${isExample ? ' (예시는 새로고침하면 돌아와요)' : ''}`);
   }
   const chosen = () => { const E = entries(); return pick.size ? E.filter((e) => pick.has(e.ts)) : E; };
+  let calM = null;
+  function renderCal(All) {
+    const C = $('#jCal'); C.hidden = jtab !== 'board' || !All.length; if (C.hidden) return;
+    const last = All.length ? new Date(All[0].ts) : new Date();
+    if (!calM) calM = new Date(last.getFullYear(), last.getMonth(), 1);
+    const y = calM.getFullYear(), m = calM.getMonth(), first = new Date(y, m, 1).getDay(), nd = new Date(y, m + 1, 0).getDate();
+    const by = {}; All.forEach((e) => { const d = new Date(e.ts); if (d.getFullYear() === y && d.getMonth() === m) { const k = d.getDate(); by[k] = by[k] || { n: 0, over: false }; by[k].n++; if (e.over === 'over') by[k].over = true; } });
+    const t = new Date(), key = (d) => `${y}-${pad(m + 1)}-${pad(d)}`;
+    let g = ['일', '월', '화', '수', '목', '금', '토'].map((w) => `<span class="w">${w}</span>`).join('');
+    for (let i = 0; i < first; i++) g += '<span></span>';
+    for (let d = 1; d <= nd; d++) { const h = by[d], isT = t.getFullYear() === y && t.getMonth() === m && t.getDate() === d;
+      g += `<button type="button" data-cd="${key(d)}" class="${h ? 'has' : ''}${h && h.over ? ' over' : ''}${isT ? ' today' : ''}" aria-pressed="${SF.day === key(d)}" ${h ? '' : 'disabled'} aria-label="${m + 1}월 ${d}일${h ? ` 기록 ${h.n}건` : ''}">${d}</button>`; }
+    C.innerHTML = `<div class="jper">${[[0, '전체'], [7, '최근 7일'], [30, '최근 30일']].map(([v, l]) => `<button type="button" data-per="${v}" aria-pressed="${SF.per === v && !SF.day}">${l}</button>`).join('')}</div>
+      <div class="calc"><div class="calc-h"><button type="button" data-cm="-1" aria-label="이전 달">‹</button><b>${y}년 ${m + 1}월</b><button type="button" data-cm="1" aria-label="다음 달">›</button></div><div class="calc-g">${g}</div></div>`;
+    $$('#jCal [data-per]').forEach((b) => b.addEventListener('click', () => { SF.per = +b.dataset.per; SF.day = ''; page = 0; renderJournal(); }));
+    $$('#jCal [data-cm]').forEach((b) => b.addEventListener('click', () => { calM = new Date(y, m + +b.dataset.cm, 1); renderCal(All); }));
+    $$('#jCal [data-cd]').forEach((b) => b.addEventListener('click', () => { SF.day = SF.day === b.dataset.cd ? '' : b.dataset.cd; SF.per = 0; page = 0; renderJournal(); }));
+  }
   function renderJournal() {
     const E = entries();
     $('#exBtn').setAttribute('aria-pressed', String(isExample));
-    $('#jDash').hidden = jtab !== 'dash'; $('#jBoard').hidden = jtab !== 'board';
+    $('#jDash').hidden = jtab !== 'dash'; if (jtab === 'dash') $('#jCal').hidden = true; $('#jBoard').hidden = jtab !== 'board';
     $$('[data-jt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.jt === jtab)));
+    $('#h1-journal').textContent = jtab === 'dash' ? '소음 패턴 분석' : '소음 일지'; $('#jEye').textContent = jtab === 'dash' ? '리포트' : '소음일지';
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
       $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML();
       $$('#jDash [data-dm]').forEach((b) => b.addEventListener('click', () => { dmenu = b.dataset.dm; renderJournal(); }));
       $$('#jDash [data-per]').forEach((b) => b.addEventListener('click', () => { dper = b.dataset.per === 'all' ? 'all' : +b.dataset.per; renderJournal(); }));
-      $('#toBoard') && $('#toBoard').addEventListener('click', () => { jtab = 'board'; renderJournal(); scrollTo(0, 0); });
+      $('#toBoard') && $('#toBoard').addEventListener('click', () => go('journal'));
       $('#copyLog') && $('#copyLog').addEventListener('click', () => { const cut = dper === 'all' ? 0 : Date.now() - dper * 864e5, L = entries().filter((e) => e.ts >= cut); if (!L.length) { toast('복사할 기록이 없습니다'); return; } copy(logText(L), `기록 ${L.length}건을 상담용 일지로 복사했습니다`); });
       bindEmpty(); renderSel(); return;
     }
     const All = [...E].reverse(), R = All.filter(matches);
+    renderCal(All);
     [...pick].forEach((t) => { if (!E.some((e) => e.ts === t)) pick.delete(t); });
     const qk = SF.vd.size === 1 && SF.vd.has('over') && SF.tz === 'all' ? 'over' : !SF.vd.size && SF.tz !== 'all' ? SF.tz : !SF.vd.size && SF.tz === 'all' ? 'all' : '';
     $$('#qChips [data-q]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.q === qk)));
     const tags = []; if (SF.q) tags.push(`"${SF.q}"${SF.field !== 'all' ? ' · ' + $('#qField').selectedOptions[0].text : ''}`); if (SF.from || SF.to) tags.push(`${SF.from || '처음'} ~ ${SF.to || '오늘'}`);
-    SF.types.forEach((t) => tags.push(T[t].name)); if (SF.minDb) tags.push(`${SF.minDb}dB 이상`);
+    if (SF.day) tags.push(SF.day.slice(5).replace('-', '/') + ' 기록'); SF.types.forEach((t) => tags.push(T[t].name)); if (SF.minDb) tags.push(`${SF.minDb}dB 이상`);
     if (!qk) { if (SF.tz !== 'all') tags.push(SF.tz === 'day' ? '주간' : '야간'); SF.vd.forEach((v) => tags.push(stTxt[v])); }
     $('#rCount').textContent = R.length === All.length ? `${All.length}건` : `${R.length} / ${All.length}건`;
     $('#rChips').innerHTML = tags.length ? tags.map((t) => `<span>${t}</span>`).join('') + '<button type="button" class="txtbtn" id="tagReset">조건 지우기</button>' : '';
