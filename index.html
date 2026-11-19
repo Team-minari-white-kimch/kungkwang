@@ -1974,7 +1974,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#onbNext').addEventListener('click', () => { $('#onbP1').hidden = true; $('#onbP2').hidden = false; $('#onbNight').hidden = !isNight(); $('#onbCal').focus(); });
   $('#onbSkip').addEventListener('click', () => { onbDone(); go('analyze'); });
   $('#onbCal').addEventListener('click', () => { onbDone(); go('analyze'); openCal(); $('#selfCal').click(); setTimeout(() => $('#selfCal').scrollIntoView({ block: 'center' }), 50); });
-  try { if (!localStorage.getItem(ONBKEY) && !calState()) showOnb(); } catch (e) {}
+  try { if (/[?&]intro\b/.test(location.search) || (!localStorage.getItem(ONBKEY) && !calState())) showOnb(); } catch (e) { showOnb(); }
   $('#reOnb').addEventListener('click', showOnb);
   function pinkBuffer(ctx, sec) {
     const n = Math.floor(ctx.sampleRate * sec), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
