@@ -1571,6 +1571,30 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 #jBoard .selbar{top:calc(env(safe-area-inset-top,0px) + var(--barH,0px) + 56px + var(--sH,66px))!important}
 #v-rdetail .stickyhd{top:calc(env(safe-area-inset-top,0px) + var(--barH,0px))!important}
 .phd-t h1{font-size:22px}
+/* journal tighter vertical spacing */
+#v-journal .phd{min-height:48px;padding-bottom:4px}
+#v-journal .exban{margin:0 0 8px;padding:4px 6px 4px 12px}
+#v-journal .seg2{margin-bottom:8px}
+#v-journal .jcal{gap:8px;margin-bottom:8px}
+#v-journal .jper button{min-height:34px;font-size:13.5px}
+#v-journal .calc{padding:8px 10px 10px}
+#v-journal .calc-h{margin-bottom:2px}
+#v-journal .calc-h button{height:30px;min-height:30px}
+#v-journal .calc-g .w{padding:2px 0}
+#v-journal .calc-g button{height:34px;min-height:34px;width:34px}
+#v-journal #qChips{margin:2px 0 6px}
+#v-journal .gh{padding-top:6px;padding-bottom:4px}
+#v-journal .ga{min-height:52px;padding-top:9px;padding-bottom:9px}
+#v-journal .dtool{margin-bottom:8px}
+#v-journal .dcols{gap:10px}
+#v-journal .dcard2{padding:12px 14px}
+#v-journal .jhero{margin:0}
+.exchip{display:inline-flex;align-items:center;gap:5px;min-height:30px;height:30px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line2);background:var(--surface);color:var(--fg2)}
+.exchip i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
+.exchip[aria-pressed=true]{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,transparent);background:var(--warn-soft)}
+.exchip[aria-pressed=true] i{background:var(--warn)}
+.gr{position:relative}
+.exk2{position:absolute;top:5px;right:8px;font-size:9.5px;font-weight:700;color:var(--fg2);opacity:.75;letter-spacing:.02em;pointer-events:none}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1699,7 +1723,7 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
     <div class="phd jphd"><div class="phd-t"><h1 id="h1-journal">소음일지</h1><p class="phd-s" id="jSub"></p></div>
         <div class="phd-a"><button class="mini famchip" id="famBtn" type="button" data-openfam hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
         <button class="mini jtool icon-btn" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
-        <button class="mini" id="exBtn" type="button" aria-pressed="false" hidden>예시</button></div></div>
+        <button class="mini" id="exBtn" type="button" aria-pressed="false" hidden>예시</button><button type="button" class="exchip" id="exChip" aria-pressed="true" title="예시 일지 보기/숨기기"><i></i>예시</button></div></div>
           <div class="jhead">
       <div class="eyebrow sr" id="jEye">소음일지</div>
 <div class="exban" id="exBan" hidden></div>
@@ -2920,30 +2944,26 @@ if (typeof module !== 'undefined') module.exports = KE;
     const sub = E.length ? `소리의 <b>${npct}%</b>가 밤 10시 이후 · 가장 잦은 시각 <b>${ph}시</b> · 주로 <b>${topType}</b>` : '이 기간에 저장한 기록이 없어요.';
     const per = `<div class="pchips" role="group" aria-label="기간">${[['7', '7일'], ['30', '30일'], ['all', '전체']].map(([k, l]) => `<button type="button" data-per="${k}" aria-pressed="${String(dper) === k}">${l}</button>`).join('')}</div>`;
     return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>
-      <section class="jhero ${over ? 'hot' : ''}">
-        <div class="h-top"><span class="h-l">${lbl}${isExample ? ' · 예시' : ''}</span><span class="h-r num">${E.length ? `${fmtD(E[0].ts)} ~ ${fmtD(E[E.length - 1].ts)}` : ''}</span></div>
-        <h2 class="h-t">${head}</h2>
-        <p class="h-s">${sub}</p>
-        <div class="h-st">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</div>
-      </section>
       <div class="dcols">
         <section class="dcard2">
           <div class="dc-h"><h3>소음 패턴</h3></div>
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
-        <section class="dcard2">
-          <div class="dc-h"><h3>최근 기록</h3><button type="button" class="txtbtn" id="toBoard">전체 보기 ›</button></div>
-          <div class="rlist">${R3.map((e) => rowHTML(e, false)).join('') || '<p class="note">기록이 없어요.</p>'}</div>
-        </section>
+        <section class="jhero ${over ? 'hot' : ''}">
+        <div class="h-top"><span class="h-l">${lbl}${isExample ? ' · 예시' : ''}</span><span class="h-r num">${E.length ? `${fmtD(E[0].ts)} ~ ${fmtD(E[E.length - 1].ts)}` : ''}</span></div>
+        <h2 class="h-t">${head}</h2>
+        <p class="h-s">${sub}</p>
+        <div class="h-st">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</div>
+      </section>
       </div>`;
   }
   const fmtD = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
   function rowHTML(e, sel) {
     const d = new Date(e.ts), on = pick.has(e.ts);
-    return `<div class="gr${on ? ' on' : ''}" role="listitem">${sel ? `<label class="ck" aria-label="${fmt(d)} 선택"><input type="checkbox" data-sel="${e.ts}" ${on ? 'checked' : ''}></label>` : ''}<a class="ga" href="#log-${e.ts}">
+    return `<div class="gr${on ? ' on' : ''}" role="listitem">${e.example ? '<span class="exk2">예시</span>' : ''}${sel ? `<label class="ck" aria-label="${fmt(d)} 선택"><input type="checkbox" data-sel="${e.ts}" ${on ? 'checked' : ''}></label>` : ''}<a class="ga" href="#log-${e.ts}">
       <span class="gt num"><b>${pad(d.getHours())}:${pad(d.getMinutes())}</b>${sel ? '' : `<small>${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]})</small>`}</span>
-      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${e.example ? '<span class="exk">예시</span> ' : ''}${authorOf(e) ? `<span class="au">${esc(authorOf(e))}${e.vis === 'private' ? '(나만)' : ''}</span> · ` : ''}${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small>${harmChips(e.harm) ? `<span class="hrow">${harmChips(e.harm)}</span>` : ''}</span>
+      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${authorOf(e) ? `<span class="au">${esc(authorOf(e))}${e.vis === 'private' ? '(나만)' : ''}</span> · ` : ''}${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small>${harmChips(e.harm) ? `<span class="hrow">${harmChips(e.harm)}</span>` : ''}</span>
       <span class="pill ${e.over}">${stTxt[e.over]}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></div>`;
   }
   function dayLabel(t) {
@@ -3017,7 +3037,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#jTool').hidden = jtab === 'dash';
     $('#sgB').toggleAttribute('aria-current', jtab === 'board'); $('#sgD').toggleAttribute('aria-current', jtab === 'dash'); $('#sgB').setAttribute('aria-current', jtab === 'board' ? 'page' : ''); $('#sgD').setAttribute('aria-current', jtab === 'dash' ? 'page' : ''); if (jtab !== 'board') $('#sgB').removeAttribute('aria-current'); if (jtab !== 'dash') $('#sgD').removeAttribute('aria-current');
     { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').textContent = '들린 소리를 날짜별로 모아요';
-      const xb = $('#exBan'); xb.hidden = false; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
+      const xb = $('#exBan'); xb.hidden = true; $('#exChip').setAttribute('aria-pressed', String(!!isExample)); $('#exChip').title = isExample ? '예시 숨기기' : '예시 보기'; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
       $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML();
@@ -3058,6 +3078,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   }
   function bindEmpty() { $$('#v-journal [data-ex]').forEach((b) => b.addEventListener('click', () => { exMode = true; exSave(); pick.clear(); renderJournal(); })); }
   $('#jTool').addEventListener('click', () => { const on = !$('#jBoard').classList.contains('jt-on'); $('#jBoard').classList.toggle('jt-on', on); $('#jTool').setAttribute('aria-pressed', String(on)); if (!on) { pick.clear(); renderJournal(); } });
+  $('#exChip').addEventListener('click', () => $('#exBtn').click());
   $('#exBtn').addEventListener('click', () => { exMode = !exMode; exSave(); toast(exMode ? '예시 일지를 함께 보여 줘요' : '내 기록만 보여 줘요'); pick.clear(); page = 0; renderJournal(); });
   $('#ckAll').addEventListener('change', (ev) => { const R = [...entries()].reverse().filter(matches); R.forEach((e) => ev.target.checked ? pick.add(e.ts) : pick.delete(e.ts)); renderJournal(); });
   $$('#qChips [data-q]').forEach((b) => b.addEventListener('click', () => {
