@@ -1545,6 +1545,8 @@ li.done.now{border:1.5px solid var(--accent)}
 .mth .dnb{background:var(--accent-soft);color:var(--accent)}
 .mth-u{position:absolute;right:12px;bottom:6px;min-height:24px;font-size:11px;padding:0 8px;border:0;background:transparent;color:var(--fg2);text-decoration:underline}
 .mth li.done a{padding-bottom:22px}
+.exwrap{position:relative;display:flex;flex-direction:column;gap:10px}
+.excorner{position:absolute;top:8px;right:10px;z-index:2;font-size:10px;font-weight:700;color:var(--fg2);background:var(--sunk);border-radius:5px;padding:1px 6px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2515,9 +2517,8 @@ if (typeof module !== 'undefined') module.exports = KE;
       return `<div class="fcard"><div class="row"><b>가족 구성원 ${names.length}명</b></div><div class="row"><span class="avs">${names.map((n) => avHTML(n, 40)).join('')}${owner && names.length < max ? '<button type="button" class="av add" id="fpAdd" aria-label="초대">+</button>' : ''}</span>${me ? '<button type="button" class="btn mg" data-openfam>구성원 관리</button>' : ''}</div></div>
       <div class="ftabs">${['', ...names].map((n) => `<button type="button" data-ft="${esc(n)}" aria-pressed="${fTab === n}">${n ? `${esc(n)} <small class="num" style="opacity:.7">${per(n)}</small>` : '전체'}</button>`).join('')}</div>
       ${L.length ? `<ul class="flist">${L.map((e) => { const d = new Date(e.ts), n = au(e); return `<li><a href="#log-${e.ts}">${avHTML(n, 38)}<span class="tx"><b>${esc(n)} <span class="pill ${e.over}" style="margin-left:4px">${stTxt[e.over]}</span></b><span>${T[e.type].name}${harmTxt(e.harm) ? ' · ' + harmTxt(e.harm) : ''}</span><small class="num">${d.getMonth() + 1}월 ${d.getDate()}일 (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}${e.night ? ' · 야간' : ''}</small></span><span class="chev" style="color:var(--fg2)">›</span></a></li>`; }).join('')}</ul>` : '<p class="note" style="text-align:center;padding:20px">아직 기록이 없어요.</p>'}`; };
-    if (!me) { const EX = [...exampleLog()].reverse(); P.innerHTML = head + `<div class="fcard"><b style="font-size:15px">가족과 함께 기록해요</b><span class="note" style="font-size:13px;line-height:1.55">가족이 각자 휴대폰으로 녹음해도 한 일지에 모여요. 누가 언제 들었는지 함께 남아 상담·조정 때 근거가 탄탄해져요.</span>
-      <div class="fjoin"><button type="button" class="btn primary" data-fo="create">가족 만들기<small>코드 발급</small></button><button type="button" class="btn" data-fo="join">코드로 참여<small>6자리 입력</small></button></div></div>
-      <div class="rmh"><h2>예시 가족 미리보기</h2><small>엄마·아빠·첫째 · 예시 일지</small></div>` + body(EXN, EX, (e) => authorOf(e) || EXN[0], false, 4);
+    if (!me) { const EX = [...exampleLog()].reverse(); P.innerHTML = head + `<div class="fjoin"><button type="button" class="btn primary" data-fo="create">가족 만들기<small>코드 발급</small></button><button type="button" class="btn" data-fo="join">코드로 참여<small>6자리 입력</small></button></div>
+      <div class="exwrap"><span class="excorner">예시</span>` + body(EXN, EX, (e) => authorOf(e) || EXN[0], false, 4) + `</div>`;
       $$('#famPage [data-fo]').forEach((b) => b.addEventListener('click', () => openFam(b.dataset.fo)));
       $$('#famPage [data-ft]').forEach((b) => b.addEventListener('click', () => { fTab = b.dataset.ft; renderFamPage(); })); return; }
     const A = famActive(), E = [...entries()].reverse(), au = (e) => authorOf(e) || me.nick;
