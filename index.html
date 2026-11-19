@@ -1594,6 +1594,12 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 .exchip[aria-pressed=false]{opacity:.45;text-decoration:line-through}
 .gr{position:relative}
 .exk2{position:absolute;top:5px;right:8px;font-size:9.5px;font-weight:700;color:var(--fg2);opacity:.75;letter-spacing:.02em;pointer-events:none}
+.kbox{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 6px}
+.kbox .hs{display:flex;flex-direction:column;align-items:center;gap:3px;color:var(--fg)}
+.kbox .hs+.hs{border-left:1px solid var(--line)}
+.kbox .hs b{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.kbox .hs b small{font-size:11px;font-weight:600;color:var(--fg2);margin-left:1px}
+.kbox .hs span{font-size:11.5px;color:var(--fg2)}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2949,12 +2955,7 @@ if (typeof module !== 'undefined') module.exports = KE;
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
-        <section class="jhero ${over ? 'hot' : ''}">
-        <div class="h-top"><span class="h-l">${lbl}${isExample ? ' · 예시' : ''}</span><span class="h-r num">${E.length ? `${fmtD(E[0].ts)} ~ ${fmtD(E[E.length - 1].ts)}` : ''}</span></div>
-        <h2 class="h-t">${head}</h2>
-        <p class="h-s">${sub}</p>
-        <div class="h-st">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</div>
-      </section>
+        <section class="kbox">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</section>
       </div>`;
   }
   const fmtD = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
