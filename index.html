@@ -1589,10 +1589,9 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 #v-journal .dcols{gap:10px}
 #v-journal .dcard2{padding:12px 14px}
 #v-journal .jhero{margin:0}
-.exchip{display:inline-flex;align-items:center;gap:5px;min-height:30px;height:30px;padding:0 10px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line2);background:var(--surface);color:var(--fg2)}
-.exchip i{width:7px;height:7px;border-radius:50%;background:var(--line2)}
-.exchip[aria-pressed=true]{color:var(--warn);border-color:color-mix(in srgb,var(--warn) 40%,transparent);background:var(--warn-soft)}
-.exchip[aria-pressed=true] i{background:var(--warn)}
+.exchip{display:inline-flex;align-items:center;min-height:0;height:auto;padding:1px 6px;border:0;border-radius:5px;background:var(--sunk);color:var(--fg2);font-size:10px;font-weight:700;align-self:flex-start;margin-top:4px}
+.exchip i{display:none}
+.exchip[aria-pressed=false]{opacity:.45;text-decoration:line-through}
 .gr{position:relative}
 .exk2{position:absolute;top:5px;right:8px;font-size:9.5px;font-weight:700;color:var(--fg2);opacity:.75;letter-spacing:.02em;pointer-events:none}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
