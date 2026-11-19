@@ -1725,6 +1725,9 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .rv-l{margin:0;display:flex;flex-direction:column;border-top:1px solid var(--line)}.rv-l>div{display:grid;grid-template-columns:76px 1fr;gap:10px;padding:11px 2px;border-bottom:1px solid var(--line);font-size:14px}.rv-l dt{color:var(--fg2);font-size:13px}.rv-l dd{margin:0;word-break:keep-all}
 .rv-n{font-size:12px;color:var(--fg2);margin:10px 2px 4px;word-break:keep-all}
 .rv-a{display:flex;gap:8px;margin-top:10px}.rv-a .btn{flex:1;min-height:46px}.rv-a .btn[hidden]{display:none}
+
+.rlsearch{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--barH,0px) + 56px);z-index:13;width:100%;box-sizing:border-box;border-bottom:0!important;padding:8px 0!important;background:var(--bg);flex-wrap:nowrap!important;gap:6px!important}
+.rlsearch select{flex:0 0 96px!important}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -3388,14 +3391,17 @@ ${lines.join('\n')}
     $('#rlAdd') && $('#rlAdd').addEventListener('click', () => openRL());
     $$('#pg [data-pck]').forEach((c) => c.addEventListener('change', () => { PG.ck[c.dataset.pck] = c.checked; pgSave(); renderProgress(); }));
   }
-  let rlf = 'all';
+  let rlf = 'all', rlq = '', rlqf = 'all';
   function renderRlog() {
     const L = allRlog().sort((a, b) => b.ts - a.ts), ms = [['all', '전체']].concat(OPTS.map((o) => [o.id, o.sh]).filter(([id]) => L.some((x) => x.m === id)));
     if (!ms.some(([k]) => k === rlf)) rlf = 'all';
-    const F = L.filter((x) => rlf === 'all' || x.m === rlf);
+    const qs = rlq.trim().toLowerCase(), hit = (x) => { if (!qs) return true; const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m), ds = `${d.getMonth() + 1}/${d.getDate()} ${d.getMonth() + 1}월 ${d.getDate()}일 ${pad(d.getHours())}:${pad(d.getMinutes())}`, f = { m: (o ? o.sh + ' ' + o.t : '기타'), what: x.what, res: x.res || '', date: ds }; return (rlqf === 'all' ? Object.values(f).join(' ') : f[rlqf]).toLowerCase().includes(qs); };
+    const F = L.filter((x) => (rlf === 'all' || x.m === rlf) && hit(x));
     let html = `<div class="rlhd"><span class="num">${L.length}건 · 분쟁조정 경위서에 자동으로 들어가요</span><button type="button" class="btn primary sm" id="rlAdd">+ 기록 추가</button></div>
+      <form class="bsearch rlsearch" id="rlForm" role="search"><select id="rlQf" aria-label="검색 조건">${[['all', '전체'], ['what', '한 일'], ['res', '결과·반응'], ['m', '방법'], ['date', '날짜']].map(([k, l]) => `<option value="${k}" ${rlqf === k ? 'selected' : ''}>${l}</option>`).join('')}</select><label class="sbox" for="rlQ"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="rlQ" type="search" placeholder="검색어 입력" autocomplete="off" value="${esc(rlq)}"></label><button type="submit" class="primary sbtn">검색</button></form>
       <div class="chips rlchips" role="group" aria-label="방법별 보기">${ms.map(([k, l]) => `<button type="button" data-rlf="${k}" aria-pressed="${rlf === k}">${l}</button>`).join('')}</div>`;
     if (!L.length) html += '<button type="button" class="rl-empty" id="rlAdd2">관리사무소에 말한 날, 이웃의 반응 같은 대응 내용을 남겨 두면 분쟁조정 때 경위서로 이어져요. <b>+ 첫 기록 남기기</b></button>';
+    if (L.length && !F.length) html += '<p class="nores">조건에 맞는 기록이 없어요. 검색어나 조건을 바꿔 보세요.</p>';
     let day = '';
     F.forEach((x) => { const d = new Date(x.ts), dl = dayLabel(x.ts), o = OPTS.find((q) => q.id === x.m);
       if (dl !== day) { day = dl; const n = F.filter((y) => dayLabel(y.ts) === dl).length; html += `<div class="rl-day"><b>${dl}</b><span>${n}건</span></div>`; }
@@ -3404,6 +3410,8 @@ ${lines.join('\n')}
     $('#rlAdd').addEventListener('click', () => openRL());
     $('#rlAdd2') && $('#rlAdd2').addEventListener('click', () => openRL());
     $$('#pg [data-rlf]').forEach((b) => b.addEventListener('click', () => { rlf = b.dataset.rlf; renderRlog(); }));
+    $('#rlForm').addEventListener('submit', (e) => { e.preventDefault(); rlq = $('#rlQ').value; rlqf = $('#rlQf').value; renderRlog(); });
+    $('#rlQ').addEventListener('search', () => { if (!$('#rlQ').value && rlq) { rlq = ''; renderRlog(); } });
     $$('#pg [data-rlv]').forEach((b) => b.addEventListener('click', () => openRV(+b.dataset.rlv, !!b.dataset.ex)));
   }
   let rvTs = null;
