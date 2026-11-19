@@ -2545,7 +2545,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   let fTab = '';
   function renderFamPage() {
     const P = $('#famPage'), me = famMe();
-    const head = `<div class="phd"><div class="phd-t"><h1 id="h1-family">가족공유</h1><p class="phd-s">${me ? `${esc(FAM.name)} · ${famActive().length}명` : '가족과 함께 기록해요'}</p></div></div>
+    const head = `<div class="phd"><div class="phd-t"><h1 id="h1-family">가족공유</h1><p class="phd-s">가족과 함께 기록해요</p></div></div>
       <div class="fhero"><div><b>${me ? esc(FAM.name) : '우리 가족의'}</b><span>소음 기록을 함께 관리해요</span></div>${FAMSVG}</div>`;
     const body = (names, E, au, owner, max) => { if (fTab && !names.includes(fTab)) fTab = ''; const L = E.filter((e) => !fTab || au(e) === fTab).slice(0, 30); const per = (n) => E.filter((e) => au(e) === n).length;
       return `<div class="fcard"><div class="row"><b>가족 구성원 ${names.length}명</b></div><div class="row"><span class="avs">${names.map((n) => avHTML(n, 40)).join('')}${owner && names.length < max ? '<button type="button" class="av add" id="fpAdd" aria-label="초대">+</button>' : ''}</span>${me ? '<button type="button" class="btn mg" data-openfam>구성원 관리</button>' : ''}</div></div>
@@ -3016,7 +3016,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $$('[data-jt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.jt === jtab)));
     $('#jTool').hidden = jtab === 'dash';
     $('#sgB').toggleAttribute('aria-current', jtab === 'board'); $('#sgD').toggleAttribute('aria-current', jtab === 'dash'); $('#sgB').setAttribute('aria-current', jtab === 'board' ? 'page' : ''); $('#sgD').setAttribute('aria-current', jtab === 'dash' ? 'page' : ''); if (jtab !== 'board') $('#sgB').removeAttribute('aria-current'); if (jtab !== 'dash') $('#sgD').removeAttribute('aria-current');
-    { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').textContent = jtab === 'dash' ? '쌓인 기록으로 패턴을 봐요' : '들린 소리를 날짜별로 모아요';
+    { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').textContent = '들린 소리를 날짜별로 모아요';
       const xb = $('#exBan'); xb.hidden = false; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
