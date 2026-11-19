@@ -1221,6 +1221,32 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
 .exban .xd{width:7px;height:7px;border-radius:50%;background:#E8A23A;flex:none}
 .exban .txtbtn{margin-left:auto;font-size:12.5px;min-height:30px;white-space:nowrap;flex:none}
 #v-journal .phd-a .icon-btn{border-radius:12px}
+.wvc{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 14px 10px;display:flex;flex-direction:column;gap:6px}
+.wv-r{display:flex;align-items:center;gap:12px}
+.wv-p{width:40px;height:40px;min-height:40px;border-radius:50%;padding:0;background:var(--accent);border:0;color:#fff;display:grid;place-items:center;flex:none}
+.wv-p:disabled{background:var(--line2)}
+.wv{flex:1;height:56px;display:flex;align-items:center;gap:2px}
+.wv i{flex:1;border-radius:2px;background:color-mix(in srgb,var(--accent) 28%,transparent);min-height:3px}
+.wv i.on{background:var(--accent)}
+.wv i.ov{background:color-mix(in srgb,var(--bad) 45%,transparent)}
+.wv i.ov.on{background:var(--bad)}
+.wv-t{display:flex;justify-content:space-between;font-size:11.5px;color:var(--fg2);padding-left:52px}
+.vd2{display:flex;align-items:center;gap:10px;border-radius:14px;padding:12px 14px}
+.vd2.over{background:var(--bad-soft)}.vd2.near{background:var(--warn-soft)}.vd2.ok,.vd2.na{background:var(--sunk)}
+.vd2 .vdot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--fg2)}
+.vd2.over .vdot{background:var(--bad)}.vd2.near .vdot{background:var(--warn)}
+.vd2 b{font-size:15.5px}.vd2.over b{color:var(--bad)}.vd2.near b{color:var(--warn)}
+.vd2 span{font-size:13px;color:var(--fg2)}
+.vd2 .vtx{display:flex;flex-direction:column;gap:1px;min-width:0}
+.vd2 .src-tag{margin-left:auto;flex:none;white-space:nowrap}
+.ins{display:flex;gap:10px;align-items:flex-start;background:var(--accent-soft);border-radius:12px;padding:10px 12px;font-size:13px;line-height:1.5;word-break:keep-all}
+.ins i{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none;font-style:normal;font-size:12px;font-weight:800}
+.ins b{display:block;font-size:13.5px}
+.mt small{display:flex;align-items:center;gap:4px}
+.cg{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:14px 12px 10px;display:flex;flex-direction:column;gap:10px}
+.cg h2{font-size:15px;margin:0 2px}
+.cg .chart{border:0!important;padding:0!important;background:transparent!important}
+.racts.big{position:sticky;bottom:calc(104px + env(safe-area-inset-bottom,0px));z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);padding:8px 0;margin-top:4px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2275,7 +2301,19 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#harmSave').addEventListener('click', () => { if (!harmE) return; const h = harmE._h; delete harmE._h; harmE.harm = h.kinds.length || h.lv || h.memo.trim() ? { kinds: h.kinds, lv: h.lv, memo: h.memo.trim() } : undefined; if (!harmE.example) { try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (x) {} } closeHarm(true); });
   $('#harmSkip').addEventListener('click', () => { if (harmE) delete harmE._h; closeHarm(false); });
   $('#closeHarm').addEventListener('click', () => { if (harmE) delete harmE._h; closeHarm(false); });
+  const mmss = (t) => `${pad(Math.floor(t / 60))}:${pad(Math.floor(t % 60))}`;
+  let wvAud = null;
+  function wvStop() { if (wvAud) { try { wvAud.src.stop(); wvAud.ctx.close(); } catch (e) {} cancelAnimationFrame(wvAud.raf); wvAud = null; } }
+  function wvPlay(r) {
+    if (wvAud) { wvStop(); $('#wvP').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'; return; }
+    if (!last || !last.y) return; const ctx = new (window.AudioContext || window.webkitAudioContext)(), y = last.y, buf = ctx.createBuffer(1, y.length, KE.SR); buf.getChannelData(0).set(y);
+    const src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination); src.start(); const t0 = ctx.currentTime, bars = $$('#wv i');
+    $('#wvP').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>';
+    const tick = () => { const t = ctx.currentTime - t0, f = Math.min(1, t / r.durSec); bars.forEach((b, k) => b.classList.toggle('on', k / bars.length <= f)); $('#wvC').textContent = mmss(t); if (f < 1 && wvAud) wvAud.raf = requestAnimationFrame(tick); };
+    wvAud = { ctx, src, raf: requestAnimationFrame(tick) }; src.onended = () => { wvStop(); $('#wvP') && ($('#wvP').innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'); };
+  }
   function render(r, fromLog, ts) {
+    wvStop();
     const el = $('#result');
     $('#rBack').setAttribute('href', fromLog ? '#journal' : '#analyze'); $('#rH').textContent = fromLog ? '기록 상세' : '분석 결과';
     const main = r.main ? T[r.main].name : '뚜렷한 소리 없음';
@@ -2294,19 +2332,22 @@ if (typeof module !== 'undefined') module.exports = KE;
       : '<p class="src-note">다른 앱으로 녹음한 파일은 앱마다 소리 크기를 다르게 저장해서 dB는 참고용이에요. 소리 종류 구분은 그대로 쓸 수 있고, 정확한 dB는 쿵쾅으로 직접 녹음해 주세요.</p>';
     const vt = worst === 'over' ? `${per} 기준 초과` : worst === 'near' ? `${per} 기준 근접` : worst === 'ok' ? `${per} 기준 안쪽` : '기준 판단 어려움';
     const vs = `${main}${comp.length > 1 ? ` 외 ${comp.length - 1}가지` : ''} · 소리 ${n}번${worst === 'over' ? ` · 최고 기준 넘은 횟수 ${r.overLmax}번` : ''}`;
-    const h0 = fromLog ? r._harm : null; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
+    const h0 = fromLog ? r._harm : null;
+    const NB = 48, lim0 = KE.STD.impact[r.period].lmax, seg = r.Lf.length / NB, lo0 = 25, hi0 = Math.max(lim0 + 10, r.lmax);
+    const WAVE = Array.from({ length: NB }, (_, k) => { const v = Math.max(...r.Lf.slice(Math.floor(k * seg), Math.max(Math.floor(k * seg) + 1, Math.floor((k + 1) * seg)))); return `<i class="${v >= lim0 ? 'ov' : ''}" style="height:${Math.max(6, Math.min(100, (v - lo0) / (hi0 - lo0) * 100))}%"></i>`; }).join('');
+    const oe = r.ev.filter((e) => e.peak >= lim0);
+    const INS = oe.length ? `<div class="ins"><i>!</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✓</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
-      <div class="vd ${worst}"><div class="vk"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초</span>${srcTag}</div>
-        <div class="vt">${vt}</div><div class="vs">${vs}</div></div>
-      <div class="mt"><div><small>최고 소음</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>1분 평균</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>들린 소리</small><b class="num">${n}번</b></div><div><small>주된 소리</small><b>${main}</b></div></div>
+      <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
+      <div class="vd2 ${worst}"><span class="vdot"></span><span class="vtx"><b>${vt}</b><span>${vs}</span></span>${srcTag}</div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
-      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">이 기록으로 알리기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 녹음</a><button class="primary" id="save" type="button">일지에 저장</button></div>`}
       <div class="rtabs" role="tablist"><button type="button" data-rt="a" aria-pressed="true">분석 요약</button><button type="button" data-rt="b" aria-pressed="false">상세 정보</button></div>
       <div class="rpane" id="rpA">
+        <div class="mt"><div><small>최고 소음</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>1분 평균</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>소리 발생</small><b class="num">${n}번</b></div><div><small>주된 소리</small><b>${main}</b></div></div>
+        <div class="cg"><h2>음량 변화 그래프</h2><div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>${INS}</div>
         ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
         <div class="cmp-r"><div><div class="cmp-k">${label[c.k]}</div><div class="cmp-s">${sub[c.k](c)}</div></div>
           <div class="cmp-v num"><b>${c.v.toFixed(1)}</b><span>/ ${c.lim} dB</span></div><span class="pill ${c.st}">${stTxt[c.st]}</span></div>`).join('')}</div></div>` : ''}
-        <div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>
       </div>
       <div class="rpane" id="rpB" hidden>
         ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
@@ -2317,6 +2358,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         <p class="note">${r.ym ? '1단 AI(YAMNet)가 들은 소리: ' + [...new Set(r.ym.chunks.flatMap((c) => c.top))].slice(0, 5).join(', ') + ' → 2단 층간소음 판별로 보정' : '2단 판별 규칙만으로 분석했습니다.'}</p></div>
         <p class="note">휴대폰 측정 참고값입니다. 법적 판정은 공인 측정으로 정해집니다.</p>
       </div>
+      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">해결에 쓰기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 분석</a><button class="primary" id="save" type="button">일지에 저장</button></div>`}
 `;
     requestAnimationFrame(() => drawChart(r));
     if (fromLog) {
@@ -2327,6 +2369,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       $('#dDelNo').addEventListener('click', () => { $('#dConf').hidden = true; });
       $('#dDelYes').addEventListener('click', () => { delEntries([ts]); go('journal'); });
     }
+    $('#wvP').addEventListener('click', () => wvPlay(r));
     $$('#result [data-rt]').forEach((b) => b.addEventListener('click', () => { $$('#result [data-rt]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); $('#rpA').hidden = b.dataset.rt !== 'a'; $('#rpB').hidden = b.dataset.rt !== 'b'; if (b.dataset.rt === 'a') requestAnimationFrame(() => drawChart(r)); }));
     if (fromLog) $('#hEdit').addEventListener('click', () => { const e0 = entries().find((e) => e.ts === ts); if (e0) openHarm(e0, false); });
     if (!fromLog) $('#save').addEventListener('click', () => { const e0 = addEntry(r); openHarm(e0, true); });
