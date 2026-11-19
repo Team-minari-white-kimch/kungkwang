@@ -930,7 +930,8 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .greet b{display:block;font-size:19px;margin:2px 0 4px;letter-spacing:-.02em}
 .greet span{font-size:12.5px;opacity:.85}
 .g-bld{width:120px;height:80px;position:absolute;right:6px;bottom:-4px}
-.greet>div{position:relative;z-index:1}
+.greet>div{position:relative;z-index:1;max-width:64%}
+.g-bld{opacity:.9}
 .recent2{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;text-align:left;width:100%;padding:14px 16px;border-radius:16px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);min-height:0}
 .recent2 .k{font-size:13px;color:var(--fg2);font-weight:700}
 .recent2 .d{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg);flex-wrap:wrap}
@@ -1029,6 +1030,55 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .board:not(.jt-on) #sForm,.board:not(.jt-on) .rhead,.board:not(.jt-on) .ck{display:none!important}
 .board:not(.jt-on) .gr .ga{padding-left:14px}
 .jtool[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.phd{display:flex;align-items:center;gap:10px;min-height:56px;padding:2px 0 6px;width:100%}
+.phd-b{width:40px;height:40px;min-height:40px;border-radius:12px;display:grid;place-items:center;color:var(--fg);flex:none;margin-left:-8px;text-decoration:none}
+.phd-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.phd-t h1{font-size:22px;font-weight:800;letter-spacing:-.03em;line-height:1.25;margin:0}
+.phd-s{font-size:12.5px;color:var(--fg2);margin:0;line-height:1.4;word-break:keep-all}
+.phd-s b{color:var(--fg);font-weight:700}
+.phd-a{display:flex;gap:6px;align-items:center;flex:none}
+.phd-a .mini,.phd-a .icon-btn{min-height:36px;height:36px}
+.phd-a .icon-btn{width:36px;padding:0}
+.phd-logo{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#7100EE,#6020A8 60%,#3E1270);display:grid;place-items:center;flex:none}
+.phd-logo svg{width:24px;height:24px}
+.calst{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;border:1px solid var(--line2);background:var(--surface);color:var(--fg2);min-height:32px;cursor:pointer;font-family:inherit}
+.calst i{width:7px;height:7px;border-radius:50%;background:#E8A23A}
+.calst.ok i{background:#1f9d55}
+.seg2{display:grid;grid-template-columns:1fr 1fr;background:var(--sunk);border-radius:12px;padding:4px;gap:4px;margin-bottom:12px}
+.seg2 a{text-align:center;padding:8px 0;border-radius:9px;font-size:14px;color:var(--fg2);text-decoration:none;font-weight:600}
+.seg2 a[aria-current=page]{background:var(--surface);color:var(--fg);font-weight:800;box-shadow:0 1px 3px rgba(33,20,45,.12)}
+.solve-chip{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:14px;background:var(--accent-soft);color:var(--fg);text-decoration:none;font-size:13.5px}
+.solve-chip b{color:var(--accent)}
+.solve-chip .chev{margin-left:auto;color:var(--accent)}
+.solve-chip .ic{width:28px;height:28px;border-radius:8px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.pg-go{min-height:50px;font-size:15.5px;width:100%}
+.moreopts{border-top:1px solid var(--line);padding-top:12px;width:100%}
+.moreopts summary{cursor:pointer;font-size:14.5px;font-weight:700;color:var(--fg2);padding:6px 0;list-style:none}
+.moreopts summary::after{content:" ▾"}
+.moreopts[open] summary::after{content:" ▴"}
+.moreopts .opts{margin-top:10px}
+@media (max-width:680px){.bar .brand{display:none}.bar{background:transparent!important;border-bottom:0!important;position:static!important}.bar .inner{padding:0!important}main{padding-top:6px}}
+@media (min-width:681px){.phd-home{display:none}}
+.rec-tab{border:0;background:transparent;font:inherit;cursor:pointer}
+.rec-tab .rt-c{width:30px;height:30px;border-radius:50%;background:linear-gradient(150deg,#7100EE,#6020A8 60%,#3E1270);color:#fff;display:grid;place-items:center}
+.rec-tab .rt-c svg{display:block!important;width:16px!important;height:16px!important}
+.rec-tab{color:var(--accent)!important;font-weight:700!important}
+@media (max-width:680px){
+  .rec-tab{position:relative}
+  .rec-tab .rt-c{width:60px;height:60px;margin-top:-30px;margin-bottom:2px;box-shadow:0 10px 22px -8px rgba(96,32,168,.7),0 0 0 5px var(--surface)}
+  .rec-tab .rt-c svg{width:26px!important;height:26px!important}
+  .rec-tab.on .rt-c{background:linear-gradient(150deg,#E5484D,#B4232A)}
+}
+.phd-a a.icon-btn{display:grid;place-items:center;color:var(--fg)}
+#drop .rec:not(.live){display:none}
+#calChip{display:none!important}
+#drop:has(.rec.live) .rec-hint{display:none}
+#drop{padding-top:20px}
+.rec-hint{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:8px 6px 0}
+.rec-hint .rh-ic{width:52px;height:52px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:4px}
+.rec-hint b{font-size:16px;word-break:keep-all}
+.rec-hint em{font-style:normal;color:var(--accent)}
+.rec-hint span{font-size:13px;color:var(--fg2);word-break:keep-all}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1087,7 +1137,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span><b>쿵쾅</b><small>층간소음, 감정 대신 기록으로</small></span>
     </a>
-    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#journal" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><a class="tab" href="#stats" data-view="stats"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16"/><rect x="6" y="11" width="3" height="7" rx="1"/><rect x="11" y="6" width="3" height="12" rx="1"/><rect x="16" y="13" width="3" height="5" rx="1"/></svg>리포트</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a><a class="tab" href="#more" data-view="more"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5.5" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="12" cy="18.5" r="1.4"/></svg>더보기</a></nav>
+    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#journal" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><button type="button" class="tab rec-tab" id="tabRec" aria-label="바로 녹음 시작"><span class="rt-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>녹음</button><a class="tab" href="#report" data-view="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg>해결</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a></nav>
   </div>
 </header>
 
@@ -1097,12 +1147,13 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <!-- STEP 1 -->
   <section class="view" id="v-analyze" aria-labelledby="h1-analyze">
     <div class="home">
-      <div class="hm-top">
-        <button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
-      <div class="greet"><div><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 바로 녹음하세요</span><button type="button" class="g-cal" id="greetCal" data-opencal hidden>8초 보정하면 dB가 정확해져요 ›</button></div>
+      <div class="phd phd-home"><span class="phd-logo"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="phd-t"><h1 id="h1-analyze">쿵쾅</h1><p class="phd-s">감정 대신 기록으로</p></div>
+        <div class="phd-a"><button type="button" class="calst" id="calSt" data-opencal></button><a class="icon-btn" href="#more" aria-label="더보기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></a><button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div></div>
+      <div class="greet"><div><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 바로 녹음하세요</span></div>
         <svg class="g-bld" viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="22" width="44" height="58" rx="3" fill="#fff" opacity=".28"/><rect x="58" y="8" width="54" height="72" rx="3" fill="#fff" opacity=".4"/><rect x="66" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="15" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/></svg></div>
-      <h1 id="h1-analyze" class="sr">소리 녹음</h1>
       <button class="recent2" id="recent2" type="button"></button>
+      <a class="solve-chip" id="solveChip" href="#report"></a>
       <div class="card set-panel" id="setPanel" hidden>
         <h2>측정 설정</h2>
         <div class="fields" style="margin-top:0">
@@ -1115,6 +1166,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
       </div>
       <div class="stage" id="drop">
         <button class="rec" id="micBtn" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><b>녹음 시작</b><small>30초 동안 들어요</small></button>
+        <div class="rec-hint"><span class="rh-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><b>소리가 나면 아래 가운데 <em>녹음</em> 버튼을 누르세요</b><span>30초 동안 듣고 AI가 소리 종류와 기준 초과를 알려 줘요</span></div>
         <p class="sub">휴대폰은 내려놓고 녹음하면 더 정확해요</p>
         <div class="micmsg" id="micMsg" role="alert" hidden></div>
         <div class="stage-acts">
@@ -1131,7 +1183,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <!-- 결과 -->
   <section class="view" id="v-result" aria-label="분석 결과" hidden>
     <div class="res">
-      <div class="res-top"><a class="back" href="#analyze"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>다시 분석</a><span class="eyebrow">STEP 1 · 분석 결과</span></div>
+      <div class="phd"><a class="phd-b back" id="rBack" href="#analyze" aria-label="뒤로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a><div class="phd-t"><h1 id="rH">분석 결과</h1><p class="phd-s" id="rS"></p></div><div class="phd-a" id="rA"></div></div>
       <div class="stack resbody" id="result" aria-live="polite"><div class="empty">분석할 소리를 고르면 결과가 여기에 나옵니다.</div></div>
     </div>
   </section>
@@ -1140,14 +1192,11 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <section class="view" id="v-journal" aria-labelledby="h1-journal" hidden>
     <div class="jhead">
       <div class="eyebrow sr" id="jEye">소음일지</div>
-      <div class="jrow">
-        <h1 id="h1-journal">내 소음 기록</h1>
-        <span class="sp"></span>
-        <button class="mini famchip" id="famBtn" type="button" data-openfam><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
-        <button class="mini jtool" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg>검색·선택</button>
-        <button class="mini" id="exBtn" type="button" aria-pressed="false" title="예시 일지 보기/끄기">예시</button>
-        <a class="btn primary next-top" href="#report">다음: 알리기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-      </div>
+      <div class="phd"><div class="phd-t"><h1 id="h1-journal">소음일지</h1><p class="phd-s" id="jSub"></p></div>
+        <div class="phd-a"><button class="mini famchip" id="famBtn" type="button" data-openfam><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
+        <button class="mini jtool icon-btn" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
+        <button class="mini" id="exBtn" type="button" aria-pressed="false" title="예시 일지 보기/끄기">예시</button></div></div>
+      <nav class="seg2" aria-label="보기 방식"><a href="#journal" id="sgB">기록</a><a href="#stats" id="sgD">분석</a></nav>
       <div class="jseg" hidden role="tablist" aria-label="보기 방식"><button type="button" role="tab" data-jt="dash" aria-pressed="true">요약</button><button type="button" role="tab" data-jt="board" aria-pressed="false">기록 <span class="jn num" id="jN"></span></button></div>
     </div>
     <div id="jDash" class="dash"></div>
@@ -1176,27 +1225,24 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
     </div>
     <div class="seldock" id="selBar" hidden>
       <div class="sd-main" id="sdMain"><button type="button" class="sd-x" id="selClear" aria-label="선택 해제"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button><span class="selc num" id="selC"></span><span class="sp"></span>
-        <button type="button" class="primary sd-go" id="selGo">알리기</button><button type="button" class="sd-ic" id="selCopy" aria-label="선택한 기록 일지 복사" title="일지 복사"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button><button type="button" class="sd-ic sd-del" id="selDel" aria-label="선택한 기록 삭제" title="삭제"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>
+        <button type="button" class="primary sd-go" id="selGo">해결에 쓰기</button><button type="button" class="sd-ic" id="selCopy" aria-label="선택한 기록 일지 복사" title="일지 복사"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></button><button type="button" class="sd-ic sd-del" id="selDel" aria-label="선택한 기록 삭제" title="삭제"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></button></div>
       <div class="sd-conf" id="selConf" hidden><span id="selConfT"></span><button type="button" class="sd-yes" id="selDelYes">지우기</button><button type="button" class="sd-no" id="selDelNo">취소</button></div>
     </div>
   </section>
 
   <!-- STEP 3 -->
   <section class="view" id="v-report" aria-labelledby="h1-report" hidden>
-    <div class="head">
-      <div><div class="eyebrow">STEP 3 · 알리기</div><h1 id="h1-report">어떻게 알릴까요?</h1>
-        <p class="cap">아래로 갈수록 공식 절차예요.<br>고르면 필요한 서류를 AI가 써 드려요.</p></div>
-    </div>
-    <div class="warn-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg><p><b>직접 찾아가지 마세요.</b> 문 두드리기·보복 소음은 갈등을 키우고 법적 책임이 생길 수 있어요. 위협을 느끼면 112.</p></div>
+    <div class="phd"><div class="phd-t"><h1 id="h1-report">해결</h1><p class="phd-s" id="rSub"></p></div></div>
     <section class="pg" id="pg" aria-label="해결 과정 관리"></section>
-    <nav class="opts" id="opts" aria-label="알리는 방법"></nav>
+    <div class="warn-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg><p><b>직접 찾아가지 마세요.</b> 문 두드리기·보복 소음은 갈등을 키우고 법적 책임이 생길 수 있어요. 위협을 느끼면 112.</p></div>
+    <details class="moreopts"><summary>알리는 방법 5가지 모두 보기</summary><nav class="opts" id="opts" aria-label="알리는 방법"></nav></details>
   </section>
 
   <!-- STEP 3 상세 -->
   <section class="view" id="v-rdetail" aria-label="알리는 방법 상세" hidden>
     <div class="res">
       <div class="stickyhd">
-      <div class="res-top"><a class="back" href="#report"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>알리는 방법</a><span class="eyebrow">STEP 3 · 알리기</span></div>
+      <div class="phd"><a class="phd-b back" href="#report" aria-label="해결로 돌아가기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a><div class="phd-t"><h1>문안 만들기</h1><p class="phd-s" id="odS"></p></div></div>
       <nav class="optnav" id="optNav" aria-label="다른 방법 고르기"></nav>
       </div>
       <div class="card stack panel" id="optPanel" aria-live="polite"></div>
@@ -1520,13 +1566,13 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (rid) { cur = rid; renderNav(); renderPanel(); }
     let shown = null; if (le) { shown = restore(le.res); shown._harm = le.harm ? { kinds: [...(le.harm.kinds || [])], lv: le.harm.lv || 0, memo: le.harm.memo || '' } : null; render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
     VIEWS.forEach((k) => { $('#v-' + k).hidden = k !== v; }); document.body.dataset.v = v;
-    const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : (v === 'rdetail' || v === 'report') ? 'more' : v0 === 'stats' ? 'stats' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
+    const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : v === 'rdetail' ? 'report' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
     $('footer').hidden = v !== 'more';
     if (v === 'journal') renderJournal(); else $('#selBar').hidden = true;
     if (v === 'report') { try { renderProgress(); } catch (e) {} }
     if (v === 'family') renderFamPage();
     if (v === 'more') renderMore();
-    if (v === 'analyze') renderHomeRecent();
+    if (v === 'analyze') { renderHomeRecent(); try { renderSolveChip(); } catch (e) {} }
     if (v === 'result' && (shown || lastRes)) { const rr = shown || lastRes; requestAnimationFrame(() => drawChart(rr)); }
     if (v === 'result' && !lastRes) { location.replace('#analyze'); return; }
     window.scrollTo({ top: 0 });
@@ -1716,7 +1762,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   /* 휴대폰 1대 자동 보정: 기준음(핑크 노이즈, 디지털 -12 dBFS 근처)을 최대 볼륨으로 내며 같은 휴대폰이 녹음.
      SELF_REF = 기준음을 낼 때 휴대폰 마이크에 들어가는 소리 크기 추정치(dB(A)). 실측으로 조정 필요. */
   const SELF_REF = 85;
-  function updateCalChip() { const h = calState(), c = $('#calChip'); if (!c) return;
+  function updateCalChip() { const h = calState(), c = $('#calChip'); const cs = $('#calSt'); if (cs) { cs.className = 'calst' + (h ? ' ok' : ''); cs.innerHTML = h ? '<i></i>보정됨' : '<i></i>보정 전'; cs.setAttribute('aria-label', h ? '보정됨, 다시 보정' : '보정 전, 지금 보정하기'); } if (!c) return;
     c.className = 'link-btn calchip ' + (h ? 'ok' : 'warn');
     c.innerHTML = h ? `<i></i>보정됨 ${$('#cal').value}` : `<i></i>dB 보정하기`; }
   $('#calChip').addEventListener('click', () => openCal());
@@ -1905,13 +1951,13 @@ if (typeof module !== 'undefined') module.exports = KE;
     const b = $('#recent2'); if (!b) return;
     const L = log.length ? log : [], e = L[L.length - 1];
     const today = new Date(); today.setHours(0, 0, 0, 0); const nT = L.filter((x) => x.ts >= today.getTime()).length;
-    $('#greetCal').hidden = !!calState();
     $('#greetS').textContent = nT ? `오늘 소음 기록 ${nT}건이 쌓였어요` : '소리가 나면 바로 녹음하세요';
     if (!e) { b.innerHTML = '<span class="k">최근 소음 기록</span><span class="chev">›</span><span class="d" style="color:var(--fg2)">아직 기록이 없어요 · 예시 일지 보기</span>'; b.onclick = () => { exMode = true; go('journal'); }; return; }
     const d = new Date(e.ts);
     b.innerHTML = `<span class="k">최근 소음 기록</span><span class="chev">›</span><span class="d"><i><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg></i>${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일 (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())} · ${T[e.type].name} <span class="pill ${e.over}">${stTxt[e.over]}</span></span>`;
     b.onclick = () => { location.hash = 'log-' + e.ts; };
   }
+  function renderSolveChip() { const c = $('#solveChip'); if (!c) return; const { ci, st } = progState(); c.innerHTML = `<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg></span><span>해결 진행 <b>${Math.min(ci + 1, STG.length)}/${STG.length}단계</b> · ${st ? st.t : '완료'}</span><span class="chev">›</span>`; }
   /* ---------- 가족공유 화면 ---------- */
   const AVC = ['#7C5CE0', '#E58B6D', '#4FA3A5', '#D9739B', '#5C8FD9', '#C29A3C'];
   const avColor = (n) => AVC[[...n].reduce((a, c) => a + c.charCodeAt(0), 0) % AVC.length];
@@ -1919,7 +1965,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   let fTab = '';
   function renderFamPage() {
     const P = $('#famPage'), me = famMe();
-    const head = `<div class="fp-hd"><span class="side"></span><h1 id="h1-family">가족 공동 일지</h1><button type="button" class="icon-btn side" data-openfam aria-label="가족 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button></div>
+    const head = `<div class="phd"><div class="phd-t"><h1 id="h1-family">가족공유</h1><p class="phd-s">${me ? `<b>${esc(FAM.name)}</b> · ${famActive().length}명 · 내 기록 기본 ${famVis() === 'household' ? '가족 공개' : '나만 보기'}` : '가족과 함께 기록해요'}</p></div><button type="button" class="icon-btn" data-openfam aria-label="가족 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></button></div>
       <div class="fhero"><div><b>${me ? esc(FAM.name) : '우리 가족의'}</b><span>소음 기록을 함께 관리해요</span></div>${FAMSVG}</div>`;
     if (!me) { P.innerHTML = head + `<div class="fcard"><b style="font-size:15px">가족과 함께 기록해요</b><span class="note" style="font-size:13px;line-height:1.55">가족이 각자 휴대폰으로 녹음해도 한 일지에 모여요. 누가 언제 들었는지 함께 남아 상담·조정 때 근거가 탄탄해져요.</span>
       <div class="fjoin"><button type="button" class="btn primary" data-fo="create">가족 만들기<small>코드 발급</small></button><button type="button" class="btn" data-fo="join">코드로 참여<small>6자리 입력</small></button></div></div>`;
@@ -1938,10 +1984,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   const MI = (p) => `<span class="mi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg></span>`;
   function renderMore() {
     const item = (tag, attr, ic, t, sub) => `<li><${tag} ${attr}>${MI(ic)}<span class="tx"><b>${t}</b><small>${sub}</small></span><span class="chev">›</span></${tag}></li>`;
-    $('#morePage').innerHTML = `<div class="fp-hd"><span class="side"></span><h1 id="h1-more">더보기</h1><span class="side"></span></div>
-      <p class="msec">알리고 해결하기</p>
-      <ul class="mlist">${item('a', 'href="#report"', '<path d="M4 21V5a1 1 0 0 1 1-1h9l1 2h4a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1h-5l-1-2H5"/>', '비대면 중재 요청 · 알리기', '이웃·관리사무소·센터에 보낼 글을 AI가 써 줘요')}
-        ${item('a', 'href="#report" data-topg', '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/>', '층간소음 해결 과정 관리', '지금 단계와 준비 서류를 확인해요')}</ul>
+    $('#morePage').innerHTML = `<div class="phd"><div class="phd-t"><h1 id="h1-more">더보기</h1><p class="phd-s">${calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '휴대폰 보정 전'} · 기록 ${log.length}건</p></div></div>
       <p class="msec">측정</p>
       <ul class="mlist">${item('button', 'type="button" data-opencal', '<path d="M4 12h3l2-6 4 12 2-6h5"/>', '휴대폰 dB 보정', calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '8초면 끝나요 · 아직 보정 전')}
         ${item('button', 'type="button" id="mPick"', '<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>', '녹음 파일 올리기', '다른 앱 녹음 · 예시 파일')}</ul>
@@ -1951,8 +1994,10 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#mPick').addEventListener('click', () => openPick());
     $('#mOnb').addEventListener('click', () => showOnb());
     $('#mEx').addEventListener('click', () => { exMode = true; go('stats'); });
-    $('#morePage [data-topg]').addEventListener('click', () => setTimeout(() => $('#pg') && $('#pg').scrollIntoView({ block: 'start' }), 80));
   }
+
+  new MutationObserver(() => $('#tabRec').classList.toggle('on', $('#micBtn').classList.contains('live'))).observe($('#micBtn'), { attributes: true, attributeFilter: ['class'] });
+  $('#tabRec').addEventListener('click', () => { const goRec = () => $('#micBtn').click(); if (location.hash && location.hash !== '#analyze') { go('analyze'); setTimeout(goRec, 120); } else goRec(); });
   const openPick = () => { $('#sheet').hidden = false; $('#sheetBg').hidden = false; $('#closePick').focus(); };
   const closePick = () => { $('#sheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#openPick').addEventListener('click', openPick);
@@ -2001,8 +2046,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#closeHarm').addEventListener('click', () => { if (harmE) delete harmE._h; closeHarm(false); });
   function render(r, fromLog, ts) {
     const el = $('#result');
-    const bk = $('#v-result .back'); bk.lastChild.textContent = fromLog ? '기록 게시판' : '다시 분석'; bk.setAttribute('href', fromLog ? '#journal' : '#analyze');
-    $('#v-result .res-top .eyebrow').textContent = fromLog ? 'STEP 2 · 기록 상세' : 'STEP 1 · 분석 결과';
+    $('#rBack').setAttribute('href', fromLog ? '#journal' : '#analyze'); $('#rH').textContent = fromLog ? '기록 상세' : '분석 결과';
     const main = r.main ? T[r.main].name : '뚜렷한 소리 없음';
     const n = Object.values(r.counts).reduce((a, b) => a + b, 0);
     const worst = r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near') ? 'near' : r.checks.every((c) => c.st === 'na') ? 'na' : 'ok';
@@ -2019,7 +2063,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       : '<p class="src-note">다른 앱으로 녹음한 파일은 앱마다 소리 크기를 다르게 저장해서 dB는 참고용이에요. 소리 종류 구분은 그대로 쓸 수 있고, 정확한 dB는 쿵쾅으로 직접 녹음해 주세요.</p>';
     const vt = worst === 'over' ? `${per} 기준 초과` : worst === 'near' ? `${per} 기준 근접` : worst === 'ok' ? `${per} 기준 안쪽` : '기준 판단 어려움';
     const vs = `${main}${comp.length > 1 ? ` 외 ${comp.length - 1}가지` : ''} · 소리 ${n}번${worst === 'over' ? ` · 최고 기준 넘은 횟수 ${r.overLmax}번` : ''}`;
-    const h0 = fromLog ? r._harm : null;
+    const h0 = fromLog ? r._harm : null; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
       <div class="vd ${worst}"><div class="vk"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초</span>${srcTag}</div>
         <div class="vt">${vt}</div><div class="vs">${vs}</div></div>
@@ -2269,7 +2313,8 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#jDash').hidden = jtab !== 'dash'; if (jtab === 'dash') $('#jCal').hidden = true; $('#jBoard').hidden = jtab !== 'board';
     $$('[data-jt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.jt === jtab)));
     $('#jTool').hidden = jtab === 'dash';
-    $('#h1-journal').textContent = jtab === 'dash' ? '소음 패턴 분석' : '소음 일지'; $('#jEye').textContent = jtab === 'dash' ? '리포트' : '소음일지';
+    $('#sgB').toggleAttribute('aria-current', jtab === 'board'); $('#sgD').toggleAttribute('aria-current', jtab === 'dash'); $('#sgB').setAttribute('aria-current', jtab === 'board' ? 'page' : ''); $('#sgD').setAttribute('aria-current', jtab === 'dash' ? 'page' : ''); if (jtab !== 'board') $('#sgB').removeAttribute('aria-current'); if (jtab !== 'dash') $('#sgD').removeAttribute('aria-current');
+    { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').innerHTML = E.length ? `기록 <b>${E.length}건</b> · 최근 7일 기준 초과 <b>${o7}건</b>${isExample ? ' · 예시' : ''}` : '아직 기록이 없어요'; }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
       $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML();
@@ -2318,7 +2363,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $$('#adv [data-vd]').forEach((x) => x.setAttribute('aria-pressed', String(SF.vd.has(x.dataset.vd)))); $$('#adv [data-tz]').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.tz === SF.tz)));
     page = 0; renderJournal(); }));
   $$('[data-jt]').forEach((b) => b.addEventListener('click', () => { jtab = b.dataset.jt; renderJournal(); }));
-  $('#selGo').addEventListener('click', () => { toast(`선택한 ${pick.size}건으로 서류를 만들어요`); go('report'); });
+  $('#selGo').addEventListener('click', () => { toast(`선택한 ${pick.size}건으로 해결 문안을 만들어요`); go('report'); });
   $('#selCopy').addEventListener('click', () => copy(logText(chosen()), `선택한 ${pick.size}건 일지를 복사했습니다`));
   $('#selDel').addEventListener('click', () => { $('#selConfT').textContent = `${pick.size}건을 지울까요?`; $('#selConf').hidden = false; $('#sdMain').hidden = true; });
   $('#selDelNo').addEventListener('click', () => { $('#selConf').hidden = true; $('#sdMain').hidden = false; });
@@ -2449,18 +2494,22 @@ ${lines.join('\n')}
   const PIC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/></svg>';
   const CHK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
   const CLK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>';
+  function progState() { const E = entries(), recAuto = E.length >= 5; const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id]; let ci = STG.findIndex((st) => !isDone(st)); if (ci < 0) ci = STG.length; return { ci, st: STG[ci] }; }
   function renderProgress() {
     const E = entries(), ex = isExample;
     const recAuto = E.length >= 5;
     const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id];
     let ci = STG.findIndex((st) => !isDone(st)); if (ci < 0) ci = STG.length;
     const curSt = STG[ci];
-    $('#pg').innerHTML = `<div class="pg-h"><h2>해결 과정 관리</h2>${ex ? '<span class="note">예시 일지 기준</span>' : ''}</div>
+    const GO = { rec: ['#analyze', '녹음하러 가기'], neighbor: ['#r-neighbor', '이웃에게 보낼 글 만들기'], office: ['#r-office', '관리사무소 요청서 만들기'], committee: ['#r-committee', '조정 신청서 만들기'], center: ['#r-center', '이웃사이센터 상담 준비하기'], dispute: ['#r-dispute', '분쟁조정 경위서 만들기'] };
+    $('#rSub').innerHTML = curSt ? `<b>${ci + 1}/${STG.length}단계</b> · ${curSt.t}${ex ? ' · 예시 일지 기준' : ''}` : '모든 단계를 마쳤어요';
+    $('#pg').innerHTML = `<div class="pg-h"><h2>해결 과정 관리</h2></div>
       <div class="pg-cur"><span class="pg-ic">${PIC}</span><div style="flex:1;min-width:0"><small>현재 단계</small><b>${curSt ? curSt.t : '모든 단계를 마쳤어요'}</b>
         <div class="pg-bar">${STG.map((_, k) => `<i class="${k < ci || (k === ci) ? 'on' : ''}"></i>`).join('')}</div><div class="pg-n num">${Math.min(ci + 1, STG.length)} / ${STG.length}단계</div></div></div>
+      ${curSt ? `<a class="btn primary pg-go" href="${GO[curSt.id][0]}">${GO[curSt.id][1]} ›</a>` : ''}
       <ol class="tl">${STG.map((st, k) => { const dn = isDone(st), now = k === ci, dt = PG.done[st.id] || (st.id === 'rec' && recAuto && E.length ? E[E.length - 1].ts : 0);
         return `<li class="${dn ? 'done' : now ? 'now' : ''}"><span class="dot">${dn ? CHK : now ? `<b style="font-size:12px">${k + 1}</b>` : CLK}</span><span class="tx"><b>${st.t}</b><small>${dn ? (dt ? md(dt) + ' 완료' : '완료') : now ? (st.id === 'rec' ? `지금 ${E.length}건 · 5건 이상이면 다음 단계로` : st.s) : st.s + ' · 예정'}</small></span>
-          <span class="ta">${now && st.id !== 'rec' ? `<a class="btn" href="#r-${st.id}">문안</a><button type="button" class="btn primary" data-pdone="${st.id}">완료</button>` : ''}${now && st.id === 'rec' ? '<a class="btn" href="#analyze">녹음</a>' : ''}${dn && st.id !== 'rec' && (k === ci - 1) ? `<button type="button" class="btn" data-pundo="${st.id}">되돌리기</button>` : ''}</span></li>`; }).join('')}</ol>
+          <span class="ta">${now && st.id !== 'rec' ? `<button type="button" class="btn" data-pdone="${st.id}">완료</button>` : ''}${dn && st.id !== 'rec' && (k === ci - 1) ? `<button type="button" class="btn" data-pundo="${st.id}">되돌리기</button>` : ''}</span></li>`; }).join('')}</ol>
       ${curSt ? `<h3>준비 서류 체크리스트 · ${curSt.t}</h3><ul class="ck-l">${curSt.ck.map(([id, t, auto]) => { const a = auto ? auto(E) : null, on = auto ? a : !!PG.ck[id];
         return `<li><label class="${on ? 'on' : ''}"><input type="checkbox" data-pck="${id}" ${on ? 'checked' : ''} ${auto ? 'disabled' : ''}><span>${t}</span>${auto ? `<span class="auto">${a ? '자동 확인' : '아직'}</span>` : ''}</label></li>`; }).join('')}</ul>` : ''}`;
     $$('#pg [data-pdone]').forEach((b) => b.addEventListener('click', () => { PG.done[b.dataset.pdone] = Date.now(); pgSave(); renderProgress(); toast('다음 단계로 넘어갔어요'); }));
@@ -2472,7 +2521,7 @@ ${lines.join('\n')}
     $('#opts').innerHTML = OPTS.map((o, i) => `<a class="opt" href="#r-${o.id}"><span class="k">${i + 1}</span><b>${o.t}</b><span class="lv">${o.lv}</span><small>${o.s}</small></a>`).join('');
   }
   function renderNav() {
-    const i = OPTS.findIndex((o) => o.id === cur), pv = OPTS[i - 1], nx = OPTS[i + 1];
+    const i = OPTS.findIndex((o) => o.id === cur), pv = OPTS[i - 1], nx = OPTS[i + 1]; $('#odS').textContent = `${i + 1}. ${OPTS[i].t}`;
     $('#optNav').innerHTML = OPTS.map((o, k) => `<a href="#r-${o.id}" ${o.id === cur ? 'aria-current="page"' : ''}><b>${k + 1}</b>${o.sh}</a>`).join('');
     $('#optPN').innerHTML = (pv ? `<a href="#r-${pv.id}"><small>‹ 이전 단계</small><b>${pv.t}</b></a>` : '') + (nx ? `<a class="nx" href="#r-${nx.id}"><small>다음 단계 ›</small><b>${nx.t}</b></a>` : '');
     const a = $('#optNav [aria-current]'); a && a.scrollIntoView({ block: 'nearest', inline: 'center' });
