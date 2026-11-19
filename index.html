@@ -2495,7 +2495,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         <p class="note">${r.ym ? '1단 AI(YAMNet)가 들은 소리: ' + [...new Set(r.ym.chunks.flatMap((c) => c.top))].slice(0, 5).join(', ') + ' → 2단 층간소음 판별로 보정' : '2단 판별 규칙만으로 분석했습니다.'}</p></div>
         <p class="note">휴대폰 측정 참고값입니다. 법적 판정은 공인 측정으로 정해집니다.</p>
       </div>
-      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">해결에 쓰기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 분석</a><button class="primary" id="save" type="button">일지에 저장</button></div>`}
+      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">해결에 쓰기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 분석</a><button class="primary" id="save" type="button">저장하고 피해 기록 ›</button></div>`}
 `;
     requestAnimationFrame(() => drawChart(r));
     if (fromLog) {
