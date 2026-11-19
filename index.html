@@ -1659,6 +1659,26 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 .d1t{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 10px;margin-top:10px}
 .d1t small{font-size:11px;color:var(--fg2);font-weight:600}
 .d1t .tb-lg{grid-column:1/-1;flex-wrap:nowrap;justify-content:space-between;gap:6px;font-size:11px;white-space:nowrap}.d1t .tb-lg i{margin-right:3px;width:7px;height:7px}
+
+.qbtn{display:inline-grid;place-items:center;width:20px;height:20px;min-height:20px;padding:0;margin-left:4px;border-radius:50%;border:1.5px solid var(--line2);background:var(--surface);color:var(--fg2);font-size:12px;font-weight:800;vertical-align:2px;cursor:pointer}
+.qbtn:hover{color:var(--accent);border-color:var(--accent)}
+.mq-ic{background:var(--accent-soft)!important;color:var(--accent)!important;font-size:24px;font-weight:800}
+.dmod .mq-s{color:var(--fg2);font-size:12.5px;margin:0;word-break:keep-all}
+#mqList li{padding:0;background:transparent}
+#mqList li::before{content:none}
+#mqList a{display:flex;flex-direction:column;gap:3px;width:100%;background:var(--sunk);border-radius:12px;padding:10px 12px;color:var(--fg);text-decoration:none;text-align:left}
+#mqList a:hover{background:var(--accent-soft)}
+.mq-q{font-size:13px;line-height:1.45;word-break:keep-all}
+.mq-a{font-size:12.5px;color:var(--accent);display:flex;align-items:center;gap:6px}
+.mq-a .badge{font-size:10px;padding:1px 6px}
+.dmod-c.mq{max-height:86vh;overflow:auto}
+.rlog li{align-items:flex-start}
+.rlog li.ex::before{background:var(--line2)}
+.rl-go{flex:1;display:flex;gap:12px;border:0;background:transparent;padding:0;text-align:left;color:inherit;font:inherit;cursor:pointer;min-height:0}
+.rlog li .exk2{position:static;align-self:flex-start;margin-top:2px}
+.rl-hint{font-size:11.5px;color:var(--fg2);margin:2px 0 0 10px}
+button.rl-empty{text-align:left;font:inherit;font-size:12.5px;cursor:pointer}
+button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -1923,6 +1943,13 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
   <ul><li>직접 찾아가 문을 두드리거나 따지기</li><li>보복 소음 (천장 두드리기, 스피커 틀기)</li><li>화가 난 상태에서 글 보내기</li></ul>
   <p>위협을 느끼면 <b>112</b>에 신고하세요.</p>
   <button type="button" class="btn primary" id="dontOk">확인했어요</button></div></div>
+<div class="dmod" id="mqMod" role="dialog" aria-modal="true" aria-labelledby="mqH" hidden><div class="dmod-c mq">
+  <span class="dmod-ic mq-ic">?</span>
+  <h2 id="mqH">내 상황엔 어떤 방법?</h2>
+  <p class="mq-s">순서대로 하지 않아도 돼요. 지금 상황에 맞는 걸 누르면 바로 시작해요.</p>
+  <ul id="mqList"></ul>
+  <p>위협을 느끼면 <b>112</b>에 신고하세요.</p>
+  <button type="button" class="btn" id="mqClose">닫기</button></div></div>
 <div class="sheet" id="rlSheet" role="dialog" aria-modal="true" aria-labelledby="rlH" hidden>
   <div class="grab" aria-hidden="true"></div>
   <div class="sheet-h"><h2 id="rlH">대응 기록 추가</h2><button type="button" class="icon-btn x" id="rlClose" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
@@ -2746,10 +2773,15 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#dontOk').addEventListener('click', () => { $('#dontMod').hidden = true; });
   $('#dontMod').addEventListener('click', (e) => { if (e.target.id === 'dontMod') $('#dontMod').hidden = true; });
 
-  function openRL() { $('#rlM').innerHTML = OPTS.map((o) => `<option value="${o.id}">${o.sh}</option>`).join('') + '<option value="etc">기타</option>'; $('#rlWhen').value = localInput(new Date()); $('#rlWhat').value = ''; $('#rlRes').value = ''; $('#rlSheet').hidden = false; $('#sheetBg').hidden = false; }
+  let rlEdit = null;
+  function openRL(ts) { const x = ts ? (PG.rlog || []).find((q) => q.ts === ts) : null; rlEdit = x ? ts : null; $('#rlM').innerHTML = OPTS.map((o) => `<option value="${o.id}">${o.sh}</option>`).join('') + '<option value="etc">기타</option>'; $('#rlH').textContent = x ? '대응 기록 고치기' : '대응 기록 추가'; $('#rlWhen').value = localInput(new Date(x ? x.ts : Date.now())); if (x) $('#rlM').value = x.m; $('#rlWhat').value = x ? x.what : ''; $('#rlRes').value = x ? x.res || '' : ''; $('#rlSheet').hidden = false; $('#sheetBg').hidden = false; }
   const closeRL = () => { $('#rlSheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#rlClose').addEventListener('click', closeRL);
-  $('#rlSave').addEventListener('click', () => { const w = $('#rlWhat').value.trim(); if (!w) { toast('한 일을 적어 주세요'); return; } PG.rlog = PG.rlog || []; PG.rlog.push({ ts: new Date($('#rlWhen').value || Date.now()).getTime(), m: $('#rlM').value, what: w, res: $('#rlRes').value.trim() }); pgSave(); closeRL(); renderProgress(); toast('대응 기록을 남겼어요'); });
+  $('#rlSave').addEventListener('click', () => { const w = $('#rlWhat').value.trim(); if (!w) { toast('한 일을 적어 주세요'); return; } PG.rlog = (PG.rlog || []).filter((x) => x.ts !== rlEdit); PG.rlog.push({ ts: new Date($('#rlWhen').value || Date.now()).getTime(), m: $('#rlM').value, what: w, res: $('#rlRes').value.trim() }); pgSave(); closeRL(); renderProgress(); toast(rlEdit ? '고쳤어요' : '대응 기록을 남겼어요'); rlEdit = null; });
+  const MQ = [['neighbor', '소음이 막 시작됐고, 아직 말해 본 적 없어요'], ['office', '직접 말하기 부담되거나, 말했는데 그대로예요'], ['committee', '관리사무소 권고 뒤에도 계속돼요 (위원회가 있는 단지)'], ['center', '소리 크기를 객관적으로 재고 싶거나, 대화가 어려워졌어요'], ['dispute', '여러 번 요청해도 안 바뀌어서 공식 결론이 필요해요']];
+  function openMQ() { const rid = (progState().st || {}).id; $('#mqList').innerHTML = MQ.map(([id, q]) => { const o = OPTS.find((x) => x.id === id); return `<li><a href="#r-${id}" data-mq="1"><span class="mq-q">${q}</span><span class="mq-a">→ <b>${o.sh}</b>${id === rid ? '<span class="badge rcb">추천</span>' : ''}</span></a></li>`; }).join(''); $('#mqMod').hidden = false; $$('#mqList [data-mq]').forEach((a) => a.addEventListener('click', () => { $('#mqMod').hidden = true; })); }
+  $('#mqClose').addEventListener('click', () => { $('#mqMod').hidden = true; });
+  $('#mqMod').addEventListener('click', (e) => { if (e.target.id === 'mqMod') $('#mqMod').hidden = true; });
   const openPick = () => { $('#sheet').hidden = false; $('#sheetBg').hidden = false; $('#closePick').focus(); };
   const closePick = () => { $('#sheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#openPick').addEventListener('click', openPick);
@@ -3245,16 +3277,18 @@ ${lines.join('\n')}
       form: () => `<div class="fields" style="margin-top:0">${APT()}${ME()}${field('tried', '지금까지 해 본 일', '예: 관리사무소 알림(11/2), 위원회 없음', 'textarea')}</div>`,
       btn: 'AI로 전화 상담 요약 만들기',
       doc: (s, a) => `이웃사이센터 전화 상담 요약 (읽으면서 설명하세요)${ex(s)}\n\n· 거주지: ${v('apt', '○○아파트')} ${v('me', '○○동 ○○○호')}\n· 피해 기간: ${s.from} ~ ${s.to} (${s.days}일, ${s.E.length}건 기록)\n· 주된 소리: ${s.topT.join(', ')}\n· 주로 들리는 시간: ${s.topH.map((h) => h + '시').join(', ')} 무렵 (야간 비중 ${s.nightPct}%)\n· 휴대폰 측정 참고값: 최고소음도 기준 초과 ${s.over}건, 근접 ${s.near}건\n· 지금까지 해 본 일: ${v('tried', '없음')}\n\n상황 설명\n${a || situation(s)}\n\n요청\n  · 방문 상담과 공인 장비로 소음 측정을 받고 싶습니다.\n  · 측정 가능한 시간대: 평일 ${s.topH.map((h) => h + '시').join(', ')} 무렵\n\n상담 전 준비: 층간소음 피해 기록 일지, 관리사무소 알림서 사본(있으면)` },
-    { id: 'dispute', sh: '분쟁조정', t: '분쟁조정 신청', s: '앞 단계로 해결되지 않을 때 · 공식 조정', lv: '법적 조정',
+    { id: 'dispute', sh: '분쟁조정', t: '분쟁조정 신청', s: '앞 단계로 안 풀릴 때 · 공식 조정', lv: '법적 조정',
       law: '공동주택관리법 제20조 제11항',
       guide: ['<b>공동주택관리 분쟁조정위원회</b> 또는 <b>환경분쟁조정위원회</b>에 신청해요.', '앞 단계 기록(알림서·권고·위원회 결과)을 함께 내세요.', '최근 3년 중앙 조정 성립률은 8.8%예요. 기록이 꼼꼼할수록 유리해요.'],
       form: () => `<div class="fields" style="margin-top:0">${APT()}${ME()}${SRC()}</div>
         <div class="sub-h">지금까지 거친 단계</div><div class="checks-in">${chk('d1', '관리사무소 알림·중단 권고', 1)}${chk('d2', '층간소음관리위원회 조정', 0)}${chk('d3', '이웃사이센터 상담·측정', 0)}</div>`,
       btn: 'AI로 분쟁 경위서 만들기',
       doc: (s, a) => { const st = [F.d1 && '관리사무소에 피해 사실을 알리고 중단 권고를 요청함', F.d2 && '층간소음관리위원회에 조정을 신청함', F.d3 && '층간소음 이웃사이센터 상담·측정을 받음'].filter(Boolean);
-        return `층간소음 분쟁 경위서${ex(s)}\n\n신청인  ${v('apt', '○○아파트')} ${v('me', '○○동 ○○○호')}\n피신청인(추정)  ${v('src', '○○동 ○○○호')}\n작성일  ${today()}\n\n1. 분쟁의 내용\n${a || situation(s)}\n\n2. 해결을 위해 거친 절차\n${st.map((x, i) => `  ${i + 1}) ${x}`).join('\n') || ((PG.rlog || []).length ? '' : '  (거친 단계를 골라 주세요)')}${rlogText()}\n  → 위 절차에도 소음이 계속되어 공동주택관리법 제20조 제11항에 따라 조정을 신청합니다.\n\n3. 바라는 조정 내용\n  · 야간(22시~06시) 소음 유발 행위 중단\n  · 소음 저감 조치(매트 설치 등) 이행\n\n4. 증거 자료\n  · 층간소음 피해 기록 일지(${s.E.length}건)${(PG.rlog || []).length ? `\n  · 대응 기록(${PG.rlog.length}건)` : ''}\n  · 관리사무소 알림서 및 회신, 위원회 조정 결과(있으면)\n  · 이웃사이센터 측정 결과(있으면)\n\n신청인  (서명)`; } }
+        return `층간소음 분쟁 경위서${ex(s)}\n\n신청인  ${v('apt', '○○아파트')} ${v('me', '○○동 ○○○호')}\n피신청인(추정)  ${v('src', '○○동 ○○○호')}\n작성일  ${today()}\n\n1. 분쟁의 내용\n${a || situation(s)}\n\n2. 해결을 위해 거친 절차\n${st.map((x, i) => `  ${i + 1}) ${x}`).join('\n') || (allRlog().length ? '' : '  (거친 단계를 골라 주세요)')}${rlogText()}\n  → 위 절차에도 소음이 계속되어 공동주택관리법 제20조 제11항에 따라 조정을 신청합니다.\n\n3. 바라는 조정 내용\n  · 야간(22시~06시) 소음 유발 행위 중단\n  · 소음 저감 조치(매트 설치 등) 이행\n\n4. 증거 자료\n  · 층간소음 피해 기록 일지(${s.E.length}건)${allRlog().length ? `\n  · 대응 기록(${allRlog().length}건)` : ''}\n  · 관리사무소 알림서 및 회신, 위원회 조정 결과(있으면)\n  · 이웃사이센터 측정 결과(있으면)\n\n신청인  (서명)`; } }
   ];
-  function rlogText() { const L = [...(PG.rlog || [])].sort((a, b) => a.ts - b.ts); if (!L.length) return ''; return '\n  [대응 경과 — 쿵쾅 대응 기록]\n' + L.map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `  · ${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())} (${o ? o.sh : '기타'}) ${x.what}${x.res ? ' → ' + x.res : ''}`; }).join('\n'); }
+  const EXRL = [[6, 21, 0, 'neighbor', '관리사무소를 통해 윗집에 쪽지 전달', '답 없음'], [5, 8, 10, 'neighbor', '엘리베이터에서 만나 밤 소리를 정중히 말함', '조심하겠다고 함'], [4, 9, 30, 'office', '관리사무소에 전화로 야간 소음 알림', '저녁에 단지 방송으로 안내'], [3, 10, 0, 'office', '소음 일지 사본을 붙여 요청서 제출', '담당자 접수, 사실 확인 예정'], [2, 14, 20, 'office', '윗집 방문 확인 결과를 들음', '아이 뛰는 소리 인정, 매트 깔기로 함'], [1, 10, 0, 'center', '이웃사이센터 전화 상담 신청', '현장 측정까지 2~3주 대기 안내'], [1, 23, 20, 'neighbor', '매트를 깐 뒤에도 밤 11시 쿵쿵, 문자로 다시 부탁', '답장 없음'], [0, 9, 0, 'committee', '층간소음관리위원회 조정 문의', '다음 회의 때 다루기로 함']];
+  function allRlog() { const own = (PG.rlog || []).map((x) => ({ ...x })); if (!exMode) return own; const b = new Date(); b.setHours(0, 0, 0, 0); return own.concat(EXRL.map(([d, h, mi, m, what, res]) => ({ ts: b.getTime() - d * 864e5 + (h * 60 + mi) * 6e4, m, what, res, ex: 1 })).filter((x) => x.ts <= Date.now())); }
+  function rlogText() { const L = allRlog().sort((a, b) => a.ts - b.ts); if (!L.length) return ''; return '\n  [대응 경과 — 쿵쾅 대응 기록]\n' + L.map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `  · ${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())} (${o ? o.sh : '기타'}) ${x.what}${x.res ? ' → ' + x.res : ''}`; }).join('\n'); }
   let cur = 'office';
   /* ---------- 해결 과정 관리 ---------- */
   const PKEY = 'kungkwang.progress';
@@ -3272,7 +3306,7 @@ ${lines.join('\n')}
   const PIC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/></svg>';
   const CHK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
   const CLK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>';
-  function progState() { const E = entries(), recAuto = E.length >= 5; const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id]; const small = MYAPT && !aptEval(MYAPT).big; let ci = STG.findIndex((st) => !isDone(st) && !(PG.skip && PG.skip[st.id]) && !(small && st.id === 'committee')); if (ci < 0) ci = STG.length; return { ci, st: STG[ci], isDone, E, nDone: STG.filter(isDone).length }; }
+  function progState() { const E = entries(), recAuto = E.length >= 5; const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id]; const small = MYAPT && !aptEval(MYAPT).big; let ci = STG.findIndex((st) => !isDone(st) && !(small && st.id === 'committee')); if (ci < 0) ci = STG.length; return { ci, st: STG[ci], isDone, E, nDone: STG.filter(isDone).length }; }
   function renderProgress() {
     const E = entries(), ex = isExample;
     const recAuto = E.length >= 5;
@@ -3289,16 +3323,19 @@ ${lines.join('\n')}
     const OI = { neighbor: '<path d="M4 5h16v11H8l-4 4z"/>', office: '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/>', committee: '<circle cx="8" cy="9" r="3"/><circle cx="16" cy="9" r="3"/><path d="M2.5 19c.6-3 3-4.5 5.5-4.5s4.9 1.5 5.5 4.5M10.5 19c.6-3 3-4.5 5.5-4.5s4.9 1.5 5.5 4.5"/>', center: '<path d="M12 21s-7-4.5-7-10a7 7 0 0 1 14 0c0 5.5-7 10-7 10z"/><circle cx="12" cy="11" r="2.5"/>', dispute: '<path d="M12 3v18M5 7h14M7 7l-3 7h6zM17 7l-3 7h6z"/>' };
     const small = MYAPT && !aptEval(MYAPT).big;
     $('#pg').innerHTML = aptCardHTML() + `
-      <div class="rmh"><h2>알리는 방법</h2><a class="recchip ${recN >= 5 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
+      <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 5 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
-        const sp = !dn && PG.skip && PG.skip[o.id];
-        return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b><small>${dn ? md(PG.done[o.id]) + ' 완료' : sp ? '건너뛴 단계' : sk ? '위원회가 없으면 건너뛰어도 돼요' : o.s}</small></span>${rc ? '<span class="badge rcb">추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn || sp ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : rc ? `<button type="button" class="mth-u" data-pskip="${o.id}">이 단계 건너뛰기</button>` : ''}</li>`; }).join('')}</ul>
+        const sp = false;
+        return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b><small>${dn ? md(PG.done[o.id]) + ' 완료' : sp ? '건너뛴 단계' : sk ? '위원회가 없으면 건너뛰어도 돼요' : o.s}</small></span>${rc ? '<span class="badge rcb">추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ul>
       <div class="rmh"><h2>대응 기록</h2><button type="button" class="txtbtn" id="rlAdd">+ 기록 추가</button></div>
-      ${(PG.rlog || []).length ? `<ol class="rlog">${[...PG.rlog].sort((a, b) => b.ts - a.ts).map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `<li><span class="rl-d num">${d.getMonth() + 1}/${d.getDate()}<small>${pad(d.getHours())}:${pad(d.getMinutes())}</small></span><span class="rl-b"><b>${o ? o.sh : '기타'}</b> ${esc(x.what)}${x.res ? `<small>→ ${esc(x.res)}</small>` : ''}</span><button type="button" class="rl-x" data-rldel="${x.ts}" aria-label="삭제">×</button></li>`; }).join('')}</ol>` : '<p class="rl-empty">관리사무소에 말한 날, 이웃의 반응 같은 대응 내용을 남겨 두면 분쟁조정 때 경위서로 이어져요.</p>'}`;
+      ${allRlog().length ? `<ol class="rlog">${allRlog().sort((a, b) => b.ts - a.ts).map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `<li class="${x.ex ? 'ex' : ''}"><button type="button" class="rl-go" ${x.ex ? `data-rlex="1"` : `data-rledit="${x.ts}"`}><span class="rl-d num">${d.getMonth() + 1}/${d.getDate()}<small>${pad(d.getHours())}:${pad(d.getMinutes())}</small></span><span class="rl-b"><b>${o ? o.sh : '기타'}</b> ${esc(x.what)}${x.res ? `<small>→ ${esc(x.res)}</small>` : ''}</span></button>${x.ex ? '<span class="exk2">예시</span>' : `<button type="button" class="rl-x" data-rldel="${x.ts}" aria-label="삭제">×</button>`}</li>`; }).join('')}</ol><p class="rl-hint">누르면 고칠 수 있어요 · 분쟁조정 경위서에 자동으로 들어가요</p>` : '<button type="button" class="rl-empty" id="rlAdd2">관리사무소에 말한 날, 이웃의 반응 같은 대응 내용을 남겨 두면 분쟁조정 때 경위서로 이어져요. <b>+ 첫 기록 남기기</b></button>'}`;
     $$('#pg [data-pf]').forEach((r) => { const f = () => { PG.focus = r.dataset.pf; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); }; r.addEventListener('click', f); r.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f(); } }); });
     $$('#pg [data-pdone]').forEach((b) => b.addEventListener('click', () => { PG.done[b.dataset.pdone] = Date.now(); delete PG.focus; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); toast('잘하셨어요 · 완료로 표시했어요'); }));
     $$('#pg [data-pundo]').forEach((b) => b.addEventListener('click', () => { delete PG.done[b.dataset.pundo]; if (PG.skip) delete PG.skip[b.dataset.pundo]; pgSave(); renderProgress(); toast('되돌렸어요'); }));
-    $$('#pg [data-pskip]').forEach((b) => b.addEventListener('click', () => { PG.skip = PG.skip || {}; PG.skip[b.dataset.pskip] = Date.now(); pgSave(); renderProgress(); toast('건너뛰었어요 · 다음 방법을 추천해요'); }));
+    $$('#pg [data-rledit]').forEach((b) => b.addEventListener('click', () => openRL(+b.dataset.rledit)));
+    $$('#pg [data-rlex]').forEach((b) => b.addEventListener('click', () => { toast('예시 기록이에요 · + 기록 추가로 내 기록을 남겨 보세요'); }));
+    $('#rlAdd2') && $('#rlAdd2').addEventListener('click', () => openRL());
+    $('#mthQ') && $('#mthQ').addEventListener('click', (e) => { e.preventDefault(); openMQ(); });
     $$('#pg [data-rldel]').forEach((b) => b.addEventListener('click', () => { PG.rlog = (PG.rlog || []).filter((x) => x.ts !== +b.dataset.rldel); pgSave(); renderProgress(); }));
     $('#rlAdd') && $('#rlAdd').addEventListener('click', () => openRL());
     $$('#pg [data-pck]').forEach((c) => c.addEventListener('change', () => { PG.ck[c.dataset.pck] = c.checked; pgSave(); renderProgress(); }));
