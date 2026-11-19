@@ -1313,6 +1313,64 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
  :root:not([data-theme="light"]) .seg2 a[aria-current=page]{background:#2F2540}
  :root:not([data-theme="light"]) .ins,:root:not([data-theme="light"]) .apt-sug{background:#2A1F3D}
 }
+/* ===== v34 simple (figma) ===== */
+.phd-c{display:grid;grid-template-columns:42px 1fr 42px;align-items:center}
+.phd-c .phd-t{text-align:center}
+.phd-c .phd-t h1{font-size:18px;font-weight:800}
+.phd-c .phd-s,#rS{display:none}
+.phd-c .phd-b{border:0;background:transparent;margin-left:-8px}
+.phd-c .phd-a{display:none}
+.wvc{border:1px solid var(--line);box-shadow:0 6px 18px -14px rgba(60,30,110,.35);padding:18px 16px 10px;border-radius:20px}
+.wv{height:64px;gap:2px}
+.wv i,.wv i.ov{background:var(--accent);opacity:.9;border-radius:2px;flex:1;max-width:3px;margin:0 auto}
+.wv i.on,.wv i.ov.on{opacity:1;background:var(--accent)!important}
+.wv:has(i.on) i:not(.on){opacity:.3}
+.wv-p{width:34px;height:34px;min-height:34px}
+.wv-t{justify-content:flex-end;gap:4px;padding:0}
+.wv-t span:first-child{color:var(--fg);font-weight:700}
+.wv-t span:last-child::before{content:"/ "}
+.rtabs{background:var(--sunk);border-radius:12px;padding:4px;border:0;gap:4px}
+.rtabs button{border-radius:9px;border-bottom:0!important;min-height:38px;font-size:14px}
+.rtabs button[aria-pressed=true]{background:var(--surface);color:var(--accent);box-shadow:0 1px 3px rgba(33,20,45,.1)}
+.vline{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--fg2);flex-wrap:wrap}
+.vline .vdot{width:8px;height:8px;border-radius:50%;background:var(--fg2)}
+.vline.over .vdot{background:var(--bad)} .vline.near .vdot{background:var(--warn)}
+.vline b{font-size:14px;color:var(--fg)} .vline.over b{color:var(--bad)} .vline.near b{color:var(--warn)}
+.vline .src-tag{margin-left:auto}
+.mt{gap:10px}
+.mt div{border-radius:14px;padding:14px;box-shadow:none}
+.mt small{font-size:12px;color:var(--fg2)}
+.mt b{font-size:19px;font-weight:800;letter-spacing:-.02em}
+.cg{border:0;padding:4px 0 0;background:transparent}
+.cg h2{font-size:15px;margin:0}
+.ins{background:var(--accent-soft);border-radius:14px;padding:12px 14px;align-items:center}
+.ins i{background:var(--accent);font-size:11px;width:24px;height:24px}
+.ins b{font-size:13.5px;margin-bottom:1px}
+.ins span{color:var(--fg2);font-size:12.5px}
+.ins span b{color:var(--fg)}
+.racts.big{position:static;background:transparent;backdrop-filter:none;padding:4px 0 0;grid-template-columns:1fr 1fr}
+.btn.ghost-p{border:1.5px solid var(--accent);color:var(--accent);background:var(--surface);font-weight:700}
+.racts.big .primary{font-weight:700}
+/* harm full page */
+.fullpg{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 20px);display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto}
+.fullpg[hidden]{display:none}
+body:has(.fullpg:not([hidden])) .tabs{display:none!important}
+.fullpg .hs-lead{margin:0;font-size:13px;color:var(--ok);font-weight:600}
+.fullpg .hs-lead:empty{display:none}
+.harm .hq{font-size:15.5px;font-weight:800;margin:6px 0 12px}
+.hk{gap:8px}
+.hk button{min-height:84px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:12.5px}
+.hk button[aria-pressed=true]{border:1.5px solid var(--accent);background:var(--accent-soft)}
+.hl button{width:44px;height:44px;min-height:44px;background:var(--surface);border:1px solid var(--line2);font-size:16px}
+.hl-cap{margin:8px 4px 18px}
+.hm-w textarea{border-radius:14px;min-height:110px;border-color:var(--line)}
+.hlink{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.hl-ic{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.hl-t{flex:1;min-width:0} .hl-t b{display:block;font-size:13.5px} .hl-t small{font-size:12px;color:var(--fg2)}
+.hl-w{display:flex;align-items:center;gap:2px}
+.hl-w i{width:3px;border-radius:2px;background:var(--accent);opacity:.7}
+.hsave{min-height:52px;font-size:16px;font-weight:800;border-radius:14px;margin-top:4px}
+.hskip{align-self:center;color:var(--fg2);font-size:13.5px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1431,7 +1489,7 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
   <!-- 결과 -->
   <section class="view" id="v-result" aria-label="분석 결과" hidden>
     <div class="res">
-      <div class="phd"><a class="phd-b back" id="rBack" href="#analyze" aria-label="뒤로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a><div class="phd-t"><h1 id="rH">분석 결과</h1><p class="phd-s" id="rS"></p></div><div class="phd-a" id="rA"></div></div>
+      <div class="phd phd-c"><a class="phd-b back" id="rBack" href="#analyze" aria-label="뒤로"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a><div class="phd-t"><h1 id="rH">분석 결과</h1><p class="phd-s" id="rS"></p></div><div class="phd-a" id="rA"></div></div>
       <div class="stack resbody" id="result" aria-live="polite"><div class="empty">분석할 소리를 고르면 결과가 여기에 나옵니다.</div></div>
     </div>
   </section>
@@ -1564,12 +1622,13 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
   <div class="sheet-h"><h2 id="famH">가족과 함께 기록</h2><button type="button" class="icon-btn x" id="closeFam" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div id="famBody"></div>
 </div>
-<div class="sheet" id="harmSheet" role="dialog" aria-modal="true" aria-labelledby="harmH" hidden>
-  <div class="grab" aria-hidden="true"></div>
-  <div class="sheet-h"><h2 id="harmH">생활 피해 기록</h2><button type="button" class="icon-btn x" id="closeHarm" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+<div class="fullpg" id="harmSheet" role="dialog" aria-modal="true" aria-labelledby="harmH" hidden>
+  <div class="phd phd-c"><button type="button" class="phd-b back" id="closeHarm" aria-label="뒤로"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button><div class="phd-t"><h1 id="harmH">생활 피해 기록</h1></div><span class="phd-b" style="visibility:hidden"></span></div>
   <p class="hs-lead" id="harmLead"></p>
   <div id="harmBody"></div>
-  <div class="fam-acts"><button type="button" class="btn" id="harmSkip">건너뛰기</button><button type="button" class="btn primary" id="harmSave">저장하기</button></div>
+  <div class="hlink" id="harmLink"></div>
+  <button type="button" class="btn primary hsave" id="harmSave">저장하기</button>
+  <button type="button" class="txtbtn hskip" id="harmSkip">건너뛰기</button>
 </div>
 <div class="sheet" id="aptSheet" role="dialog" aria-modal="true" aria-labelledby="aptH" hidden>
   <div class="grab" aria-hidden="true"></div>
@@ -2425,13 +2484,14 @@ if (typeof module !== 'undefined') module.exports = KE;
   let harmE = null, harmNew = false;
   function openHarm(e, isNew) {
     harmE = e; harmNew = isNew; const h = { kinds: [...(e.harm?.kinds || [])], lv: e.harm?.lv || 0, memo: e.harm?.memo || '' }; harmE._h = h;
-    $('#harmLead').innerHTML = isNew ? '<b>일지에 저장했어요.</b> 이 소음으로 생활에 어떤 피해가 있었는지도 남기면 상담·조정 때 함께 제출돼요.' : '피해 종류와 강도를 고칠 수 있어요.';
+    $('#harmLead').innerHTML = isNew ? '일지에 저장했어요 ✓ 피해를 남기면 상담·조정 때 함께 제출돼요.' : '';
     $('#harmSkip').textContent = isNew ? '건너뛰기' : '취소';
     $('#harmBody').innerHTML = harmHTML(h); bindHarm(h, () => {});
-    $('#harmSheet').hidden = false; $('#sheetBg').hidden = false;
+    const d = new Date(e.ts); $('#harmLink').innerHTML = `<span class="hl-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8z"/><path d="M14 3v5h5"/></svg></span><span class="hl-t"><b>연결된 소음 기록</b><small class="num">${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())} · ${T[e.type].name}</small></span><span class="hl-w">${Array.from({ length: 9 }, (_, k) => `<i style="height:${[6, 12, 18, 10, 16, 8, 14, 9, 5][k]}px"></i>`).join('')}</span>`;
+    $('#harmSheet').hidden = false; scrollTo(0, 0);
   }
   function closeHarm(saved) {
-    $('#harmSheet').hidden = true; $('#sheetBg').hidden = true;
+    $('#harmSheet').hidden = true;
     if (harmNew) { toast(saved ? '피해 기록까지 저장했어요' : '일지에 저장했어요'); go('journal'); } else if (saved) { toast('생활 피해 기록을 고쳤어요'); show(); }
     harmE = null;
   }
@@ -2470,23 +2530,23 @@ if (typeof module !== 'undefined') module.exports = KE;
     const vt = worst === 'over' ? `${per} 기준 초과` : worst === 'near' ? `${per} 기준 근접` : worst === 'ok' ? `${per} 기준 안쪽` : '기준 판단 어려움';
     const vs = `${main}${comp.length > 1 ? ` 외 ${comp.length - 1}가지` : ''} · 소리 ${n}번${worst === 'over' ? ` · 최고 기준 넘은 횟수 ${r.overLmax}번` : ''}`;
     const h0 = fromLog ? r._harm : null;
-    const NB = 48, lim0 = KE.STD.impact[r.period].lmax, seg = r.Lf.length / NB, lo0 = 25, hi0 = Math.max(lim0 + 10, r.lmax);
+    const NB = 64, lim0 = KE.STD.impact[r.period].lmax, seg = r.Lf.length / NB, lo0 = 25, hi0 = Math.max(lim0 + 10, r.lmax);
     const WAVE = Array.from({ length: NB }, (_, k) => { const v = Math.max(...r.Lf.slice(Math.floor(k * seg), Math.max(Math.floor(k * seg) + 1, Math.floor((k + 1) * seg)))); return `<i class="${v >= lim0 ? 'ov' : ''}" style="height:${Math.max(6, Math.min(100, (v - lo0) / (hi0 - lo0) * 100))}%"></i>`; }).join('');
     const oe = r.ev.filter((e) => e.peak >= lim0);
-    const INS = oe.length ? `<div class="ins"><i>!</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✓</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
+    const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
       <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
-      <div class="vd2 ${worst}"><span class="vdot"></span><span class="vtx"><b>${vt}</b><span>${vs}</span></span>${srcTag}</div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
       <div class="rtabs" role="tablist"><button type="button" data-rt="a" aria-pressed="true">분석 요약</button><button type="button" data-rt="b" aria-pressed="false">상세 정보</button></div>
       <div class="rpane" id="rpA">
-        <div class="mt"><div><small>최고 소음</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>1분 평균</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>소리 발생</small><b class="num">${n}번</b></div><div><small>주된 소리</small><b>${main}</b></div></div>
+        <div class="vline ${worst}"><span class="vdot"></span><b>${vt}</b><span>${vs}</span>${srcTag}</div>
+        <div class="mt"><div><small>1분 평균 소음</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>최대 피크</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>반복 횟수</small><b class="num">${n}회</b></div><div><small>녹음 길이</small><b class="num">약 ${Math.round(r.durSec)}초</b></div></div>
         <div class="cg"><h2>음량 변화 그래프</h2><div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>${INS}</div>
+      </div>
+      <div class="rpane" id="rpB" hidden>
         ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
         <div class="cmp-r"><div><div class="cmp-k">${label[c.k]}</div><div class="cmp-s">${sub[c.k](c)}</div></div>
           <div class="cmp-v num"><b>${c.v.toFixed(1)}</b><span>/ ${c.lim} dB</span></div><span class="pill ${c.st}">${stTxt[c.st]}</span></div>`).join('')}</div></div>` : ''}
-      </div>
-      <div class="rpane" id="rpB" hidden>
         ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
         <div class="blk"><h2>AI가 이렇게 판단했어요</h2>
         <div class="tbl-wrap"><table><thead><tr><th>시점</th><th>종류</th><th>최고</th><th>근거</th></tr></thead><tbody>
@@ -2495,7 +2555,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         <p class="note">${r.ym ? '1단 AI(YAMNet)가 들은 소리: ' + [...new Set(r.ym.chunks.flatMap((c) => c.top))].slice(0, 5).join(', ') + ' → 2단 층간소음 판별로 보정' : '2단 판별 규칙만으로 분석했습니다.'}</p></div>
         <p class="note">휴대폰 측정 참고값입니다. 법적 판정은 공인 측정으로 정해집니다.</p>
       </div>
-      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">해결에 쓰기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 분석</a><button class="primary" id="save" type="button">저장하고 피해 기록 ›</button></div>`}
+      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">해결에 쓰기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn ghost-p" href="#analyze">다시 분석</a><button class="primary" id="save" type="button">일지 저장</button></div>`}
 `;
     requestAnimationFrame(() => drawChart(r));
     if (fromLog) {
@@ -2521,17 +2581,18 @@ if (typeof module !== 'undefined') module.exports = KE;
     const xOf = (t) => padL + t / r.durSec * w;
     g.font = '11px ' + css('--font'); g.fillStyle = css('--fg2'); g.strokeStyle = css('--line'); g.lineWidth = 1;
     for (let v = lo; v <= hi; v += 20) { const yy = yOf(v); g.beginPath(); g.moveTo(padL, yy); g.lineTo(padL + w, yy); g.stroke(); g.fillText(v, 2, yy + 4); }
-    const step = r.durSec > 120 ? 60 : r.durSec > 60 ? 30 : r.durSec > 20 ? 5 : 1;
+    const step = r.durSec > 120 ? 60 : r.durSec > 60 ? 30 : r.durSec > 20 ? 10 : 5;
     g.textAlign = 'center'; for (let t = 0; t <= r.durSec + 1e-6; t += step) g.fillText(t + 's', xOf(t), Hh - 4); g.textAlign = 'left';
+    // 기준 넘은 구간 띠
+    { const lim = KE.STD.impact[r.period].lmax; g.fillStyle = 'rgba(240,120,140,.22)'; let st = -1; r.Lf.forEach((v, i) => { const on = v >= lim; if (on && st < 0) st = i; if ((!on || i === r.Lf.length - 1) && st >= 0) { const x0 = xOf(Math.max(0, st - 1) * r.hop), x1 = xOf((i + 1) * r.hop); g.fillRect(x0, padT, Math.max(4, x1 - x0), h); st = -1; } }); }
     // 영역 + 선
     const grad = g.createLinearGradient(0, padT, 0, padT + h); grad.addColorStop(0, css('--accent') + '55'); grad.addColorStop(1, css('--accent') + '00');
     g.beginPath(); r.Lf.forEach((v, i) => { const x = xOf(i * r.hop), yy = yOf(v); i ? g.lineTo(x, yy) : g.moveTo(x, yy); });
-    g.lineTo(xOf((r.Lf.length - 1) * r.hop), padT + h); g.lineTo(padL, padT + h); g.closePath(); g.fillStyle = grad; g.fill();
-    g.strokeStyle = css('--accent'); g.lineWidth = 1.6; g.beginPath();
+    g.lineTo(xOf((r.Lf.length - 1) * r.hop), padT + h); g.lineTo(padL, padT + h); g.closePath(); g.fillStyle = 'rgba(0,0,0,0)'; g.fill();
+    g.strokeStyle = css('--accent'); g.lineWidth = 1.3; g.beginPath();
     r.Lf.forEach((v, i) => { const x = xOf(i * r.hop), yy = yOf(v); i ? g.lineTo(x, yy) : g.moveTo(x, yy); }); g.stroke();
     const lim = KE.STD.impact[r.period].lmax; g.strokeStyle = css('--bad'); g.setLineDash([5, 4]); g.lineWidth = 1.2; g.beginPath(); g.moveTo(padL, yOf(lim)); g.lineTo(padL + w, yOf(lim)); g.stroke(); g.setLineDash([]);
     g.fillStyle = css('--bad'); g.textAlign = 'right'; g.font = '600 11px ' + css('--font'); g.fillText(`기준 ${lim}dB`, padL + w, yOf(lim) - 5); g.textAlign = 'left';
-    r.ev.forEach((e) => { const x = xOf(e.t + Math.min(e.span, 0.2) / 2), yy = yOf(e.peak) - 8; g.fillStyle = css('--t-' + T[e.type].color); g.beginPath(); g.arc(x, yy, 3, 0, Math.PI * 2); g.fill(); });
   }
   window.addEventListener('resize', () => { const c = $('#cv'); if (c && c._r) drawChart(c._r); });
 
