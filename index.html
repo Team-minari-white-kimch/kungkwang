@@ -1352,7 +1352,7 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
 .btn.ghost-p{border:1.5px solid var(--accent);color:var(--accent);background:var(--surface);font-weight:700}
 .racts.big .primary{font-weight:700}
 /* harm full page */
-.fullpg{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 20px);display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto}
+.fullpg{position:fixed;top:0;left:0;right:0;bottom:0;height:100%;box-sizing:border-box;z-index:90;background:var(--bg);overflow:auto;box-shadow:0 0 0 100vmax var(--bg);padding:calc(env(safe-area-inset-top,0px) + 6px) 16px calc(env(safe-area-inset-bottom,0px) + 20px);display:flex;flex-direction:column;gap:14px;max-width:560px;margin:0 auto}
 .fullpg[hidden]{display:none}
 body:has(.fullpg:not([hidden])) .tabs{display:none!important}
 .fullpg .hs-lead{margin:0;font-size:13px;color:var(--ok);font-weight:600}
@@ -1370,7 +1370,28 @@ body:has(.fullpg:not([hidden])) .tabs{display:none!important}
 .hl-w{display:flex;align-items:center;gap:2px}
 .hl-w i{width:3px;border-radius:2px;background:var(--accent);opacity:.7}
 .hsave{min-height:52px;font-size:16px;font-weight:800;border-radius:14px;margin-top:4px}
-.hskip{align-self:center;color:var(--fg2);font-size:13.5px}
+.hskip{align-self:center;color:var(--fg2);font-size:13.5px;min-height:40px;flex:none;padding:8px 16px;margin-bottom:8px}
+.fullpg>*{flex-shrink:0}
+/* glance: fit in one screen */
+#v-result .resbody{gap:10px}
+#v-result .res{gap:8px}
+#v-result .phd{min-height:44px;padding:0 0 2px}
+.wvc{padding:12px 14px 8px;gap:4px}
+.wv{height:46px}
+.wv-t{align-items:center;gap:6px}
+.wv-v{font-size:11px;padding:2px 8px}
+.wv-src{font-size:11px;color:var(--fg2)}
+.rtabs button{min-height:34px;font-size:13.5px}
+#rpA{gap:10px}
+#rpA .mt{gap:8px}
+#rpA .mt div{padding:10px 12px;border-radius:12px}
+#rpA .mt small{font-size:11.5px}
+#rpA .mt b{font-size:17px}
+#rpA .cg{gap:6px;padding:0}
+#rpA .cg h2{font-size:14px}
+#rpA canvas{height:128px}
+#rpA .ins{padding:9px 12px}
+.racts.big .btn,.racts.big button{min-height:46px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2535,11 +2556,10 @@ if (typeof module !== 'undefined') module.exports = KE;
     const oe = r.ev.filter((e) => e.peak >= lim0);
     const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
-      <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
+      <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span class="pill ${worst} wv-v">${vt}</span><span class="wv-src">${isEx ? '예시' : isMic ? (calHow ? '보정됨' : '보정 전') : '파일'}</span><span style="margin-left:auto" id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
       <div class="rtabs" role="tablist"><button type="button" data-rt="a" aria-pressed="true">분석 요약</button><button type="button" data-rt="b" aria-pressed="false">상세 정보</button></div>
       <div class="rpane" id="rpA">
-        <div class="vline ${worst}"><span class="vdot"></span><b>${vt}</b><span>${vs}</span>${srcTag}</div>
         <div class="mt"><div><small>1분 평균 소음</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>최대 피크</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>반복 횟수</small><b class="num">${n}회</b></div><div><small>녹음 길이</small><b class="num">약 ${Math.round(r.durSec)}초</b></div></div>
         <div class="cg"><h2>음량 변화 그래프</h2><div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>${INS}</div>
       </div>
