@@ -1564,6 +1564,13 @@ li.done.now{border:1.5px solid var(--accent)}
 .rl-b small{display:block;font-size:12.5px;color:var(--fg2)}
 .rl-x{border:0;background:transparent;color:var(--fg2);min-height:28px;width:28px;padding:0;font-size:16px}
 .rl-empty{font-size:12.5px;color:var(--fg2);background:var(--surface);border:1px dashed var(--line2);border-radius:14px;padding:12px 14px;margin:0;line-height:1.55;word-break:keep-all;width:100%;box-sizing:border-box}
+/* sticky page headers */
+.home>.phd,#v-journal>.phd,#v-report>.phd,.fp>.phd,#v-result .res>.phd{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--barH,0px));z-index:18;background:var(--bg);margin-left:calc(-1 * max(16px,env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px,env(safe-area-inset-right,0px)));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));width:auto;box-sizing:border-box;transition:box-shadow .2s}
+body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.phd,body.scrolled .fp>.phd,body.scrolled #v-result .res>.phd{box-shadow:0 1px 0 var(--line),0 6px 14px -12px rgba(33,20,45,.35)}
+.dmenu,#jBoard .bsearch,#v-rdetail .stickyhd{top:calc(env(safe-area-inset-top,0px) + var(--barH,0px) + 56px)!important}
+#jBoard .selbar{top:calc(env(safe-area-inset-top,0px) + var(--barH,0px) + 56px + var(--sH,66px))!important}
+#v-rdetail .stickyhd{top:calc(env(safe-area-inset-top,0px) + var(--barH,0px))!important}
+.phd-t h1{font-size:22px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1689,13 +1696,13 @@ li.done.now{border:1.5px solid var(--accent)}
 
   <!-- STEP 2 -->
   <section class="view" id="v-journal" aria-labelledby="h1-journal" hidden>
-    <div class="jhead">
-      <div class="eyebrow sr" id="jEye">소음일지</div>
-      <div class="phd"><span class="phd-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><div class="phd-t"><h1 id="h1-journal">소음일지</h1><p class="phd-s" id="jSub"></p></div>
+    <div class="phd jphd"><div class="phd-t"><h1 id="h1-journal">소음일지</h1><p class="phd-s" id="jSub"></p></div>
         <div class="phd-a"><button class="mini famchip" id="famBtn" type="button" data-openfam hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
         <button class="mini jtool icon-btn" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
         <button class="mini" id="exBtn" type="button" aria-pressed="false" hidden>예시</button></div></div>
-      <div class="exban" id="exBan" hidden></div>
+          <div class="jhead">
+      <div class="eyebrow sr" id="jEye">소음일지</div>
+<div class="exban" id="exBan" hidden></div>
       <nav class="seg2" aria-label="보기 방식"><a href="#journal" id="sgB">기록</a><a href="#stats" id="sgD">분석</a></nav>
       <div class="jseg" hidden role="tablist" aria-label="보기 방식"><button type="button" role="tab" data-jt="dash" aria-pressed="true">요약</button><button type="button" role="tab" data-jt="board" aria-pressed="false">기록 <span class="jn num" id="jN"></span></button></div>
     </div>
@@ -1732,7 +1739,7 @@ li.done.now{border:1.5px solid var(--accent)}
 
   <!-- STEP 3 -->
   <section class="view" id="v-report" aria-labelledby="h1-report" hidden>
-    <div class="phd"><span class="phd-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg></span><div class="phd-t"><h1 id="h1-report">해결</h1><p class="phd-s" id="rSub"></p></div></div>
+    <div class="phd"><div class="phd-t"><h1 id="h1-report">해결</h1><p class="phd-s" id="rSub"></p></div></div>
     <section class="pg" id="pg" aria-label="해결 과정 관리"></section>
     <div class="warn-box"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg><p><b>직접 찾아가지 마세요.</b> 문 두드리기·보복 소음은 갈등을 키우고 법적 책임이 생길 수 있어요. 위협을 느끼면 112.</p></div>
     <details class="moreopts" hidden><summary>알리는 방법 5가지 모두 보기</summary><nav class="opts" id="opts" aria-label="알리는 방법"></nav></details>
@@ -2538,7 +2545,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   let fTab = '';
   function renderFamPage() {
     const P = $('#famPage'), me = famMe();
-    const head = `<div class="phd"><span class="phd-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg></span><div class="phd-t"><h1 id="h1-family">가족공유</h1><p class="phd-s">${me ? `${esc(FAM.name)} · ${famActive().length}명` : '가족과 함께 기록해요'}</p></div></div>
+    const head = `<div class="phd"><div class="phd-t"><h1 id="h1-family">가족공유</h1><p class="phd-s">${me ? `${esc(FAM.name)} · ${famActive().length}명` : '가족과 함께 기록해요'}</p></div></div>
       <div class="fhero"><div><b>${me ? esc(FAM.name) : '우리 가족의'}</b><span>소음 기록을 함께 관리해요</span></div>${FAMSVG}</div>`;
     const body = (names, E, au, owner, max) => { if (fTab && !names.includes(fTab)) fTab = ''; const L = E.filter((e) => !fTab || au(e) === fTab).slice(0, 30); const per = (n) => E.filter((e) => au(e) === n).length;
       return `<div class="fcard"><div class="row"><b>가족 구성원 ${names.length}명</b></div><div class="row"><span class="avs">${names.map((n) => avHTML(n, 40)).join('')}${owner && names.length < max ? '<button type="button" class="av add" id="fpAdd" aria-label="초대">+</button>' : ''}</span>${me ? '<button type="button" class="btn mg" data-openfam>구성원 관리</button>' : ''}</div></div>
@@ -2557,7 +2564,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   const MI = (p) => `<span class="mi"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${p}</svg></span>`;
   function renderMore() {
     const item = (tag, attr, ic, t, sub) => `<li><${tag} ${attr}>${MI(ic)}<span class="tx"><b>${t}</b><small>${sub}</small></span><span class="chev">›</span></${tag}></li>`;
-    $('#morePage').innerHTML = `<div class="phd"><span class="phd-ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></span><div class="phd-t"><h1 id="h1-more">더보기</h1><p class="phd-s">${calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '휴대폰 보정 전'} · 기록 ${log.length}건</p></div></div>
+    $('#morePage').innerHTML = `<div class="phd"><div class="phd-t"><h1 id="h1-more">더보기</h1><p class="phd-s">${calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '휴대폰 보정 전'} · 기록 ${log.length}건</p></div></div>
       <p class="msec">우리 집</p>
       <ul class="mlist">${item('button', 'type="button" data-apt', '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/>', '우리 아파트 정보', MYAPT ? `${esc(MYAPT.name || '우리 아파트')} · ${MYAPT.year}년 준공 · ${aptEval(MYAPT).lvT}` : '준공 연도로 소음 취약도·맞춤 해결 제안')}${item('button', 'type="button" data-openfam', '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>', '가족과 함께 기록', FAM && famMe() ? `${esc(FAM.name)} · ${famActive().length}명` : '팀코드로 가족 초대')}</ul>
       <p class="msec">측정</p>
@@ -3171,8 +3178,9 @@ ${lines.join('\n')}
         <div class="sub-h">지금까지 거친 단계</div><div class="checks-in">${chk('d1', '관리사무소 알림·중단 권고', 1)}${chk('d2', '층간소음관리위원회 조정', 0)}${chk('d3', '이웃사이센터 상담·측정', 0)}</div>`,
       btn: 'AI로 분쟁 경위서 만들기',
       doc: (s, a) => { const st = [F.d1 && '관리사무소에 피해 사실을 알리고 중단 권고를 요청함', F.d2 && '층간소음관리위원회에 조정을 신청함', F.d3 && '층간소음 이웃사이센터 상담·측정을 받음'].filter(Boolean);
-        return `층간소음 분쟁 경위서${ex(s)}\n\n신청인  ${v('apt', '○○아파트')} ${v('me', '○○동 ○○○호')}\n피신청인(추정)  ${v('src', '○○동 ○○○호')}\n작성일  ${today()}\n\n1. 분쟁의 내용\n${a || situation(s)}\n\n2. 해결을 위해 거친 절차\n${st.map((x, i) => `  ${i + 1}) ${x}`).join('\n') || '  (거친 단계를 골라 주세요)'}\n  → 위 절차에도 소음이 계속되어 공동주택관리법 제20조 제11항에 따라 조정을 신청합니다.\n\n3. 바라는 조정 내용\n  · 야간(22시~06시) 소음 유발 행위 중단\n  · 소음 저감 조치(매트 설치 등) 이행\n\n4. 증거 자료\n  · 층간소음 피해 기록 일지(${s.E.length}건)\n  · 관리사무소 알림서 및 회신, 위원회 조정 결과(있으면)\n  · 이웃사이센터 측정 결과(있으면)\n\n신청인  (서명)`; } }
+        return `층간소음 분쟁 경위서${ex(s)}\n\n신청인  ${v('apt', '○○아파트')} ${v('me', '○○동 ○○○호')}\n피신청인(추정)  ${v('src', '○○동 ○○○호')}\n작성일  ${today()}\n\n1. 분쟁의 내용\n${a || situation(s)}\n\n2. 해결을 위해 거친 절차\n${st.map((x, i) => `  ${i + 1}) ${x}`).join('\n') || ((PG.rlog || []).length ? '' : '  (거친 단계를 골라 주세요)')}${rlogText()}\n  → 위 절차에도 소음이 계속되어 공동주택관리법 제20조 제11항에 따라 조정을 신청합니다.\n\n3. 바라는 조정 내용\n  · 야간(22시~06시) 소음 유발 행위 중단\n  · 소음 저감 조치(매트 설치 등) 이행\n\n4. 증거 자료\n  · 층간소음 피해 기록 일지(${s.E.length}건)${(PG.rlog || []).length ? `\n  · 대응 기록(${PG.rlog.length}건)` : ''}\n  · 관리사무소 알림서 및 회신, 위원회 조정 결과(있으면)\n  · 이웃사이센터 측정 결과(있으면)\n\n신청인  (서명)`; } }
   ];
+  function rlogText() { const L = [...(PG.rlog || [])].sort((a, b) => a.ts - b.ts); if (!L.length) return ''; return '\n  [대응 경과 — 쿵쾅 대응 기록]\n' + L.map((x) => { const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m); return `  · ${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())} (${o ? o.sh : '기타'}) ${x.what}${x.res ? ' → ' + x.res : ''}`; }).join('\n'); }
   let cur = 'office';
   /* ---------- 해결 과정 관리 ---------- */
   const PKEY = 'kungkwang.progress';
@@ -3285,7 +3293,7 @@ ${lines.join('\n')}
   }
   renderOpts();
 
-  const tt = $('#toTop'); window.addEventListener('scroll', () => { tt.hidden = window.scrollY < 320; }, { passive: true }); tt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
+  const tt = $('#toTop'); window.addEventListener('scroll', () => { tt.hidden = window.scrollY < 320; document.body.classList.toggle('scrolled', window.scrollY > 6); }, { passive: true }); tt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }));
   const setBar = () => { document.documentElement.style.setProperty('--barH', $('.bar').offsetHeight + 'px'); const sf = $('#sForm'); if (sf.offsetHeight) document.documentElement.style.setProperty('--sH', sf.offsetHeight + 'px'); }; setBar(); window.addEventListener('resize', setBar);
   show();
   // 첫 화면: 시연용 뛰는 소리 결과를 바로 보여 줌
