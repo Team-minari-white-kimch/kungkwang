@@ -1698,6 +1698,15 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .mk{position:absolute;top:-4px;width:3px;height:18px;background:var(--fg);border-radius:2px;transform:translateX(-50%)}.mk b{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:10.5px;white-space:nowrap}
 .mk.pk{background:var(--bad)}.mk.pk b{color:var(--bad)}
 .gx{position:relative;height:14px;margin-top:4px;font-size:9.5px;color:var(--fg2)}.gx span{position:absolute;transform:translateX(-50%);white-space:nowrap}.gx span:first-child{transform:none}.gx span:last-child{transform:translateX(-100%)}
+
+.d3{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px 12px}
+.d3k{display:grid;grid-template-columns:repeat(4,1fr);padding-bottom:12px;border-bottom:1px solid var(--line)}
+.d3k .hs{display:flex;flex-direction:column;align-items:center;gap:4px}.d3k .hs+.hs{border-left:1px solid var(--line)}
+.d3k .hs b{font-size:19px;font-weight:800;letter-spacing:-.02em}.d3k .hs b small{font-size:11px;font-weight:600;color:var(--fg2);margin-left:1px}
+.d3k .hs span{font-size:11.5px;color:var(--fg2);white-space:nowrap}
+.d3l{margin:10px 0 0;display:flex;flex-direction:column;gap:6px}
+.d3l>div{display:flex;justify-content:space-between;align-items:baseline;font-size:13px}
+.d3l dt{color:var(--fg2)}.d3l dd{margin:0;color:var(--fg2)}.d3l dd b{color:var(--fg);font-size:14.5px;font-weight:800}.d3l dd b.ac{color:var(--accent)}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -1741,7 +1750,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span><b>쿵쾅</b><small>층간소음, 감정 대신 기록으로</small></span>
     </a>
-    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#journal" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><button type="button" class="tab rec-tab" id="tabRec" aria-label="바로 녹음 시작"><span class="rt-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>녹음</button><a class="tab" href="#report" data-view="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg>해결</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a></nav>
+    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#stats" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><button type="button" class="tab rec-tab" id="tabRec" aria-label="바로 녹음 시작"><span class="rt-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>녹음</button><a class="tab" href="#report" data-view="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg>해결</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a></nav>
   </div>
 </header>
 
@@ -3047,17 +3056,10 @@ if (typeof module !== 'undefined') module.exports = KE;
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
-        ${E.length ? `<div class="d2">
-          <div class="d2h"><b>한눈에 보기</b><span>기록 ${E.length}건 · 소리 ${total}회</span></div>
-          <div class="d2g">
-            <div class="vt"><small>기준 초과</small><b class="num ${over ? 'red' : ''}">${over}<em>건</em></b><span class="sb"><i style="flex:${over};background:var(--bad)"></i><i style="flex:${near};background:var(--warn)"></i><i style="flex:${E.length - over - near};background:var(--ok)"></i></span><span class="vl"><i style="background:var(--bad)"></i>초과 ${over}<i style="background:var(--warn)"></i>근접 ${near}<i style="background:var(--ok)"></i>이내 ${E.length - over - near}</span></div>
-            <div class="vt"><small>야간 비중</small><div class="dn"><svg viewBox="0 0 60 60" width="60" height="60"><circle cx="30" cy="30" r="24" fill="none" stroke="var(--sunk)" stroke-width="8"/><circle cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(2 * Math.PI * 24 * npct / 100).toFixed(1)} 999" transform="rotate(-90 30 30)"/><text x="30" y="35" text-anchor="middle" font-size="14" font-weight="800" fill="var(--fg)">${npct}%</text></svg><span>야간 ${nightN}회<br><small>22~06시</small></span></div></div>
-            <div class="vt"><small>최다 시간대</small><b class="num">${ph}<em>시</em></b><span class="sp24">${hours.map((v, h) => `<i class="${h === ph ? 'on' : (h >= 22 || h < 6) ? 'nt' : ''}" style="height:${Math.max(6, Math.round(v / Math.max(1, hours[ph]) * 100))}%"></i>`).join('')}</span><span class="ax"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></span></div>
-            <div class="vt"><small>최다 요일</small><b>${WD[wdMax]}<em>요일</em></b><span class="sp7">${wdc.map((v, i) => `<span><i class="${i === wdMax ? 'on' : ''}" style="height:${Math.max(6, Math.round(v / Math.max(1, wdc[wdMax]) * 100))}%"></i><small>${WD[i]}</small></span>`).join('')}</span></div>
-          </div>
-          <div class="vt w"><small>소음도</small><div class="gz"><div class="gt"><i style="left:0;width:${(52 - 40) / 40 * 100}%;background:color-mix(in srgb,var(--ok) 30%,transparent)"></i><i style="left:${(52 - 40) / 40 * 100}%;width:${5 / 40 * 100}%;background:color-mix(in srgb,var(--warn) 35%,transparent)"></i><i style="left:${(57 - 40) / 40 * 100}%;right:0;background:color-mix(in srgb,var(--bad) 25%,transparent)"></i><span class="mk" style="left:${Math.min(100, Math.max(0, (avgMax - 40) / 40 * 100))}%"><b>평균 ${avgMax.toFixed(1)}</b></span><span class="mk pk" style="left:${Math.min(100, Math.max(0, (peak.lmax - 40) / 40 * 100))}%"><b>최고 ${peak.lmax}</b></span></div><div class="gx"><span>40</span><span style="left:30%">52</span><span style="left:42.5%">57</span><span style="left:75%">70</span><span style="left:100%">80 dB</span></div></div></div>
-          <div class="vt w"><small>주요 유형</small><span class="sb tall">${bys.filter((x) => x[1] / Math.max(1, total) >= .01).slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})"></i>`).join('')}</span><span class="vl">${bys.filter((x) => x[1] / Math.max(1, total) >= .01).slice(0, 4).map(([k, c]) => `<i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${Math.round(c / Math.max(1, total) * 100)}%`).join('')}</span></div>
-        </div>` : ''}
+        ${E.length ? `<section class="d3">
+          <div class="d3k">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(avgMax.toFixed(1), 'dB', '평균 최고')}${stat(peak.lmax, 'dB', '가장 컸던 때')}</div>
+          <dl class="d3l"><div><dt>기준 초과</dt><dd><b class="ac">${over}건</b>/${E.length}건</dd></div><div><dt>가장 잦은 시각</dt><dd><b>${ph}시</b></dd></div><div><dt>가장 많이 들린 소리</dt><dd><b>${topType}</b></dd></div></dl>
+        </section>` : ''}
       </div>`;
   }
   const fmtD = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
