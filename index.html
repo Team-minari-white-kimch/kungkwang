@@ -1392,6 +1392,82 @@ body:has(.fullpg:not([hidden])) .tabs{display:none!important}
 #rpA canvas{height:128px}
 #rpA .ins{padding:9px 12px}
 .racts.big .btn,.racts.big button{min-height:46px}
+/* ===== v36 glance: home / solve / family ===== */
+.home{gap:10px!important}
+.greet{padding:14px 16px!important;gap:10px!important;border-radius:18px}
+.greet b{font-size:17px!important;margin:1px 0 2px!important}
+.greet small{font-size:12px}
+.greet .g-top span{font-size:12px}
+.g-bld{width:84px!important;height:56px!important;top:8px!important}
+.g-stats{padding:6px 2px!important;border-radius:12px}
+.g-stats b{font-size:16px!important}
+.g-stats span{font-size:11px}
+.qa{gap:8px}
+.qa button{min-height:58px!important;gap:4px!important;border-radius:14px;font-size:12px}
+.qa .qi{width:26px!important;height:26px!important;border-radius:8px}
+.qa .qi svg{width:15px;height:15px}
+.inst{padding:9px 36px 9px 12px!important;border-radius:14px;align-items:center}
+.inst .ii{width:28px;height:28px;border-radius:9px}
+.inst b{font-size:13px} .inst small{font-size:11.5px}
+.hcard{padding:12px 14px!important;gap:8px!important;border-radius:16px}
+.hcard-h b{font-size:14px}
+.wk{height:58px!important;gap:6px}
+.wk i{max-width:18px}
+.wk span{font-size:10.5px}
+.wcmp{padding:6px 10px;font-size:12px}
+.wk-l{font-size:11px}
+.sv{gap:6px}
+.sv-r .ic{width:28px;height:28px;border-radius:9px}
+.sv-r b{font-size:13.5px} .sv-r small{font-size:12px}
+.sv-bar i{height:5px}
+.rec-tip{display:none}
+.privacy{font-size:11.5px;margin:0}
+/* solve */
+#v-report{gap:10px}
+.sh{padding:14px 16px!important;gap:8px!important;border-radius:18px}
+.sh-t{font-size:18px!important}
+.sh-d{font-size:12.5px!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sh-steps i{height:5px}
+.sh-a .go,.sh-a .dn{min-height:44px!important;font-size:14px!important}
+.apt{padding:10px 14px!important;gap:8px!important;border-radius:16px}
+.apt-h .ic{width:30px;height:30px;border-radius:9px}
+.apt-h b{font-size:14px} .apt-h small{font-size:11.5px}
+.apt-sug{padding:9px 12px!important;font-size:12.5px!important;line-height:1.55}
+.apt-d summary{cursor:pointer;font-size:12.5px;color:var(--fg2);font-weight:700}
+.apt-d[open] summary{margin-bottom:6px}
+.apt-lv{gap:6px} .apt-lv .note{font-size:11.5px}
+.rmh{margin-top:2px!important}
+.rmh h2{font-size:15px!important}
+.rm{gap:6px!important}
+.rm>li{padding:9px 12px!important;gap:8px!important;border-radius:14px}
+.rm-n{width:26px!important;height:26px!important;font-size:12px!important}
+.rm-t b{font-size:13.5px!important}
+.rm-t small{font-size:11.5px!important}
+.rm-st{font-size:11px;padding:2px 8px}
+li:not(.done):not(.now) .rm-t small{display:none}
+li:not(.now)>.rm-r{min-height:28px}
+.rm>li:not(.now){padding:7px 12px!important}
+.rm-ck{padding-left:38px;gap:4px}
+.rm-ck label{font-size:12.5px}
+.dont{padding:10px 14px!important;border-radius:14px}
+.dont summary{cursor:pointer;list-style:none}
+.dont summary b{font-size:13px}
+.dont ul{font-size:12.5px}
+.moreopts{padding-top:6px}
+.moreopts summary{font-size:13px}
+/* family */
+.fp{gap:10px!important}
+.fhero{min-height:76px!important;padding:12px 16px!important;border-radius:16px}
+.fhero svg{width:96px!important;height:74px!important;bottom:0!important}
+.fhero b{font-size:15px}
+.fcard{padding:12px 14px!important;gap:8px!important;border-radius:16px}
+.fcard .note{font-size:12.5px!important}
+.fjoin .btn{min-height:56px!important}
+.ftabs button{min-height:38px;font-size:13.5px}
+.flist a{padding:9px 12px!important;gap:10px!important}
+.flist .tx b{font-size:13.5px} .flist .tx span{font-size:12px} .flist .tx small{font-size:11px}
+.flist .av2{width:32px!important;height:32px!important}
+.rmh small{font-size:11.5px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2414,9 +2490,9 @@ if (typeof module !== 'undefined') module.exports = KE;
     const r = aptEval(MYAPT);
     return `<div class="apt"><div class="apt-h"><span class="ic">${IC}</span><div><b>${esc(MYAPT.name || '우리 아파트')}</b><small>${MYAPT.year}년 준공 · ${MYAPT.units || '?'}세대 · ${{ wall: '벽식', column: '기둥식', mixed: '구조 모름' }[MYAPT.str]}</small></div><button type="button" class="txtbtn" data-apt>바꾸기 ›</button></div>
       <div class="apt-lv"><span class="lv ${r.lv}">${r.lvT}</span><span class="note">준공 연도·구조 기준 추정</span></div>
-      <ul class="apt-why">${r.why.map((w) => `<li>${w}</li>`).join('')}</ul>
       <div class="apt-sug"><b>쿵쾅의 제안</b> · ${r.sug}</div>
-      <p class="apt-src">사업승인 시점은 보통 준공 2~3년 전이라 실제 적용 기준은 다를 수 있어요. 근거: 주택건설기준 등에 관한 규정·바닥충격음 기준, 공동주택관리법 시행령 제21조의2.</p></div>`;
+      <details class="apt-d"><summary>왜 그런가요?</summary><ul class="apt-why">${r.why.map((w) => `<li>${w}</li>`).join('')}</ul>
+      <p class="apt-src">사업승인 시점은 보통 준공 2~3년 전이라 실제 적용 기준은 다를 수 있어요. 근거: 주택건설기준 등에 관한 규정·바닥충격음 기준, 공동주택관리법 시행령 제21조의2.</p></details></div>`;
   }
   function openApt() { const a = MYAPT || {}; $('#aptName').value = a.name || ''; $('#aptYear').value = a.year || ''; $('#aptUnits').value = a.units || ''; $('#aptStr').value = a.str || 'wall'; $('#aptQ').value = ''; $('#aptHits').innerHTML = ''; $('#aptSheet').hidden = false; $('#sheetBg').hidden = false; }
   function closeApt() { $('#aptSheet').hidden = true; $('#sheetBg').hidden = true; }
@@ -2459,7 +2535,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const b = $('#instBan'); if (!b) return; let off = false; try { off = localStorage.getItem('kungkwang.inst') === 'off'; } catch (e) {}
     if (isStandalone() || off) { b.hidden = true; return; }
     const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
-    b.innerHTML = `<span class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8v6M9 11h6"/></svg></span><div><b>홈 화면에 추가하면 앱처럼 써요</b><small>보정값과 기록이 그대로 유지되고, 소리가 날 때 바로 열 수 있어요.<br>${ios ? 'Safari 아래 공유 버튼 → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>' : '브라우저 메뉴(⋮) → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>'}</small>${bip ? '<button type="button" class="btn primary" id="instGo">지금 추가하기</button>' : ''}</div><button type="button" class="x" id="instX" aria-label="닫기">×</button>`;
+    b.innerHTML = `<span class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8v6M9 11h6"/></svg></span><div><b>홈 화면에 추가하면 앱처럼 써요</b><small>보정값과 기록이 그대로 유지되고, 소리가 날 때 바로 열 수 있어요. ${ios ? 'Safari 아래 공유 버튼 → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>' : '브라우저 메뉴(⋮) → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>'}</small>${bip ? '<button type="button" class="btn primary" id="instGo">지금 추가하기</button>' : ''}</div><button type="button" class="x" id="instX" aria-label="닫기">×</button>`;
     b.hidden = false;
     $('#instX').onclick = () => { try { localStorage.setItem('kungkwang.inst', 'off'); } catch (e) {} b.hidden = true; };
     $('#instGo') && ($('#instGo').onclick = async () => { bip.prompt(); try { await bip.userChoice; } catch (e) {} bip = null; renderInst(); });
@@ -3009,7 +3085,7 @@ ${lines.join('\n')}
       <ol class="rm">${STG.map((st, k) => { const dn = isDone(st), now = k === ci, dt = PG.done[st.id] || (st.id === 'rec' && recAuto && E.length ? E[E.length - 1].ts : 0);
         const skip = !dn && !now && st.id === 'committee' && MYAPT && !aptEval(MYAPT).big;
         return `<li class="${dn ? 'done' : now ? 'now' : skip ? 'skip' : ''}"><div class="rm-r"><span class="rm-n">${dn ? CHK : k + 1}</span><span class="rm-t"><b>${st.t}</b><small>${dn && dt ? md(dt) + ' 완료' : skip ? '위원회가 없으면 건너뛰어도 돼요' : st.s}</small></span><span class="rm-st">${dn ? '완료' : now ? '진행 중' : skip ? '선택' : '예정'}</span></div>${now ? ckHTML(st) : ''}${dn && st.id !== 'rec' && k === ci - 1 ? `<button type="button" class="btn rm-u" data-pundo="${st.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ol>
-      <div class="dont"><b><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>이것만은 하지 마세요</b><ul><li>직접 찾아가 문을 두드리거나 따지기</li><li>보복 소음(천장 두드리기, 스피커 틀기)</li><li>화가 난 상태에서 글 보내기 — 위협을 느끼면 112</li></ul></div>`;
+      <details class="dont"><summary><b><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>이것만은 하지 마세요</b></summary><ul><li>직접 찾아가 문을 두드리거나 따지기</li><li>보복 소음(천장 두드리기, 스피커 틀기)</li><li>화가 난 상태에서 글 보내기 — 위협을 느끼면 112</li></ul></details>`;
     $$('#pg [data-pdone]').forEach((b) => b.addEventListener('click', () => { PG.done[b.dataset.pdone] = Date.now(); pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); toast('잘하셨어요 · 다음 단계로 넘어갔어요'); }));
     $$('#pg [data-pundo]').forEach((b) => b.addEventListener('click', () => { delete PG.done[b.dataset.pundo]; pgSave(); renderProgress(); }));
     $$('#pg [data-pck]').forEach((c) => c.addEventListener('change', () => { PG.ck[c.dataset.pck] = c.checked; pgSave(); renderProgress(); }));
