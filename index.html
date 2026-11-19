@@ -992,6 +992,43 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .calc-g button.today{box-shadow:inset 0 0 0 1.5px var(--line2)}
 .calc-g button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);font-weight:700}
 .calc-g button[aria-pressed=true]::after{background:#fff}
+@media (max-width:680px){body:not([data-v=analyze]) .bar{background:transparent;border-bottom:0;position:static}
+  body:not([data-v=analyze]) .bar .brand{display:none}
+  body:not([data-v=analyze]) .bar .inner{padding:0}
+  body:not([data-v=analyze]) main{padding-top:6px}
+  .rec{width:172px!important;height:172px!important}.rec::after{inset:-30px!important}}
+.stage-acts .link-btn{border:0!important;background:transparent!important;font-size:13px;color:var(--fg2);font-weight:600;padding:6px 8px}
+.stage-acts .link-btn svg{width:14px;height:14px}
+.stage-acts{gap:2px}
+.stage-acts .calchip.warn{color:var(--warn)}
+.greet .g-cal{display:inline-flex;align-items:center;gap:4px;margin-top:8px;font-size:12.5px;font-weight:700;background:rgba(255,255,255,.2);border:0;color:#fff;border-radius:999px;padding:5px 12px;min-height:30px;cursor:pointer;font-family:inherit}
+.pill.ok{color:var(--fg2);background:var(--sunk)}
+/* result */
+.vd{border-radius:18px;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
+.vd.over{background:var(--bad-soft)} .vd.near{background:var(--warn-soft)} .vd.ok,.vd.na{background:var(--sunk)}
+.vd .vk{font-size:12.5px;font-weight:700;color:var(--fg2);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.vd .vt{font-size:22px;font-weight:900;letter-spacing:-.03em;line-height:1.3}
+.vd.over .vt{color:var(--bad)} .vd.near .vt{color:var(--warn)}
+.vd .vs{font-size:14px;color:var(--fg)}
+.mt{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mt div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.mt small{font-size:12px;color:var(--fg2)} .mt b{font-size:18px;font-weight:800}
+.rtabs{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line)}
+.rtabs button{border:0;border-radius:0;background:transparent;min-height:44px;font-size:14.5px;color:var(--fg2);border-bottom:2px solid transparent}
+.rtabs button[aria-pressed=true]{color:var(--accent);font-weight:700;border-bottom-color:var(--accent)}
+.rpane{display:flex;flex-direction:column;gap:14px}
+.racts.big{display:grid;grid-template-columns:1fr 1.4fr;gap:8px}
+.racts.big .btn,.racts.big button{min-height:50px;font-size:15px}
+.hsum{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.hsum b{font-size:14px;margin-right:4px}
+.hsum .memo{flex-basis:100%;font-size:13px;color:var(--fg2)}
+.hsum .txtbtn{margin-left:auto}
+#harmSheet{max-height:92vh;overflow:auto}
+.hs-lead{font-size:14px;color:var(--fg2);margin:0 0 14px;line-height:1.5}
+/* journal tools */
+.board:not(.jt-on) #sForm,.board:not(.jt-on) .rhead,.board:not(.jt-on) .ck{display:none!important}
+.board:not(.jt-on) .gr .ga{padding-left:14px}
+.jtool[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1062,7 +1099,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
     <div class="home">
       <div class="hm-top">
         <button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div>
-      <div class="greet"><div><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 바로 녹음하세요</span></div>
+      <div class="greet"><div><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 바로 녹음하세요</span><button type="button" class="g-cal" id="greetCal" data-opencal hidden>8초 보정하면 dB가 정확해져요 ›</button></div>
         <svg class="g-bld" viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="22" width="44" height="58" rx="3" fill="#fff" opacity=".28"/><rect x="58" y="8" width="54" height="72" rx="3" fill="#fff" opacity=".4"/><rect x="66" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="66" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="78" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="90" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="102" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".75"/><rect x="15" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="15" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="26" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".6"/><rect x="37" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".6"/></svg></div>
       <h1 id="h1-analyze" class="sr">소리 녹음</h1>
       <button class="recent2" id="recent2" type="button"></button>
@@ -1107,6 +1144,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
         <h1 id="h1-journal">내 소음 기록</h1>
         <span class="sp"></span>
         <button class="mini famchip" id="famBtn" type="button" data-openfam><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
+        <button class="mini jtool" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg>검색·선택</button>
         <button class="mini" id="exBtn" type="button" aria-pressed="false" title="예시 일지 보기/끄기">예시</button>
         <a class="btn primary next-top" href="#report">다음: 알리기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
@@ -1230,6 +1268,13 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <div class="grab" aria-hidden="true"></div>
   <div class="sheet-h"><h2 id="famH">가족과 함께 기록</h2><button type="button" class="icon-btn x" id="closeFam" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
   <div id="famBody"></div>
+</div>
+<div class="sheet" id="harmSheet" role="dialog" aria-modal="true" aria-labelledby="harmH" hidden>
+  <div class="grab" aria-hidden="true"></div>
+  <div class="sheet-h"><h2 id="harmH">생활 피해 기록</h2><button type="button" class="icon-btn x" id="closeHarm" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <p class="hs-lead" id="harmLead"></p>
+  <div id="harmBody"></div>
+  <div class="fam-acts"><button type="button" class="btn" id="harmSkip">건너뛰기</button><button type="button" class="btn primary" id="harmSave">저장하기</button></div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1474,7 +1519,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (v === 'journal') { jtab = v0 === 'stats' ? 'dash' : 'board'; }
     if (rid) { cur = rid; renderNav(); renderPanel(); }
     let shown = null; if (le) { shown = restore(le.res); shown._harm = le.harm ? { kinds: [...(le.harm.kinds || [])], lv: le.harm.lv || 0, memo: le.harm.memo || '' } : null; render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
-    VIEWS.forEach((k) => { $('#v-' + k).hidden = k !== v; });
+    VIEWS.forEach((k) => { $('#v-' + k).hidden = k !== v; }); document.body.dataset.v = v;
     const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : (v === 'rdetail' || v === 'report') ? 'more' : v0 === 'stats' ? 'stats' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
     $('footer').hidden = v !== 'more';
     if (v === 'journal') renderJournal(); else $('#selBar').hidden = true;
@@ -1860,6 +1905,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const b = $('#recent2'); if (!b) return;
     const L = log.length ? log : [], e = L[L.length - 1];
     const today = new Date(); today.setHours(0, 0, 0, 0); const nT = L.filter((x) => x.ts >= today.getTime()).length;
+    $('#greetCal').hidden = !!calState();
     $('#greetS').textContent = nT ? `오늘 소음 기록 ${nT}건이 쌓였어요` : '소리가 나면 바로 녹음하세요';
     if (!e) { b.innerHTML = '<span class="k">최근 소음 기록</span><span class="chev">›</span><span class="d" style="color:var(--fg2)">아직 기록이 없어요 · 예시 일지 보기</span>'; b.onclick = () => { exMode = true; go('journal'); }; return; }
     const d = new Date(e.ts);
@@ -1924,8 +1970,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   const harmChips = (h) => h && (h.kinds?.length || h.lv) ? `${(h.kinds || []).map((k) => `<span class="hchip">${HK[k][0]}</span>`).join('')}${h.lv ? `<span class="hchip lv">강도 ${h.lv}</span>` : ''}` : '';
   let curHarm = { kinds: [], lv: 0, memo: '' };
   function harmHTML(h) {
-    return `<div class="blk harm"><h2>생활 피해 기록 <span class="note" style="font-weight:400">선택 · 상담·조정 때 함께 제출돼요</span></h2>
-      <p class="hq">이번 소음으로 어떤 피해가 있었나요?</p>
+    return `<div class="blk harm"><p class="hq">이번 소음으로 어떤 피해가 있었나요?</p>
       <div class="hk">${Object.entries(HK).map(([k, [n, ic]]) => `<button type="button" data-hk="${k}" aria-pressed="${h.kinds.includes(k)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</button>`).join('')}</div>
       <p class="hq">피해 강도는 어느 정도인가요?</p>
       <div class="hl">${[1, 2, 3, 4, 5].map((v) => `<button type="button" data-hl="${v}" aria-pressed="${h.lv === v}" aria-label="강도 ${v} ${LVT[v]}">${v}</button>`).join('')}</div>
@@ -1934,10 +1979,26 @@ if (typeof module !== 'undefined') module.exports = KE;
       <div class="hm-w"><textarea id="hMemo" maxlength="200" placeholder="예: 새벽에 소음으로 잠에서 깨어 다시 잠들기 어려웠어요.">${esc(h.memo || '')}</textarea><small class="num" id="hCnt">${(h.memo || '').length}/200</small></div></div>`;
   }
   function bindHarm(h, onChange) {
-    $$('#result [data-hk]').forEach((b) => b.addEventListener('click', () => { const k = b.dataset.hk; h.kinds = h.kinds.includes(k) ? h.kinds.filter((x) => x !== k) : [...h.kinds, k]; b.setAttribute('aria-pressed', String(h.kinds.includes(k))); onChange(); }));
-    $$('#result [data-hl]').forEach((b) => b.addEventListener('click', () => { const v = +b.dataset.hl; h.lv = h.lv === v ? 0 : v; $$('#result [data-hl]').forEach((x) => x.setAttribute('aria-pressed', String(+x.dataset.hl === h.lv))); onChange(); }));
+    $$('#harmBody [data-hk]').forEach((b) => b.addEventListener('click', () => { const k = b.dataset.hk; h.kinds = h.kinds.includes(k) ? h.kinds.filter((x) => x !== k) : [...h.kinds, k]; b.setAttribute('aria-pressed', String(h.kinds.includes(k))); onChange(); }));
+    $$('#harmBody [data-hl]').forEach((b) => b.addEventListener('click', () => { const v = +b.dataset.hl; h.lv = h.lv === v ? 0 : v; $$('#harmBody [data-hl]').forEach((x) => x.setAttribute('aria-pressed', String(+x.dataset.hl === h.lv))); onChange(); }));
     const m = $('#hMemo'); m && m.addEventListener('input', () => { h.memo = m.value; $('#hCnt').textContent = `${m.value.length}/200`; onChange(true); });
   }
+  let harmE = null, harmNew = false;
+  function openHarm(e, isNew) {
+    harmE = e; harmNew = isNew; const h = { kinds: [...(e.harm?.kinds || [])], lv: e.harm?.lv || 0, memo: e.harm?.memo || '' }; harmE._h = h;
+    $('#harmLead').innerHTML = isNew ? '<b>일지에 저장했어요.</b> 이 소음으로 생활에 어떤 피해가 있었는지도 남기면 상담·조정 때 함께 제출돼요.' : '피해 종류와 강도를 고칠 수 있어요.';
+    $('#harmSkip').textContent = isNew ? '건너뛰기' : '취소';
+    $('#harmBody').innerHTML = harmHTML(h); bindHarm(h, () => {});
+    $('#harmSheet').hidden = false; $('#sheetBg').hidden = false;
+  }
+  function closeHarm(saved) {
+    $('#harmSheet').hidden = true; $('#sheetBg').hidden = true;
+    if (harmNew) { toast(saved ? '피해 기록까지 저장했어요' : '일지에 저장했어요'); go('journal'); } else if (saved) { toast('생활 피해 기록을 고쳤어요'); show(); }
+    harmE = null;
+  }
+  $('#harmSave').addEventListener('click', () => { if (!harmE) return; const h = harmE._h; delete harmE._h; harmE.harm = h.kinds.length || h.lv || h.memo.trim() ? { kinds: h.kinds, lv: h.lv, memo: h.memo.trim() } : undefined; if (!harmE.example) { try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (x) {} } closeHarm(true); });
+  $('#harmSkip').addEventListener('click', () => { if (harmE) delete harmE._h; closeHarm(false); });
+  $('#closeHarm').addEventListener('click', () => { if (harmE) delete harmE._h; closeHarm(false); });
   function render(r, fromLog, ts) {
     const el = $('#result');
     const bk = $('#v-result .back'); bk.lastChild.textContent = fromLog ? '기록 게시판' : '다시 분석'; bk.setAttribute('href', fromLog ? '#journal' : '#analyze');
@@ -1956,25 +2017,31 @@ if (typeof module !== 'undefined') module.exports = KE;
     const srcTag = isEx ? '<span class="src-tag">예시</span>' : isMic ? (calHow ? '<span class="src-tag ok">보정됨</span>' : '<span class="src-tag warn">보정 전</span>') : '<span class="src-tag warn">파일 · dB 참고용</span>';
     const srcNote = isEx ? '' : isMic ? (calHow ? '' : (fromLog ? '<p class="src-note">보정 전에 녹음한 기록이라 dB는 참고용이에요.</p>' : '<p class="src-note">이 휴대폰은 아직 보정 전이라 dB가 실제와 다를 수 있어요. 지금 8초만 보정하면 <b>이 녹음도 다시 계산</b>돼요. <button type="button" class="txtbtn" data-opencal>자동 보정하기 ›</button></p>'))
       : '<p class="src-note">다른 앱으로 녹음한 파일은 앱마다 소리 크기를 다르게 저장해서 dB는 참고용이에요. 소리 종류 구분은 그대로 쓸 수 있고, 정확한 dB는 쿵쾅으로 직접 녹음해 주세요.</p>';
+    const vt = worst === 'over' ? `${per} 기준 초과` : worst === 'near' ? `${per} 기준 근접` : worst === 'ok' ? `${per} 기준 안쪽` : '기준 판단 어려움';
+    const vs = `${main}${comp.length > 1 ? ` 외 ${comp.length - 1}가지` : ''} · 소리 ${n}번${worst === 'over' ? ` · 최고 기준 넘은 횟수 ${r.overLmax}번` : ''}`;
+    const h0 = fromLog ? r._harm : null;
     el.innerHTML = `
-      <div class="sum">
-        <div class="sum-meta"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초 녹음</span>${srcTag}</div>
-        <h1 class="sum-t">${main}${comp.length > 1 ? ` <span class="sum-more">외 ${comp.length - 1}가지</span>` : ''}</h1>
-        <p class="sum-lead st-${worst}"><span class="sdot"></span><span>${lead}</span></p>
-        ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
-      </div>
-      ${harmHTML(fromLog ? (r._harm || { kinds: [], lv: 0, memo: '' }) : curHarm)}
-      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">이 기록으로 알리기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts"><button class="primary" id="save" type="button">일지에 저장</button><a class="btn" href="#analyze">다시 분석</a></div>`}
-      ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
+      <div class="vd ${worst}"><div class="vk"><span class="ai-tag">AI 추정</span><span class="num">${when} · ${r.durSec.toFixed(0)}초</span>${srcTag}</div>
+        <div class="vt">${vt}</div><div class="vs">${vs}</div></div>
+      <div class="mt"><div><small>최고 소음</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>1분 평균</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>들린 소리</small><b class="num">${n}번</b></div><div><small>주된 소리</small><b>${main}</b></div></div>
+      ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
+      ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">이 기록으로 알리기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts big"><a class="btn" href="#analyze">다시 녹음</a><button class="primary" id="save" type="button">일지에 저장</button></div>`}
+      <div class="rtabs" role="tablist"><button type="button" data-rt="a" aria-pressed="true">분석 요약</button><button type="button" data-rt="b" aria-pressed="false">상세 정보</button></div>
+      <div class="rpane" id="rpA">
+        ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
         <div class="cmp-r"><div><div class="cmp-k">${label[c.k]}</div><div class="cmp-s">${sub[c.k](c)}</div></div>
           <div class="cmp-v num"><b>${c.v.toFixed(1)}</b><span>/ ${c.lim} dB</span></div><span class="pill ${c.st}">${stTxt[c.st]}</span></div>`).join('')}</div></div>` : ''}
-      <div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>
-      <details class="why"><summary>AI가 이렇게 판단한 이유</summary>
-        <div class="tbl-wrap" style="margin-top:8px"><table><thead><tr><th>시점</th><th>종류</th><th>최고</th><th>근거</th></tr></thead><tbody>
+        <div class="chart"><canvas id="cv" aria-label="시간에 따른 소음 크기 그래프"></canvas></div>
+      </div>
+      <div class="rpane" id="rpB" hidden>
+        ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
+        <div class="blk"><h2>AI가 이렇게 판단했어요</h2>
+        <div class="tbl-wrap"><table><thead><tr><th>시점</th><th>종류</th><th>최고</th><th>근거</th></tr></thead><tbody>
         ${r.ev.slice(0, 20).map((e) => `<tr><td class="n">${e.t.toFixed(1)}초</td><td>${T[e.type].name}</td><td class="n">${e.peak.toFixed(1)} dB</td><td class="note">${e.why}</td></tr>`).join('')}
         </tbody></table></div>
-        <p class="note" style="margin-top:6px">${r.ym ? '1단 AI(YAMNet)가 들은 소리: ' + [...new Set(r.ym.chunks.flatMap((c) => c.top))].slice(0, 5).join(', ') + ' → 2단 층간소음 판별로 보정' : '2단 판별 규칙만으로 분석했습니다.'}</p></details>
-      <p class="note">휴대폰 측정 참고값입니다. 법적 판정은 공인 측정으로 정해집니다.</p>
+        <p class="note">${r.ym ? '1단 AI(YAMNet)가 들은 소리: ' + [...new Set(r.ym.chunks.flatMap((c) => c.top))].slice(0, 5).join(', ') + ' → 2단 층간소음 판별로 보정' : '2단 판별 규칙만으로 분석했습니다.'}</p></div>
+        <p class="note">휴대폰 측정 참고값입니다. 법적 판정은 공인 측정으로 정해집니다.</p>
+      </div>
 `;
     requestAnimationFrame(() => drawChart(r));
     if (fromLog) {
@@ -1985,9 +2052,9 @@ if (typeof module !== 'undefined') module.exports = KE;
       $('#dDelNo').addEventListener('click', () => { $('#dConf').hidden = true; });
       $('#dDelYes').addEventListener('click', () => { delEntries([ts]); go('journal'); });
     }
-    if (fromLog) { const e0 = entries().find((e) => e.ts === ts); if (e0) { const h = r._harm || { kinds: [], lv: 0, memo: '' }; let tm; bindHarm(h, (soft) => { e0.harm = { kinds: h.kinds, lv: h.lv, memo: h.memo }; clearTimeout(tm); tm = setTimeout(() => { if (!e0.example) { try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (x) {} } if (!soft) toast('생활 피해 기록을 고쳤어요'); }, soft ? 500 : 0); }); } }
-    else bindHarm(curHarm, () => {});
-    if (!fromLog) $('#save').addEventListener('click', () => { addEntry(r); toast('일지에 저장했습니다'); go('journal'); });
+    $$('#result [data-rt]').forEach((b) => b.addEventListener('click', () => { $$('#result [data-rt]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); $('#rpA').hidden = b.dataset.rt !== 'a'; $('#rpB').hidden = b.dataset.rt !== 'b'; if (b.dataset.rt === 'a') requestAnimationFrame(() => drawChart(r)); }));
+    if (fromLog) $('#hEdit').addEventListener('click', () => { const e0 = entries().find((e) => e.ts === ts); if (e0) openHarm(e0, false); });
+    if (!fromLog) $('#save').addEventListener('click', () => { const e0 = addEntry(r); openHarm(e0, true); });
   }
   function drawChart(r) {
     const cv = $('#cv'); if (!cv || !cv.clientWidth) return; cv._r = r;
@@ -2049,8 +2116,9 @@ if (typeof module !== 'undefined') module.exports = KE;
   function entries() { if (exMode === null) exMode = !log.length; isExample = exMode; return exMode ? exampleLog() : log; }
   function addEntry(r) {
     exMode = false; const au = famMe(); const hm = curHarm.kinds.length || curHarm.lv || curHarm.memo.trim() ? { kinds: [...curHarm.kinds], lv: curHarm.lv, memo: curHarm.memo.trim() } : undefined; log.push({ harm: hm, author: au ? au.nick : undefined, vis: au ? famVis() : undefined, cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
-    log.sort((a, b) => a.ts - b.ts);
-    try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); log[log.length - 1].res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
+    const ne = log[log.length - 1]; log.sort((a, b) => a.ts - b.ts);
+    try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); ne.res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
+    return ne;
   }
   let jtab = 'dash', dmenu = 'heat', dper = 7;
   const SF = { day: '', per: 0, au: '', field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
@@ -2200,6 +2268,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#exBtn').setAttribute('aria-pressed', String(isExample));
     $('#jDash').hidden = jtab !== 'dash'; if (jtab === 'dash') $('#jCal').hidden = true; $('#jBoard').hidden = jtab !== 'board';
     $$('[data-jt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.jt === jtab)));
+    $('#jTool').hidden = jtab === 'dash';
     $('#h1-journal').textContent = jtab === 'dash' ? '소음 패턴 분석' : '소음 일지'; $('#jEye').textContent = jtab === 'dash' ? '리포트' : '소음일지';
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
@@ -2240,6 +2309,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#moreBtn') && $('#moreBtn').addEventListener('click', () => { page++; renderJournal(); });
   }
   function bindEmpty() { $$('#v-journal [data-ex]').forEach((b) => b.addEventListener('click', () => { exMode = true; pick.clear(); renderJournal(); })); }
+  $('#jTool').addEventListener('click', () => { const on = !$('#jBoard').classList.contains('jt-on'); $('#jBoard').classList.toggle('jt-on', on); $('#jTool').setAttribute('aria-pressed', String(on)); if (!on) { pick.clear(); renderJournal(); } });
   $('#exBtn').addEventListener('click', () => { exMode = !isExample; if (!exMode && !log.length) toast('저장한 기록이 아직 없어요'); pick.clear(); page = 0; renderJournal(); });
   $('#ckAll').addEventListener('change', (ev) => { const R = [...entries()].reverse().filter(matches); R.forEach((e) => ev.target.checked ? pick.add(e.ts) : pick.delete(e.ts)); renderJournal(); });
   $$('#qChips [data-q]').forEach((b) => b.addEventListener('click', () => {
