@@ -1647,6 +1647,18 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 .onb-acts .btn{min-height:50px;font-size:16px;width:100%}
 .onb-acts .skip{background:none;border:0;color:var(--fg2);font-size:14px;min-height:44px;cursor:pointer;font-family:inherit}
 .onb-tip{font-size:13px;color:var(--fg2);text-align:center;margin:0;line-height:1.5;word-break:keep-all}
+
+.d1{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 12px 10px}
+.d1g{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.d1g .c{display:flex;flex-direction:column;align-items:center;gap:1px;padding:8px 2px;border-radius:10px;background:var(--sunk);min-width:0}
+.d1g .c small{font-size:10.5px;color:var(--fg2);font-weight:600;white-space:nowrap}
+.d1g .c b{font-size:18px;font-weight:800;letter-spacing:-.02em;line-height:1.2;white-space:nowrap}
+.d1g .c b em{font-style:normal;font-size:10.5px;color:var(--fg2);margin-left:1px;font-weight:600}
+.d1g .c.bad{background:var(--bad-soft)} .d1g .c.bad b{color:var(--bad)}
+.d1g .c .ibar{width:70%;margin-top:3px}
+.d1t{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 10px;margin-top:10px}
+.d1t small{font-size:11px;color:var(--fg2);font-weight:600}
+.d1t .tb-lg{grid-column:1/-1;flex-wrap:nowrap;justify-content:space-between;gap:6px;font-size:11px;white-space:nowrap}.d1t .tb-lg i{margin-right:3px;width:7px;height:7px}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -2979,17 +2991,24 @@ if (typeof module !== 'undefined') module.exports = KE;
     const per = `<div class="pchips" role="group" aria-label="기간">${[['7', '7일'], ['30', '30일'], ['all', '전체']].map(([k, l]) => `<button type="button" data-per="${k}" aria-pressed="${String(dper) === k}">${l}</button>`).join('')}</div>`;
     return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>
       <div class="dcols">
+        <section class="d1">
+          <div class="d1g">
+            <div class="c ${over ? 'bad' : ''}"><small>기준 초과</small><b class="num">${over}<em>건</em></b></div>
+            <div class="c"><small>야간 비중</small><b class="num">${npct}<em>%</em></b><span class="ibar"><i style="width:${npct}%"></i></span></div>
+            <div class="c"><small>최다 시간대</small><b class="num">${E.length ? ph : '-'}<em>${E.length ? '시' : ''}</em></b></div>
+            <div class="c"><small>최다 요일</small><b>${E.length ? WD[wdMax] : '-'}<em>${E.length ? '요일' : ''}</em></b></div>
+            <div class="c"><small>기록</small><b class="num">${E.length}<em>건</em></b></div>
+            <div class="c"><small>들린 소리</small><b class="num">${total}<em>회</em></b></div>
+            <div class="c"><small>평균 최고</small><b class="num">${E.length ? avgMax.toFixed(1) : '-'}<em>${E.length ? 'dB' : ''}</em></b></div>
+            <div class="c"><small>최고 소음</small><b class="num">${E.length ? peak.lmax : '-'}<em>${E.length ? 'dB' : ''}</em></b></div>
+          </div>
+          ${E.length ? `<div class="d1t"><small>주요 유형</small><span class="tb-bar">${bys.slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})" title="${T[k].name} ${c}회"></i>`).join('')}</span><span class="tb-lg">${bys.slice(0, 4).map(([k, c]) => `<span><i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${Math.round(c / Math.max(1, total) * 100)}%</span>`).join('')}</span></div>` : ''}
+        </section>
         <section class="dcard2">
           <div class="dc-h"><h3>소음 패턴</h3></div>
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
-        <section class="ibox"><div class="ib ${over ? 'bad' : ''}"><small>기준 초과</small><b class="num">${over}<em>건</em></b><span>근접 ${near}건 · 전체 ${E.length}건</span></div>
-          <div class="ib"><small>야간 비중</small><b class="num">${npct}<em>%</em></b><span class="ibar"><i style="width:${npct}%"></i></span></div>
-          <div class="ib"><small>최다 시간대</small><b class="num">${E.length ? ph : '-'}<em>${E.length ? '시' : ''}</em></b><span>${E.length ? (ph >= 22 || ph < 6 ? '야간' : '주간') + ' · ' + hours[ph] + '회' : ''}</span></div>
-          <div class="ib"><small>최다 요일</small><b>${E.length ? WD[wdMax] + '<em>요일</em>' : '-'}</b><span>${E.length ? wdc[wdMax] + '회' : ''}</span></div></section>
-        ${E.length ? `<section class="tbox"><span class="tb-i" style="background:var(--t-${T[bys[0][0]].color})"></span><span class="tb-t"><small>주요 소음 유형</small><b>${topType}</b></span><span class="tb-v num">${Math.round(bys[0][1] / Math.max(1, total) * 100)}<small>%</small></span><span class="tb-bar">${bys.slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})" title="${T[k].name} ${c}회"></i>`).join('')}</span><span class="tb-lg">${bys.slice(0, 4).map(([k, c]) => `<span><i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${c}</span>`).join('')}</span></section>` : ''}
-        <section class="kbox">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</section>
       </div>`;
   }
   const fmtD = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
