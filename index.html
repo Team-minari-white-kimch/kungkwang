@@ -1069,7 +1069,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   .rec-tab .rt-c svg{width:26px!important;height:26px!important}
   .rec-tab.on .rt-c{background:linear-gradient(150deg,#E5484D,#B4232A)}
 }
-.phd-a a.icon-btn{display:grid;place-items:center;color:var(--fg)}
+.phd-a a.icon-btn{display:grid;place-items:center;color:var(--fg);width:36px;height:36px;border:1px solid var(--line2);background:var(--surface);box-sizing:border-box}
 #calChip{display:none!important}
 #drop:has(.rec.live) .rec-hint{display:none}
 #drop{padding-top:40px}
@@ -1252,6 +1252,67 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
 .av2{background:none!important;padding:0;overflow:hidden;box-shadow:0 0 0 2px var(--surface),0 2px 6px -3px rgba(33,20,45,.3)}
 .av2 svg{width:100%;height:100%;display:block}
 .avs .av2+.av2{margin-left:-6px}
+/* ===== v32: noti, dot, install, wizard ===== */
+.bell{position:relative}
+.bell{position:relative!important;overflow:visible}
+.bell .bd{position:absolute!important;top:5px!important;right:6px!important;left:auto!important;bottom:auto!important;width:8px!important;height:8px!important;min-width:0!important;padding:0!important;border-radius:50%;background:var(--bad);box-shadow:0 0 0 2px var(--surface);display:block}
+.bell .bd[hidden]{display:none}
+.tab .tdot{position:absolute;top:4px;margin-left:16px;width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 0 2px var(--surface)}
+.tab{position:relative}
+#notiSheet{max-height:80vh;overflow:auto}
+.nl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.nl a,.nl button{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--surface);color:var(--fg);text-decoration:none;font:inherit;min-height:0;justify-content:flex-start}
+.nl .ni{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;flex:none;background:var(--accent-soft);color:var(--accent)}
+.nl .ni.w{background:var(--warn-soft);color:var(--warn)} .nl .ni.b{background:var(--bad-soft);color:var(--bad)}
+.nl b{display:block;font-size:14.5px} .nl small{font-size:12.5px;color:var(--fg2);line-height:1.5;word-break:keep-all}
+.nl-empty{text-align:center;color:var(--fg2);font-size:14px;padding:24px 0}
+.wcmp{font-size:12.5px;padding:8px 10px;border-radius:10px;background:var(--sunk);color:var(--fg);display:flex;gap:6px;align-items:center}
+.wcmp b.up{color:var(--bad)} .wcmp b.dn{color:var(--ok)}
+.inst{position:relative;display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px dashed var(--line2);border-radius:16px;padding:12px 40px 12px 14px}
+.inst .ii{width:34px;height:34px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.inst b{font-size:14px;display:block} .inst small{font-size:12.5px;color:var(--fg2);line-height:1.55;display:block;word-break:keep-all}
+.inst .x{position:absolute;top:6px;right:6px;width:30px;height:30px;min-height:30px;padding:0;border:0;background:transparent;color:var(--fg2);font-size:18px}
+.inst .btn{margin-top:8px;min-height:36px;font-size:13px}
+.wz{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:4px}
+.wz button{flex-direction:column;gap:4px;min-height:56px;border:0;background:transparent;font-size:12px;color:var(--fg2);padding:4px}
+.wz button i{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12.5px;background:var(--sunk);color:var(--fg2)}
+.wz button.on{color:var(--accent);font-weight:800} .wz button.on i{background:var(--accent);color:#fff}
+.wz button.dn i{background:var(--accent-soft);color:var(--accent)}
+.wz-bar{height:4px;border-radius:2px;background:var(--sunk);overflow:hidden;margin:-2px 0 6px}
+.wz-bar i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.wsel{list-style:none;margin:0;padding:0;border:1px solid var(--line);border-radius:14px;overflow:hidden;max-height:380px;overflow-y:auto}
+.wsel label{display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line);font-size:13.5px;cursor:pointer}
+.wsel li:first-child label{border-top:0}
+.wsel input{width:18px;height:18px;accent-color:var(--accent);flex:none}
+.wsel .t{flex:1;min-width:0} .wsel .t b{font-size:13.5px} .wsel .t small{display:block;font-size:12px;color:var(--fg2)}
+.wq{display:flex;gap:6px;flex-wrap:wrap}
+.wq button{min-height:34px;font-size:12.5px;border-radius:999px;padding:4px 12px}
+.wnav{display:grid;grid-template-columns:1fr 1.6fr;gap:8px;margin-top:4px}
+.wnav .btn,.wnav button{min-height:50px;font-size:15px}
+.priv{display:flex;flex-direction:column;gap:6px}
+.priv label{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:12px;padding:10px 12px;font-size:13.5px;cursor:pointer;word-break:keep-all}
+.priv input{accent-color:var(--accent);width:18px;height:18px;flex:none;margin-top:1px}
+.priv b{display:block;font-size:14px}
+.priv small{color:var(--fg2);font-size:12.5px}
+.priv label:has(input:checked){border-color:var(--accent);background:var(--accent-soft)}
+.wdone{background:var(--ok-soft);border-radius:12px;padding:10px 12px;font-size:13.5px;display:flex;gap:8px;align-items:center}
+/* dark tune */
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .splash{background:linear-gradient(180deg,#151020,#1B1428 70%,#22183A);color:#EDE6FA}
+ :root:not([data-theme="light"]) .sp-in p{color:#B9AFCB}
+ :root:not([data-theme="light"]) .sp-house path,:root:not([data-theme="light"]) .sp-house g rect{stroke:#B48CF0}
+ :root:not([data-theme="light"]) .sp-eq rect{fill:#B48CF0}
+ :root:not([data-theme="light"]) .sp-brand b{color:#C9A6FF}
+ :root:not([data-theme="light"]) .sb rect:first-child{opacity:.35}
+ :root:not([data-theme="light"]) .greet,:root:not([data-theme="light"]) .sh{background:linear-gradient(140deg,#4F1BA0,#3A1478 60%,#2A0F55)}
+ :root:not([data-theme="light"]) .sh-a .go{background:#EDE3FF;color:#2A0F55}
+ :root:not([data-theme="light"]) #drop.ov{background:radial-gradient(120% 80% at 50% 30%,#2A1F3D,var(--bg) 70%)}
+ :root:not([data-theme="light"]) .fhero{background:linear-gradient(135deg,#2A1F3D,#1E1730)}
+ :root:not([data-theme="light"]) .fhero svg circle[opacity]{opacity:.08}
+ :root:not([data-theme="light"]) .av2 svg>circle:first-child{opacity:.85}
+ :root:not([data-theme="light"]) .vd2.over,:root:not([data-theme="light"]) .vd.over{background:#3A1717}
+ :root:not([data-theme="light"]) .seg2 a[aria-current=page]{background:#2F2540}
+ :root:not([data-theme="light"]) .ins,:root:not([data-theme="light"]) .apt-sug{background:#2A1F3D}
+}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1326,17 +1387,19 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
     <div class="home">
       <div class="phd phd-home"><span class="phd-logo"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
         <div class="phd-t"><h1 id="h1-analyze">쿵쾅</h1><p class="phd-s">감정 대신 기록으로</p></div>
-        <div class="phd-a"><button type="button" class="calst" id="calSt" data-opencal></button><a class="icon-btn" href="#more" aria-label="더보기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></a><button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></div></div>
+        <div class="phd-a"><button type="button" class="calst" id="calSt" data-opencal></button><button type="button" class="icon-btn bell" id="bellBtn" aria-label="알림"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="bd" id="bellDot" hidden></span></button><a class="icon-btn" href="#more" aria-label="더보기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></a></div></div>
       <div class="greet"><div class="g-top"><small>안녕하세요!</small><b id="greetT">오늘도 수고했어요 👋</b><span id="greetS">소리가 나면 아래 녹음 버튼을 누르세요</span></div>
         <svg class="g-bld" viewBox="0 0 120 80" aria-hidden="true"><rect x="8" y="22" width="44" height="58" rx="3" fill="#fff" opacity=".22"/><rect x="58" y="8" width="54" height="72" rx="3" fill="#fff" opacity=".32"/><rect x="66" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="66" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="66" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="66" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="66" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="78" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="78" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="78" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="78" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="78" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="90" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="90" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="90" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="90" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="90" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="102" y="16" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="102" y="28" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="102" y="40" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="102" y="52" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="102" y="64" width="7" height="6" rx="1" fill="#fff" opacity=".7"/><rect x="15" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="15" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="15" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="15" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="26" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="26" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="26" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="26" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="37" y="30" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="37" y="42" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="37" y="54" width="6" height="6" rx="1" fill="#fff" opacity=".55"/><rect x="37" y="66" width="6" height="6" rx="1" fill="#fff" opacity=".55"/></svg>
         <div class="g-stats"><span><b class="num" id="gsT">0</b>오늘 기록</span><span><b class="num" id="gsW">0</b>이번 주 기준 초과</span><span><b class="num" id="gsN">0</b>이번 주 야간</span></div></div>
       <div class="qa"><button type="button" id="qaPick"><span class="qi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>파일 올리기</button>
         <button type="button" data-opencal id="qaCal"><span class="qi" id="qaCalI"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h3l2-6 4 12 2-6h5"/></svg></span><span id="qaCalT">dB 보정</span></button>
         <button type="button" data-openfam><span class="qi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg></span>가족 초대</button></div>
+      <div class="inst" id="instBan" hidden></div>
       <a class="hcard" href="#stats" id="wkCard"></a>
       <a class="hcard" href="#report" id="svCard"></a>
       <button class="recent2" id="recent2" type="button"></button>
       <a class="solve-chip" id="solveChip" href="#report"></a>
+      <span hidden><button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></span>
       <div class="card set-panel" id="setPanel" hidden>
         <h2>측정 설정</h2>
         <div class="fields" style="margin-top:0">
@@ -1520,6 +1583,11 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
     <label>구조<select id="aptStr"><option value="wall">벽식 (대부분의 아파트)</option><option value="column">기둥식(라멘)</option><option value="mixed">혼합·모름</option></select></label>
     <div class="fam-acts"><button type="button" class="btn" id="aptDel">지우기</button><button type="button" class="btn primary" id="aptSave">저장하고 맞춤 제안 보기</button></div>
   </div>
+</div>
+<div class="sheet" id="notiSheet" role="dialog" aria-modal="true" aria-labelledby="notiH" hidden>
+  <div class="grab" aria-hidden="true"></div>
+  <div class="sheet-h"><h2 id="notiH">알림</h2><button type="button" class="icon-btn x" id="closeNoti" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <ul class="nl" id="notiList"></ul>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
@@ -1771,7 +1839,8 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (v === 'report') { try { renderProgress(); } catch (e) {} }
     if (v === 'family') renderFamPage();
     if (v === 'more') renderMore();
-    if (v === 'analyze') { renderHomeRecent(); try { renderSolveChip(); renderHomeWidgets(); } catch (e) { console.error(e); } }
+    if (v === 'analyze') { renderHomeRecent(); try { renderSolveChip(); renderHomeWidgets(); renderBell(); renderInst(); } catch (e) { console.error(e); } }
+    try { renderTabDot(); } catch (e) {}
     if (v === 'result' && (shown || lastRes)) { const rr = shown || lastRes; requestAnimationFrame(() => drawChart(rr)); }
     if (v === 'result' && !lastRes) { location.replace('#analyze'); return; }
     window.scrollTo({ top: 0 });
@@ -2167,6 +2236,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const mx = Math.max(1, ...cnt.map((c) => c[0]));
     $('#wkCard').innerHTML = `<div class="hcard-h"><b>이번 주 소음${isExample ? ' <span class="note" style="font-weight:400">· 예시</span>' : ''}</b><small>분석 보기 ›</small></div>
       <div class="wk">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><i style="height:${Math.max(4, cnt[i][0] / mx * 64)}px"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i><span>${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div>
+      ${weekCmp(E)}
       <div class="wk-l"><span><i style="background:var(--accent)"></i>야간(22~06시)</span><span><i style="background:color-mix(in srgb,var(--accent) 22%,transparent)"></i>주간</span><span style="margin-left:auto">총 ${W.length}건</span></div>`;
     const { ci, st } = progState();
     $('#svCard').innerHTML = `<div class="hcard-h"><b>해결 진행</b><small>해결로 가기 ›</small></div>
@@ -2217,11 +2287,13 @@ if (typeof module !== 'undefined') module.exports = KE;
       <ul class="mlist">${item('button', 'type="button" data-apt', '<path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-6h6v6"/>', '우리 아파트 정보', MYAPT ? `${esc(MYAPT.name || '우리 아파트')} · ${MYAPT.year}년 준공 · ${aptEval(MYAPT).lvT}` : '준공 연도로 소음 취약도·맞춤 해결 제안')}${item('button', 'type="button" data-openfam', '<circle cx="9" cy="8" r="3"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6"/>', '가족과 함께 기록', FAM && famMe() ? `${esc(FAM.name)} · ${famActive().length}명` : '팀코드로 가족 초대')}</ul>
       <p class="msec">측정</p>
       <ul class="mlist">${item('button', 'type="button" data-opencal', '<path d="M4 12h3l2-6 4 12 2-6h5"/>', '휴대폰 dB 보정', calState() ? `보정됨 · 보정값 ${$('#cal').value}` : '8초면 끝나요 · 아직 보정 전')}
+        ${item('button', 'type="button" id="mSet"', '<path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/>', '측정 설정', '녹음 시각·보정값 직접 조정')}
         ${item('button', 'type="button" id="mPick"', '<path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>', '녹음 파일 올리기', '다른 앱 녹음 · 예시 파일')}</ul>
       <p class="msec">도움말</p>
       <ul class="mlist">${item('button', 'type="button" id="mOnb"', '<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14M12 17h.01"/>', '사용법 다시 보기', '녹음 → 일지 → 알리기')}
         ${item('button', 'type="button" id="mEx"', '<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/>', '예시 일지 둘러보기', '34건 예시로 기능 살펴보기')}</ul>`;
     $('#mPick').addEventListener('click', () => openPick());
+    $('#mSet').addEventListener('click', () => { go('analyze'); setTimeout(() => { $('#setPanel').hidden = false; $('#setBtn').setAttribute('aria-expanded', 'true'); $('#setPanel').scrollIntoView({ block: 'center' }); }, 150); });
     $('#mOnb').addEventListener('click', () => showOnb());
     $('#mEx').addEventListener('click', () => { exMode = true; go('stats'); });
   }
@@ -2230,7 +2302,8 @@ if (typeof module !== 'undefined') module.exports = KE;
   new MutationObserver(() => { const live = $('#micBtn').classList.contains('live'); $('#tabRec').classList.toggle('on', live); $('#drop').classList.toggle('ov', live); }).observe($('#micBtn'), { attributes: true, attributeFilter: ['class'] });
   $('#qaPick').addEventListener('click', () => openPick());
   $('#tabRec').addEventListener('click', () => { const goRec = () => $('#micBtn').click(); if (location.hash && location.hash !== '#analyze') { go('analyze'); setTimeout(goRec, 120); } else goRec(); });
-  setTimeout(() => { const sp = $('#splash'); if (sp) { sp.classList.add('out'); setTimeout(() => sp.remove(), 700); } }, 1900);
+  const spOut = () => { const sp = $('#splash'); if (sp && !sp.classList.contains('out')) { sp.classList.add('out'); setTimeout(() => sp.remove(), 700); } };
+  setTimeout(spOut, 3400); $('#splash') && $('#splash').addEventListener('click', spOut);
 
   /* ---------- 우리 아파트 ---------- */
   const AKEY = 'kungkwang.apt';
@@ -2274,6 +2347,51 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#aptDel').addEventListener('click', () => { MYAPT = null; try { localStorage.removeItem(AKEY); } catch (e) {} closeApt(); show(); });
   $('#closeApt').addEventListener('click', closeApt);
   document.addEventListener('click', (e) => { if (e.target.closest('[data-apt]')) openApt(); });
+
+  /* ---------- 알림·할 일 ---------- */
+  const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone === true;
+  function notis() {
+    const E = entries(), N = [], t0 = new Date(); t0.setHours(6, 0, 0, 0); if (Date.now() < t0.getTime()) t0.setDate(t0.getDate() - 1); const n0 = t0.getTime() - 8 * 36e5;
+    const lastNight = E.filter((e) => e.ts >= n0 && e.ts < t0.getTime());
+    if (lastNight.length) N.push(['b', '어젯밤 기록 ' + lastNight.length + '건', `기준 초과 ${lastNight.filter((e) => e.over === 'over').length}건 · 소음일지에서 확인해요`, '#journal']);
+    const { ci, st } = progState();
+    if (st && st.id !== 'rec') N.push(['', `해결 ${ci + 1}단계 · ${st.t}`, '지금 할 일이 있어요. 해결 탭에서 문안을 만들어 보세요.', '#report']);
+    else if (st && st.id === 'rec' && E.length >= 3) N.push(['', '기록이 조금만 더 있으면 돼요', `지금 ${E.length}건 · 5건 이상이면 다음 단계로 넘어가요`, '#report']);
+    const noHarm = E.filter((e) => !e.example && !harmTxt(e.harm)).length; if (noHarm) N.push(['w', `생활 피해를 남기지 않은 기록 ${noHarm}건`, '피해 종류·강도를 남기면 상담·조정 때 근거가 돼요.', '#journal']);
+    if (!calState()) N.push(['w', '휴대폰 dB 보정 전이에요', '8초면 끝나요. 보정해야 dB가 정확해져요.', 'cal']);
+    if (!MYAPT) N.push(['', '우리 아파트 정보를 넣어 보세요', '준공 연도로 소음 취약도와 맞춤 해결 순서를 알려 드려요.', 'apt']);
+    if (!isStandalone()) N.push(['', '홈 화면에 추가하기', '앱처럼 바로 열리고 보정·기록이 그대로 유지돼요.', 'inst']);
+    return N;
+  }
+  function renderBell() { const N = notis(); $('#bellDot').hidden = !N.some((n) => n[0] === 'b' || n[3] === '#report'); }
+  const NIC = { b: '<path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/>', w: '<circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5h.01"/>', '': '<path d="M6 16V11a6 6 0 1 1 12 0v5l1.5 2h-15z"/>' };
+  $('#bellBtn').addEventListener('click', () => {
+    const N = notis();
+    $('#notiList').innerHTML = N.length ? N.map(([k, t, d, to], i) => `<li><button type="button" data-ni="${i}"><span class="ni ${k}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${NIC[k]}</svg></span><span><b>${t}</b><small>${d}</small></span></button></li>`).join('') : '<li class="nl-empty">새 알림이 없어요</li>';
+    $$('#notiList [data-ni]').forEach((b) => b.addEventListener('click', () => { const to = N[+b.dataset.ni][3]; $('#notiSheet').hidden = true; $('#sheetBg').hidden = true; if (to === 'cal') openCal(); else if (to === 'apt') openApt(); else if (to === 'inst') { go('analyze'); setTimeout(() => { const ib = $('#instBan'); ib.hidden = false; ib.scrollIntoView({ block: 'center' }); }, 150); } else location.hash = to.slice(1); }));
+    $('#notiSheet').hidden = false; $('#sheetBg').hidden = false;
+  });
+  $('#closeNoti').addEventListener('click', () => { $('#notiSheet').hidden = true; $('#sheetBg').hidden = true; });
+  function renderTabDot() { const { st } = progState(), t = $('a.tab[data-view=report]'); if (!t) return; let d = t.querySelector('.tdot'); const on = !!st && st.id !== 'rec'; if (on && !d) { d = document.createElement('span'); d.className = 'tdot'; d.setAttribute('aria-label', '할 일 있음'); t.appendChild(d); } if (!on && d) d.remove(); }
+  /* ---------- 홈 화면 추가 ---------- */
+  let bip = null; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); bip = e; renderInst(); });
+  function renderInst() {
+    const b = $('#instBan'); if (!b) return; let off = false; try { off = localStorage.getItem('kungkwang.inst') === 'off'; } catch (e) {}
+    if (isStandalone() || off) { b.hidden = true; return; }
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+    b.innerHTML = `<span class="ii"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M12 8v6M9 11h6"/></svg></span><div><b>홈 화면에 추가하면 앱처럼 써요</b><small>보정값과 기록이 그대로 유지되고, 소리가 날 때 바로 열 수 있어요.<br>${ios ? 'Safari 아래 공유 버튼 → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>' : '브라우저 메뉴(⋮) → <b style="display:inline;font-size:12.5px">홈 화면에 추가</b>'}</small>${bip ? '<button type="button" class="btn primary" id="instGo">지금 추가하기</button>' : ''}</div><button type="button" class="x" id="instX" aria-label="닫기">×</button>`;
+    b.hidden = false;
+    $('#instX').onclick = () => { try { localStorage.setItem('kungkwang.inst', 'off'); } catch (e) {} b.hidden = true; };
+    $('#instGo') && ($('#instGo').onclick = async () => { bip.prompt(); try { await bip.userChoice; } catch (e) {} bip = null; renderInst(); });
+  }
+  /* ---------- 주간 비교 ---------- */
+  function weekCmp(E) {
+    const now = Date.now(), a = now - 7 * 864e5, b = now - 14 * 864e5;
+    const tw = E.filter((e) => e.ts >= a && e.night).length, lw = E.filter((e) => e.ts >= b && e.ts < a && e.night).length;
+    if (!tw && !lw) return '';
+    const d = tw - lw;
+    return `<div class="wcmp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 15a8 8 0 1 1-6-11.5M20 4v5h-5"/></svg>${d === 0 ? `지난주와 야간 소음이 같아요 (${tw}건)` : d > 0 ? `지난주보다 야간 소음이 <b class="up">${d}건 늘었어요</b> (${lw} → ${tw}건)` : `지난주보다 야간 소음이 <b class="dn">${-d}건 줄었어요</b> (${lw} → ${tw}건)`}</div>`;
+  }
   const openPick = () => { $('#sheet').hidden = false; $('#sheetBg').hidden = false; $('#closePick').focus(); };
   const closePick = () => { $('#sheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#openPick').addEventListener('click', openPick);
@@ -2608,6 +2726,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#jTool').hidden = jtab === 'dash';
     $('#sgB').toggleAttribute('aria-current', jtab === 'board'); $('#sgD').toggleAttribute('aria-current', jtab === 'dash'); $('#sgB').setAttribute('aria-current', jtab === 'board' ? 'page' : ''); $('#sgD').setAttribute('aria-current', jtab === 'dash' ? 'page' : ''); if (jtab !== 'board') $('#sgB').removeAttribute('aria-current'); if (jtab !== 'dash') $('#sgD').removeAttribute('aria-current');
     { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').innerHTML = E.length ? `기록 <b>${E.length}건</b> · 최근 7일 기준 초과 <b>${o7}건</b>` : '아직 기록이 없어요';
+      if (jtab === 'dash') { const wc = weekCmp(E).replace(/<[^>]+>/g, ''); if (wc) $('#jSub').innerHTML = wc.replace('지난주', '지난주'); }
       const xb = $('#exBan'); xb.hidden = !isExample; if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? '예시 일지를 보고 있어요' : '아직 내 기록이 없어 예시 일지를 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">${log.length ? '내 기록 보기' : '예시 끄기'}</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
@@ -2824,27 +2943,48 @@ ${lines.join('\n')}
     $('#optPN').innerHTML = (pv ? `<a href="#r-${pv.id}"><small>‹ 이전 단계</small><b>${pv.t}</b></a>` : '') + (nx ? `<a class="nx" href="#r-${nx.id}"><small>다음 단계 ›</small><b>${nx.t}</b></a>` : '');
     const a = $('#optNav [aria-current]'); a && a.scrollIntoView({ block: 'nearest', inline: 'center' });
   }
+  let wz = 1, wzFor = null;
   function renderPanel() {
     const o = OPTS.find((x) => x.id === cur), P = $('#optPanel');
-    P.innerHTML = `${pick.size ? `<div class="pickban"><span>선택한 기록 <b>${pick.size}건</b>으로 작성해요</span><button type="button" id="pickAll">전체 기록으로 바꾸기</button></div>` : ''}<div><h2>${o.t}</h2><span class="law">${o.law}</span></div>
+    if (wzFor !== cur) { wz = F['doc_' + o.id] ? 3 : 1; wzFor = cur; }
+    const E = [...entries()].reverse(), nSel = pick.size || E.length;
+    const step = (k, t) => `<button type="button" data-wz="${k}" class="${wz === k ? 'on' : wz > k ? 'dn' : ''}"><i>${wz > k ? '✓' : k}</i>${t}</button>`;
+    const head = `<div><h2>${o.t}</h2><span class="law">${o.law}</span></div><div class="wz">${step(1, '기록 선택')}${step(2, '문안 작성')}${step(3, '미리보기')}</div><div class="wz-bar"><i style="width:${wz * 33.4}%"></i></div>`;
+    const PRIV = [['min', '최소 공개 (권장)', '동·호수와 이름은 상대 세대에 알리지 말아 달라고 요청해요'], ['part', '일부 공개', '동(棟)까지만 알려도 된다고 적어요'], ['self', '직접 정하기', '공개 범위 문장을 넣지 않아요']];
+    if (wz === 1) P.innerHTML = head + `<p class="note" style="font-size:13px">문안에 근거로 넣을 기록을 골라요. 고르지 않으면 전체 기록(${E.length}건)으로 써요.</p>
+      <div class="wq"><button type="button" data-wq="over7">최근 7일 기준 초과</button><button type="button" data-wq="night">야간만</button><button type="button" data-wq="all">전체</button><button type="button" data-wq="none">선택 해제</button></div>
+      <ul class="wsel">${E.slice(0, 40).map((e) => { const d = new Date(e.ts); return `<li><label><input type="checkbox" data-ws="${e.ts}" ${pick.has(e.ts) ? 'checked' : ''}><span class="t"><b>${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())} · ${T[e.type].name}</b><small>${authorOf(e) ? esc(authorOf(e)) + ' · ' : ''}최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${harmTxt(e.harm) ? ' · ' + harmTxt(e.harm) : ''}</small></span><span class="pill ${e.over}">${stTxt[e.over]}</span></label></li>`; }).join('')}</ul>
+      <div class="wnav"><a class="btn" href="#report">해결로</a><button type="button" class="primary" data-wgo="2">${pick.size ? `${pick.size}건으로` : `전체 ${E.length}건으로`} 다음 ›</button></div>`;
+    else if (wz === 2) P.innerHTML = head + `${pick.size ? `<div class="pickban"><span>선택한 기록 <b>${pick.size}건</b>으로 작성해요</span><button type="button" data-wz="1">바꾸기</button></div>` : ''}
       <ul class="guide">${o.guide.map((g) => `<li>${g}</li>`).join('')}</ul>
       ${o.safety ? `<div class="safety"><b>보내기 전에</b><ul>${o.safety.map((x) => `<li>${x}</li>`).join('')}</ul></div>` : ''}
       <div class="sub-h">입력</div>${o.form()}
+      <div class="sub-h">개인정보 공개 범위</div><div class="priv">${PRIV.map(([k, t, d]) => `<label><input type="radio" name="priv" value="${k}" ${(F.priv || 'min') === k ? 'checked' : ''}><span><b>${t}</b><small>${d}</small></span></label>`).join('')}</div>
       ${o.id !== 'neighbor' ? '<p class="note">입력한 동·호수는 저장되지 않아요.</p>' : ''}
-      <button type="button" class="primary wide" id="genBtn">${o.btn}</button>
-      <div class="doc"><div class="out" id="docOut" contenteditable="true" aria-label="문서 내용(직접 고칠 수 있음)" spellcheck="false">${F['doc_' + o.id] ? F['doc_' + o.id].replace(/</g, '&lt;') : `'${o.btn}'를 누르면 소음 일지로 문서 초안이 여기에 써집니다.`}</div></div>
-      <div class="row" style="justify-content:space-between"><span class="note" id="genSrc"></span><button id="copyDoc" type="button">복사</button></div>`;
+      <div class="wnav"><button type="button" data-wz="1">‹ 이전</button><button type="button" class="primary" id="genBtn">${o.btn} ›</button></div>`;
+    else P.innerHTML = head + `<div class="doc"><div class="out" id="docOut" contenteditable="true" aria-label="문서 내용(직접 고칠 수 있음)" spellcheck="false">${F['doc_' + o.id] ? F['doc_' + o.id].replace(/</g, '&lt;') : '아직 문안이 없어요. 2단계에서 만들어 주세요.'}</div></div>
+      <div class="row" style="justify-content:space-between"><span class="note" id="genSrc">글을 눌러 직접 고칠 수 있어요.</span><span style="display:flex;gap:6px"><button id="shareDoc" type="button">공유</button><button id="copyDoc" type="button">복사</button></span></div>
+      ${PG.done[o.id] ? '<div class="wdone">✓ 이 단계를 마친 것으로 기록했어요</div>' : ''}
+      <div class="wnav"><button type="button" data-wz="2">‹ 다시 쓰기</button><button type="button" class="primary" id="wzDone">${PG.done[o.id] ? '해결로 돌아가기' : '보냈어요 · 이 단계 마치기'}</button></div>`;
+    P.querySelectorAll('[data-wz]').forEach((b) => b.addEventListener('click', () => { wz = +b.dataset.wz; renderPanel(); scrollTo({ top: 0 }); }));
+    P.querySelectorAll('[data-wgo]').forEach((b) => b.addEventListener('click', () => { wz = +b.dataset.wgo; renderPanel(); scrollTo({ top: 0 }); }));
+    P.querySelectorAll('[data-ws]').forEach((c) => c.addEventListener('change', () => { const t = +c.dataset.ws; c.checked ? pick.add(t) : pick.delete(t); renderPanel(); }));
+    P.querySelectorAll('[data-wq]').forEach((b) => b.addEventListener('click', () => { const q = b.dataset.wq, w = Date.now() - 7 * 864e5; pick.clear(); if (q === 'over7') E.filter((e) => e.ts >= w && e.over === 'over').forEach((e) => pick.add(e.ts)); if (q === 'night') E.filter((e) => e.night).forEach((e) => pick.add(e.ts)); renderPanel(); }));
+    P.querySelectorAll('input[name=priv]').forEach((r) => r.addEventListener('change', () => { F.priv = r.value; }));
+    $('#wzDone') && $('#wzDone').addEventListener('click', () => { if (!PG.done[o.id]) { PG.done[o.id] = Date.now(); pgSave(); toast('잘하셨어요 · 다음 단계로 넘어갔어요'); } pick.clear(); go('report'); });
+    $('#shareDoc') && $('#shareDoc').addEventListener('click', () => { const t = $('#docOut').innerText; if (navigator.share) navigator.share({ title: o.t, text: t }).catch(() => {}); else copy(t, '복사했어요 · 붙여넣어 보내세요'); });
     $('#pickAll') && $('#pickAll').addEventListener('click', () => { pick.clear(); renderPanel(); toast('전체 기록으로 작성해요'); });
     P.querySelectorAll('[data-f]').forEach((el) => el.addEventListener('input', () => { F[el.dataset.f] = el.value; }));
     P.querySelectorAll('[data-c]').forEach((el) => el.addEventListener('change', () => { F[el.dataset.c] = el.checked ? '1' : ''; }));
     P.querySelectorAll('[data-tone]').forEach((b) => b.addEventListener('click', () => { F.tone = b.dataset.tone; P.querySelectorAll('[data-tone]').forEach((x) => x.setAttribute('aria-pressed', String(x === b))); }));
-    $('#docOut').addEventListener('input', () => { F['doc_' + o.id] = $('#docOut').innerText; });
-    $('#copyDoc').addEventListener('click', () => copy($('#docOut').innerText, '복사했습니다'));
-    $('#genBtn').addEventListener('click', async () => {
+    $('#docOut') && $('#docOut').addEventListener('input', () => { F['doc_' + o.id] = $('#docOut').innerText; });
+    $('#copyDoc') && $('#copyDoc').addEventListener('click', () => copy($('#docOut').innerText, '복사했습니다'));
+    $('#genBtn') && $('#genBtn').addEventListener('click', async () => {
       const s = logSummary(); if (!s) { toast('일지가 비어 있습니다. STEP 2에서 예시를 켜거나 기록을 저장해 주세요'); return; }
-      const out = $('#docOut'), btn = $('#genBtn'), src = $('#genSrc');
+      const btn = $('#genBtn'), out = { set textContent(v) {} }, src = { set textContent(v) {} };
       const sample = await getSample();
-      const done = (txt, msg) => { out.textContent = txt; F['doc_' + o.id] = txt; src.textContent = msg; };
+      const PL = { min: '\n\n※ 신청인의 동·호수와 이름은 상대 세대에 알리지 말아 주시기 바랍니다.', part: '\n\n※ 상대 세대에는 신청인의 동(棟)까지만 알려 주셔도 됩니다.', self: '' };
+      const done = (txt, msg) => { txt = txt + (o.id === 'neighbor' ? '' : PL[F.priv || 'min']); F['doc_' + o.id] = txt; wz = 3; renderPanel(); $('#genSrc').textContent = msg; scrollTo({ top: 0 }); };
       if (!sample) { done(o.doc(s, null), '기본 문안으로 만들었습니다 (AI 연결 없음). 직접 고칠 수 있습니다.'); return; }
       btn.disabled = true; btn.textContent = 'AI가 쓰는 중…';
       const prompt = o.ai ? o.ai(s) : `너는 층간소음 피해 세대가 공식 기관에 낼 문서의 '피해 상황' 문단을 쓰는 도우미야. 문서 종류: ${o.t}. 아래 기록 요약만 근거로 3~4문장의 한국어 문단을 써.
@@ -2852,7 +2992,7 @@ ${lines.join('\n')}
 기록 요약: 기간 ${s.from}~${s.to}(${s.days}일, ${s.E.length}건), 주된 소리 ${s.topT.join(', ')}, 자주 들린 시각 ${s.topH.join('시, ')}시, 야간 비중 ${s.nightPct}%, 최고소음도 기준 초과 ${s.over}건·근접 ${s.near}건`;
       try { const r = await sample(prompt, { modelTier: 'quick' }); done(o.doc(s, r.text.trim()), o.whole ? 'AI(Claude)가 쓴 초안입니다. 보내기 전에 직접 다듬어 주세요.' : '피해 상황 문단은 AI(Claude)가 일지로 정리했습니다. 제출 전에 확인해 주세요.'); }
       catch (e) { done(o.doc(s, null), '기본 문안으로 만들었습니다.'); }
-      finally { btn.disabled = false; btn.textContent = o.btn; }
+      finally { if (document.body.contains(btn)) { btn.disabled = false; btn.textContent = o.btn; } }
     });
   }
   renderOpts();
