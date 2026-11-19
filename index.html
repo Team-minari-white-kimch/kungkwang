@@ -865,6 +865,26 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .fam-poc{font-size:12px;color:var(--fg3,var(--fg2));margin-top:16px;line-height:1.5;word-break:keep-all}
 .famchip{display:inline-flex;align-items:center;gap:4px}
 .gm .au{font-weight:700;color:var(--accent)}
+.harm .hq{font-size:14.5px;font-weight:700;margin:4px 0 10px}
+.hk{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
+.hk button{flex-direction:column;gap:6px;min-height:76px;border-radius:14px;font-size:12.5px;font-weight:600;color:var(--fg2);background:var(--surface)}
+.hk button svg{width:22px;height:22px;color:var(--fg2)}
+.hk button[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.hk button[aria-pressed=true] svg{color:var(--accent)}
+.hl{display:flex;justify-content:space-between;align-items:center;padding:0 4px}
+.hl button{width:40px;height:40px;min-height:40px;border-radius:50%;padding:0;font-weight:700;font-size:15px}
+.hl button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.hl-cap{display:flex;justify-content:space-between;font-size:11.5px;color:var(--fg2);margin:6px 2px 16px}
+.hm-w{position:relative}
+.hm-w textarea{width:100%;min-height:84px;border-radius:12px;border:1px solid var(--line2);padding:10px 12px 22px;font:inherit;font-size:15px;background:var(--surface);color:var(--fg);resize:vertical;box-sizing:border-box}
+.hm-w small{position:absolute;right:10px;bottom:8px;font-size:11px;color:var(--fg2)}
+.harm-sum{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.hchip{font-size:11.5px;font-weight:700;padding:2px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent)}
+.hchip.lv{background:var(--bad-soft,#FDE8EA);color:var(--bad)}
+.gm .hrow{display:flex;gap:4px;margin-top:3px;flex-wrap:wrap}
+.au-chips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.au-chips button{min-height:34px;border-radius:999px;font-size:13px;padding:4px 12px}
+.au-chips button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -1004,6 +1024,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
         <div class="adv-row"><span class="adv-k">최고 소음</span><div class="adv-v"><input type="number" id="minDb" min="0" max="120" step="1" placeholder="예: 55" aria-label="최고 소음 최소값"><span>dB 이상</span></div></div>
         <div class="adv-row end"><button type="button" id="advReset">조건 초기화</button><button type="button" class="primary" id="advApply">이 조건으로 검색</button></div>
       </div>
+      <div class="au-chips" id="auChips" hidden></div>
       <div class="qchips" id="qChips"><button type="button" class="qc" data-q="all" aria-pressed="true">전체</button><button type="button" class="qc" data-q="over" aria-pressed="false">기준 초과</button><button type="button" class="qc" data-q="night" aria-pressed="false">야간</button><button type="button" class="qc" data-q="day" aria-pressed="false">주간</button></div>
       <div class="rhead"><label class="ckall"><input type="checkbox" id="ckAll"><span>전체 선택</span></label><span class="sp"></span><span id="rCount" class="note num"></span><button type="button" class="txtbtn ic" id="copyAll"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>일지 복사</button></div>
       <div class="rtags" id="rChips"></div>
@@ -1339,7 +1360,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const lts = h.startsWith('log-') ? +h.slice(4) : null, le = lts ? entries().concat(log).find((e) => e.ts === lts && e.res) : null;
     const v = rid ? 'rdetail' : le ? 'result' : VIEWS.includes(h) ? h : 'analyze';
     if (rid) { cur = rid; renderNav(); renderPanel(); }
-    let shown = null; if (le) { shown = restore(le.res); render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
+    let shown = null; if (le) { shown = restore(le.res); shown._harm = le.harm ? { kinds: [...(le.harm.kinds || [])], lv: le.harm.lv || 0, memo: le.harm.memo || '' } : null; render(shown, true, le.ts); } else if (v === 'result' && lastRes) render(lastRes, false);
     VIEWS.forEach((k) => { $('#v-' + k).hidden = k !== v; });
     const tabv = v === 'result' ? (le ? 'journal' : 'analyze') : v === 'rdetail' ? 'report' : v; $$('.tab').forEach((a) => a.dataset.view === tabv ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current'));
     $('footer').hidden = v === 'analyze' || v === 'result';
@@ -1472,6 +1493,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   /* ---------- 분석 + 표시 ---------- */
   let lastRes = null;
   function run(y, label) {
+    if (!last || last.y !== y) curHarm = { kinds: [], lv: 0, memo: '' };
     last = { y, label };
     const start = new Date($('#when').value || Date.now());
     const ym = yamnetOf(y);
@@ -1726,6 +1748,26 @@ if (typeof module !== 'undefined') module.exports = KE;
     const col = st === 'over' ? 'var(--bad)' : st === 'near' ? 'var(--warn)' : st === 'ok' ? 'var(--ok)' : 'var(--fg3)';
     return `<div class="gauge" aria-hidden="true"><div class="f" style="width:${p(v)}%;background:${col}"></div><div class="m" style="left:calc(${p(lim)}% - 1px)"></div></div>`;
   }
+  const HK = { sleep: ['수면 방해', '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>'], study: ['학습 방해', '<path d="M3 5.5C5.5 4.5 8.5 4.5 12 6.5c3.5-2 6.5-2 9-1V19c-2.5-1-5.5-1-9 1-3.5-2-6.5-2-9-1z"/><path d="M12 6.5V20"/>'], work: ['업무 방해', '<rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/>'], rest: ['휴식 방해', '<path d="M5 9h11v5a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5z"/><path d="M16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3v3M11 3v3"/>'] };
+  const LVT = ['', '경미', '조금', '보통', '심함', '매우 심각'];
+  const harmTxt = (h) => h && (h.kinds?.length || h.lv) ? `${(h.kinds || []).map((k) => HK[k][0]).join('·') || '피해'}${h.lv ? ` · 강도 ${h.lv}` : ''}` : '';
+  const harmChips = (h) => h && (h.kinds?.length || h.lv) ? `${(h.kinds || []).map((k) => `<span class="hchip">${HK[k][0]}</span>`).join('')}${h.lv ? `<span class="hchip lv">강도 ${h.lv}</span>` : ''}` : '';
+  let curHarm = { kinds: [], lv: 0, memo: '' };
+  function harmHTML(h) {
+    return `<div class="blk harm"><h2>생활 피해 기록 <span class="note" style="font-weight:400">선택 · 상담·조정 때 함께 제출돼요</span></h2>
+      <p class="hq">이번 소음으로 어떤 피해가 있었나요?</p>
+      <div class="hk">${Object.entries(HK).map(([k, [n, ic]]) => `<button type="button" data-hk="${k}" aria-pressed="${h.kinds.includes(k)}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ic}</svg>${n}</button>`).join('')}</div>
+      <p class="hq">피해 강도는 어느 정도인가요?</p>
+      <div class="hl">${[1, 2, 3, 4, 5].map((v) => `<button type="button" data-hl="${v}" aria-pressed="${h.lv === v}" aria-label="강도 ${v} ${LVT[v]}">${v}</button>`).join('')}</div>
+      <div class="hl-cap"><span>경미</span><span>매우 심각</span></div>
+      <p class="hq">상황 메모 <span class="note" style="font-weight:400">선택</span></p>
+      <div class="hm-w"><textarea id="hMemo" maxlength="200" placeholder="예: 새벽에 소음으로 잠에서 깨어 다시 잠들기 어려웠어요.">${esc(h.memo || '')}</textarea><small class="num" id="hCnt">${(h.memo || '').length}/200</small></div></div>`;
+  }
+  function bindHarm(h, onChange) {
+    $$('#result [data-hk]').forEach((b) => b.addEventListener('click', () => { const k = b.dataset.hk; h.kinds = h.kinds.includes(k) ? h.kinds.filter((x) => x !== k) : [...h.kinds, k]; b.setAttribute('aria-pressed', String(h.kinds.includes(k))); onChange(); }));
+    $$('#result [data-hl]').forEach((b) => b.addEventListener('click', () => { const v = +b.dataset.hl; h.lv = h.lv === v ? 0 : v; $$('#result [data-hl]').forEach((x) => x.setAttribute('aria-pressed', String(+x.dataset.hl === h.lv))); onChange(); }));
+    const m = $('#hMemo'); m && m.addEventListener('input', () => { h.memo = m.value; $('#hCnt').textContent = `${m.value.length}/200`; onChange(true); });
+  }
   function render(r, fromLog, ts) {
     const el = $('#result');
     const bk = $('#v-result .back'); bk.lastChild.textContent = fromLog ? '기록 게시판' : '다시 분석'; bk.setAttribute('href', fromLog ? '#journal' : '#analyze');
@@ -1751,6 +1793,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         <p class="sum-lead st-${worst}"><span class="sdot"></span><span>${lead}</span></p>
         ${comp.length ? `<p class="mix" title="들린 소리 구성"><span class="mix-k">들린 소리</span>${comp.map(([k, c]) => `<span class="mx"><i style="background:var(--t-${T[k].color})"></i>${T[k].name} <b class="num">${c}</b></span>`).join('<span class="mx-sep">·</span>')}</p>` : ''}
       </div>
+      ${harmHTML(fromLog ? (r._harm || { kinds: [], lv: 0, memo: '' }) : curHarm)}
       ${fromLog ? `<div class="racts"><button type="button" class="primary" id="dGo">이 기록으로 알리기</button><button type="button" id="dCopy">일지 복사</button><span class="sp"></span><button type="button" class="danger" id="dDel">삭제</button></div><div class="selconf callout" id="dConf" hidden><span>이 기록을 지울까요? 되돌릴 수 없어요.</span><button type="button" class="danger" id="dDelYes">지우기</button><button type="button" id="dDelNo">취소</button></div>` : `<div class="racts"><button class="primary" id="save" type="button">일지에 저장</button><a class="btn" href="#analyze">다시 분석</a></div>`}
       ${rows.length ? `<div class="blk"><h2>기준과 비교</h2>${srcNote}<div class="cmp">${rows.map((c) => `
         <div class="cmp-r"><div><div class="cmp-k">${label[c.k]}</div><div class="cmp-s">${sub[c.k](c)}</div></div>
@@ -1772,6 +1815,8 @@ if (typeof module !== 'undefined') module.exports = KE;
       $('#dDelNo').addEventListener('click', () => { $('#dConf').hidden = true; });
       $('#dDelYes').addEventListener('click', () => { delEntries([ts]); go('journal'); });
     }
+    if (fromLog) { const e0 = entries().find((e) => e.ts === ts); if (e0) { const h = r._harm || { kinds: [], lv: 0, memo: '' }; let tm; bindHarm(h, (soft) => { e0.harm = { kinds: h.kinds, lv: h.lv, memo: h.memo }; clearTimeout(tm); tm = setTimeout(() => { if (!e0.example) { try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (x) {} } if (!soft) toast('생활 피해 기록을 고쳤어요'); }, soft ? 500 : 0); }); } }
+    else bindHarm(curHarm, () => {});
     if (!fromLog) $('#save').addEventListener('click', () => { addEntry(r); toast('일지에 저장했습니다'); go('journal'); });
   }
   function drawChart(r) {
@@ -1826,19 +1871,19 @@ if (typeof module !== 'undefined') module.exports = KE;
       const isMix = type.startsWith('mix:'), y = isMix ? KE.mix(MX[type.slice(4)], 20 + i) : KE.synth(type, 20 + i, adj);
       const r = KE.analyze(y, { cal: 100, start: d });
       r.label = isMix ? `예시_섞인소리_${MX[type.slice(4)].map((p) => T[p[0]].name.replace(/\(.*\)|\s/g, '')).filter((v, j, A) => A.indexOf(v) === j).join('+')}.wav` : `예시_${T[type].name.replace(/[()\s]/g, '')}.wav`;
-      out.push({ ts: d.getTime(), type: r.main || (isMix ? 'other' : type), count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), example: true, res: snapshot(r) });
+      out.push({ ts: d.getTime(), type: r.main || (isMix ? 'other' : type), count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), example: true, res: snapshot(r), harm: r.night ? { kinds: hh >= 22 || hh < 6 ? ['sleep'] : ['rest'], lv: 3 + (i % 3 === 0 ? 1 : 0), memo: i % 4 === 0 ? '잠들려는데 쿵쿵 소리에 깼어요. 다시 잠들기 어려웠어요.' : '' } : (i % 5 === 0 ? { kinds: ['study'], lv: 2, memo: '' } : (i % 7 === 0 ? { kinds: ['work'], lv: 3, memo: '' } : undefined)) });
     });
     out.sort((a, b) => a.ts - b.ts);
     return (exCache = out);
   }
   function entries() { if (exMode === null) exMode = !log.length; isExample = exMode; return exMode ? exampleLog() : log; }
   function addEntry(r) {
-    exMode = false; const au = famMe(); log.push({ author: au ? au.nick : undefined, vis: au ? famVis() : undefined, cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
+    exMode = false; const au = famMe(); const hm = curHarm.kinds.length || curHarm.lv || curHarm.memo.trim() ? { kinds: [...curHarm.kinds], lv: curHarm.lv, memo: curHarm.memo.trim() } : undefined; log.push({ harm: hm, author: au ? au.nick : undefined, vis: au ? famVis() : undefined, cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
     log.sort((a, b) => a.ts - b.ts);
     try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); log[log.length - 1].res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
   }
   let jtab = 'dash', dmenu = 'heat', dper = 7;
-  const SF = { field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
+  const SF = { au: '', field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
   const svgEl = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
   function dashboard(E0) {
     const cut = dper === 'all' ? 0 : Date.now() - dper * 864e5, E = E0.filter((e) => e.ts >= cut);
@@ -1914,7 +1959,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const d = new Date(e.ts), on = pick.has(e.ts);
     return `<div class="gr${on ? ' on' : ''}" role="listitem">${sel ? `<label class="ck" aria-label="${fmt(d)} 선택"><input type="checkbox" data-sel="${e.ts}" ${on ? 'checked' : ''}></label>` : ''}<a class="ga" href="#log-${e.ts}">
       <span class="gt num"><b>${pad(d.getHours())}:${pad(d.getMinutes())}</b>${sel ? '' : `<small>${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]})</small>`}</span>
-      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${authorOf(e) ? `<span class="au">${esc(authorOf(e))}${e.vis === 'private' ? '(나만)' : ''}</span> · ` : ''}${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small></span>
+      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${authorOf(e) ? `<span class="au">${esc(authorOf(e))}${e.vis === 'private' ? '(나만)' : ''}</span> · ` : ''}${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small>${harmChips(e.harm) ? `<span class="hrow">${harmChips(e.harm)}</span>` : ''}</span>
       <span class="pill ${e.over}">${stTxt[e.over]}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></div>`;
   }
   function dayLabel(t) {
@@ -1937,11 +1982,12 @@ if (typeof module !== 'undefined') module.exports = KE;
   function matches(e) {
     const d = new Date(e.ts), q = SF.q.trim().toLowerCase(), dayKey = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
     const parts = { type: [T[e.type].name, ...Object.keys(e.counts || {}).map((k) => T[k].name)].join(' '), date: `${fmt(d)} ${d.getMonth() + 1}/${d.getDate()} ${d.getMonth() + 1}월 ${d.getDate()}일 ${dayKey}`, verdict: stTxt[e.over], time: `${e.night ? '야간 밤' : '주간 낮'} ${d.getHours()}시`, file: e.src || '' };
-    const hay = (SF.field === 'all' ? Object.values(parts).join(' ') : parts[SF.field]).toLowerCase();
+    const hay = ((SF.field === 'all' ? Object.values(parts).join(' ') : parts[SF.field]) + (SF.field === 'all' ? ' ' + harmTxt(e.harm) + ' ' + (e.harm?.memo || '') + ' ' + authorOf(e) : '')).toLowerCase();
     if (q && !q.split(/\s+/).every((w) => hay.includes(w))) return false;
     if (SF.from && dayKey < SF.from) return false;
     if (SF.to && dayKey > SF.to) return false;
     if (SF.types.size && ![e.type, ...Object.keys(e.counts || {})].some((t) => SF.types.has(t))) return false;
+    if (SF.au && authorOf(e) !== SF.au) return false;
     if (SF.tz === 'day' && e.night) return false; if (SF.tz === 'night' && !e.night) return false;
     if (SF.vd.size && !SF.vd.has(e.over)) return false;
     if (SF.minDb && e.lmax < +SF.minDb) return false;
@@ -1984,6 +2030,10 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#rChips').innerHTML = tags.length ? tags.map((t) => `<span>${t}</span>`).join('') + '<button type="button" class="txtbtn" id="tagReset">조건 지우기</button>' : '';
     $('#rChips').hidden = !tags.length;
     $('#tagReset') && $('#tagReset').addEventListener('click', () => { $('#q').value = ''; SF.q = ''; $('#advReset').click(); });
+    const AU = FAM && famMe() ? [...new Set([...famActive().map((m) => m.nick), ...All.map(authorOf).filter(Boolean)])] : [];
+    if (SF.au && !AU.includes(SF.au)) SF.au = '';
+    $('#auChips').hidden = AU.length < 2; $('#auChips').innerHTML = AU.length < 2 ? '' : ['', ...AU].map((n) => `<button type="button" data-au="${esc(n)}" aria-pressed="${SF.au === n}">${n ? esc(n) : '가족 전체'}</button>`).join('');
+    $$('#auChips [data-au]').forEach((b) => b.addEventListener('click', () => { SF.au = b.dataset.au; page = 0; renderJournal(); }));
     $('#jBoard .rhead').hidden = !All.length; $('#qChips').hidden = !All.length; $('#sForm').hidden = !All.length; if (!All.length) $('#adv').hidden = true;
     if (!All.length) { $('#jList').innerHTML = emptyHTML(); $('#pager').innerHTML = ''; bindEmpty(); renderSel(); return; }
     if (!R.length) { $('#jList').innerHTML = '<p class="nores">조건에 맞는 기록이 없어요. 검색어나 조건을 바꿔 보세요.</p>'; $('#pager').innerHTML = ''; renderSel(); return; }
@@ -2027,7 +2077,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const total = E.reduce((s, e) => s + e.count, 0), nightN = E.filter((e) => e.night).reduce((s, e) => s + e.count, 0);
     const d = new Date(), cal = E.find((e) => e.cal)?.cal ?? +$('#cal').value;
     const HOW = { cal: '보정 후 직접 녹음', raw: '보정 전 직접 녹음', file: '녹음 파일(dB 참고)' };
-    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}${e.how && HOW[e.how] ? ` · ${HOW[e.how]}` : ''}${authorOf(e) ? ` · 기록: ${authorOf(e)}` : ''}`);
+    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}${e.how && HOW[e.how] ? ` · ${HOW[e.how]}` : ''}${authorOf(e) ? ` · 기록: ${authorOf(e)}` : ''}${harmTxt(e.harm) ? `\n    생활 피해: ${harmTxt(e.harm)}${e.harm.memo ? ` — ${e.harm.memo}` : ''}` : ''}`);
     const nCal = E.filter((e) => e.how === 'cal').length;
     return `층간소음 피해 기록 일지${isExample ? '  (※ 기능 설명용 예시 데이터)' : ''}
 
