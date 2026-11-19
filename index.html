@@ -813,6 +813,58 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .src-tag.warn{background:var(--warn-soft);color:var(--fg)}
 .src-note{font-size:13px;color:var(--fg2);background:var(--sunk);border-radius:10px;padding:10px 12px;margin:6px 0 10px;line-height:1.55;word-break:keep-all}
 .src-note .txtbtn{font-size:13px;padding:0 2px;min-height:auto}
+#famSheet{max-height:90vh;overflow:auto}
+.fam-intro{font-size:14px;color:var(--fg2);line-height:1.6;word-break:keep-all;margin:2px 0 14px}
+.fam-two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fam-two .btn{min-height:76px;flex-direction:column;gap:4px;font-weight:700;font-size:15px}
+.fam-two .btn small{font-weight:400;font-size:12px;color:inherit;opacity:.8}
+.fam-f{display:flex;flex-direction:column;gap:14px}
+.fam-f label{display:flex;flex-direction:column;gap:6px;font-size:14px;font-weight:700}
+.fam-f input[type=text],.fam-f select{min-height:46px;border-radius:12px;border:1px solid var(--line2);padding:0 12px;font:inherit;font-size:16px;background:var(--surface);color:var(--fg)}
+.fam-step{display:inline-flex;align-items:center;border:1px solid var(--line2);border-radius:12px;overflow:hidden;align-self:flex-start}
+.fam-step button{border:0;border-radius:0;min-height:44px;width:46px;font-size:20px;padding:0}
+.fam-step b{min-width:56px;text-align:center;font-size:16px}
+.fam-acts{display:flex;gap:8px;margin-top:6px}
+.fam-acts .btn{flex:1;min-height:48px;font-size:15px}
+.fam-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:40px;font-weight:800;letter-spacing:.18em;text-align:center;background:var(--sunk);border-radius:16px;padding:18px 8px;color:var(--fg)}
+.fam-meta{display:flex;justify-content:center;gap:14px;font-size:13px;color:var(--fg2);margin:10px 0 4px}
+.fam-codein{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:28px;font-weight:800;letter-spacing:.3em;text-align:center;text-transform:uppercase;min-height:60px!important}
+.fam-err{font-size:13.5px;color:var(--bad);min-height:18px}
+.fam-card{background:var(--sunk);border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;font-size:14px}
+.fam-card b{font-size:17px}
+.fam-agree{display:flex!important;flex-direction:row!important;gap:10px;align-items:flex-start;font-weight:400!important;font-size:13.5px!important;line-height:1.5;color:var(--fg2);word-break:keep-all}
+.fam-agree input{width:20px;height:20px;flex:none;margin-top:1px;accent-color:var(--accent)}
+.fam-head{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.fam-head b{font-size:18px}
+.fam-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.fam-list li{display:flex;align-items:center;gap:10px;padding:12px 14px;border-top:1px solid var(--line);background:var(--surface)}
+.fam-list li:first-child{border-top:0}
+.fam-av{width:34px;height:34px;border-radius:50%;background:var(--accent-soft);color:var(--accent);font-weight:800;display:grid;place-items:center;flex:none}
+.fam-who{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.fam-who b{font-size:15px;display:flex;align-items:center;gap:6px}
+.fam-who small{font-size:12px;color:var(--fg2)}
+.fam-badge{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--accent);color:var(--accent-ink)}
+.fam-me{font-size:11px;font-weight:700;padding:1px 7px;border-radius:999px;background:var(--sunk);color:var(--fg2)}
+.fam-row-acts{display:flex;gap:4px}
+.fam-row-acts button{min-height:34px;font-size:12.5px;padding:4px 9px}
+.fam-sec{margin-top:16px;display:flex;flex-direction:column;gap:10px}
+.fam-sec h3{font-size:13px;color:var(--fg2);margin:0;font-weight:700}
+.fam-line{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:14.5px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:8px 8px 8px 14px;min-height:52px}
+.fam-line .btn{min-height:38px;font-size:13px;white-space:nowrap;padding:6px 10px}
+.fam-line>span:first-child{min-width:0}
+.fam-tog{position:relative;width:48px;height:28px;border-radius:999px;background:var(--line2);border:0;padding:0;min-height:28px;flex:none}
+.fam-tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .15s}
+.fam-tog[aria-pressed=true]{background:var(--accent)}
+.fam-tog[aria-pressed=true]::after{left:23px}
+.fam-danger{color:var(--bad)!important;border-color:color-mix(in srgb,var(--bad) 40%,transparent)!important}
+.btn.primary.fam-danger{background:var(--bad)!important;color:#fff!important;border-color:var(--bad)!important}
+.fam-pick{display:flex;flex-direction:column;gap:6px}
+.fam-pick label{flex-direction:row;align-items:center;gap:10px;font-weight:500;border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.fam-pick input{accent-color:var(--accent);width:18px;height:18px}
+.fam-warn{font-size:13.5px;background:var(--warn-soft);border-radius:10px;padding:10px 12px;line-height:1.5;word-break:keep-all}
+.fam-poc{font-size:12px;color:var(--fg3,var(--fg2));margin-top:16px;line-height:1.5;word-break:keep-all}
+.famchip{display:inline-flex;align-items:center;gap:4px}
+.gm .au{font-weight:700;color:var(--accent)}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -896,6 +948,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
           <label for="when">녹음 시각 <span class="note" id="whenSrc">파일·녹음 시각으로 자동 입력</span><input id="when" type="datetime-local"></label>
           <label for="cal">보정값 <span class="num" id="calV" style="color:var(--fg);font-weight:700">100</span> dB <span class="note">소음측정기 값과 맞추기</span><input id="cal" type="range" min="60" max="140" step="1" value="100"></label>
           <button type="button" class="btn calbtn" id="openCal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h3l2-6 4 12 2-6h5"/></svg>휴대폰 자동 보정</button>
+          <button type="button" class="btn calbtn" id="openFam" data-openfam><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족과 함께 기록</button>
           <button type="button" class="link-btn" id="reOnb" style="align-self:flex-start">사용법 다시 보기</button>
         </div>
       </div>
@@ -929,6 +982,7 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
       <div class="jrow">
         <h1 id="h1-journal">내 소음 기록</h1>
         <span class="sp"></span>
+        <button class="mini famchip" id="famBtn" type="button" data-openfam><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
         <button class="mini" id="exBtn" type="button" aria-pressed="false" title="예시 일지 보기/끄기">예시</button>
         <a class="btn primary next-top" href="#report">다음: 알리기 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
@@ -1039,6 +1093,11 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
   <div class="al-bar"><i id="alBar"></i></div>
 </div></div>
 <button type="button" class="totop" id="toTop" aria-label="맨 위로" hidden><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></button>
+<div class="sheet" id="famSheet" role="dialog" aria-modal="true" aria-labelledby="famH" hidden>
+  <div class="grab" aria-hidden="true"></div>
+  <div class="sheet-h"><h2 id="famH">가족과 함께 기록</h2><button type="button" class="icon-btn x" id="closeFam" aria-label="닫기"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div id="famBody"></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
@@ -1533,6 +1592,129 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#calOut').innerHTML = `보정 완료 · 보정값 <b>${c}</b> <span class="note">이 휴대폰에 저장돼요</span>`; toast(`보정값 ${c}로 맞췄어요`);
     if (last) run(last.y, last.label);
   });
+
+  /* ---------- 가족 함께 기록 (팀코드 초대) — PoC: 이 기기 안에서 흐름을 보여 줌. 실제 서비스는 서버(Supabase)에서 처리 ---------- */
+  const FKEY = 'kungkwang.family';
+  const CODESET = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  const DEMO = { code: 'KUNG26', name: '우리집', owner: '엄마', others: [['엄마', 'owner', 9], ['아빠', 'member', 8]], max: 4 };
+  const esc = (x) => String(x).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  let FAM = null, famView = null, famArg = null, famTries = [];
+  try { FAM = JSON.parse(localStorage.getItem(FKEY) || 'null'); } catch (e) {}
+  const famSave = () => { try { FAM ? localStorage.setItem(FKEY, JSON.stringify(FAM)) : localStorage.removeItem(FKEY); } catch (e) {} famChip(); };
+  const famActive = () => FAM ? FAM.members.filter((m) => m.status === 'active') : [];
+  function famMe() { return FAM ? FAM.members.find((m) => m.id === FAM.me && m.status === 'active') || null : null; }
+  const famVis = () => (FAM && FAM.vis) || 'household';
+  const isOwner = () => { const m = famMe(); return !!m && m.role === 'owner'; };
+  function authorOf(e) { if (e.author) return e.author; if (!e.example || !FAM) return ''; const a = famActive(); return a.length > 1 ? a[(e.ts / 60000 | 0) % a.length].nick : ''; }
+  function newCode() { const a = new Uint32Array(6); crypto.getRandomValues(a); return [...a].map((v) => CODESET[v % CODESET.length]).join(''); }
+  const normCode = (x) => x.replace(/[\s-]/g, '').toUpperCase();
+  const EXP = { 1: '1시간', 24: '24시간', 168: '7일' };
+  function issue(h) { FAM.code = newCode(); FAM.exp = Date.now() + (h || FAM.expH || 24) * 36e5; FAM.expH = h || FAM.expH || 24; FAM.showCode = true; }
+  const left = () => { const ms = FAM.exp - Date.now(); if (ms <= 0) return '만료됨'; const h = Math.floor(ms / 36e5), m = Math.floor(ms % 36e5 / 6e4); return h >= 24 ? `${Math.floor(h / 24)}일 ${h % 24}시간 남음` : h ? `${h}시간 ${m}분 남음` : `${m}분 남음`; };
+  const mkId = () => Math.random().toString(36).slice(2, 10);
+  const dd = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()} 참여`; };
+  function famChip() { const t = $('#famBtnT'); if (t) t.textContent = FAM && famMe() ? `가족 ${famActive().length}명` : '가족'; }
+  function openFam(v) { famView = v || (famMe() ? 'list' : 'start'); famArg = null; famDraw(); $('#famSheet').hidden = false; $('#sheetBg').hidden = false; }
+  function closeFam() { $('#famSheet').hidden = true; if ($('#sheet').hidden && $('#calSheet').hidden) $('#sheetBg').hidden = true; }
+  function go2(v, a) { famView = v; famArg = a; famDraw(); $('#famSheet').scrollTop = 0; }
+  const stepper = (id, v) => `<div class="fam-step"><button type="button" data-st="${id}" data-d="-1" aria-label="줄이기">−</button><b class="num" id="${id}">${v}</b><button type="button" data-st="${id}" data-d="1" aria-label="늘리기">+</button></div>`;
+  function famDraw() {
+    const B = $('#famBody'), me = famMe();
+    if (famView === 'start') B.innerHTML = `<p class="fam-intro">가족이 각자 휴대폰으로 녹음해도 기록이 한 일지에 모여요. 누가 언제 들었는지 함께 남아서 상담·조정 때 근거가 더 탄탄해져요.</p>
+      <div class="fam-two"><button type="button" class="btn primary" data-fv="create">가족 만들기<small>방장이 되어 코드 발급</small></button><button type="button" class="btn" data-fv="join">코드로 참여<small>받은 6자리 코드 입력</small></button></div>
+      <p class="fam-poc">PoC 미리보기예요. 실제 서비스는 서버에서 가족끼리 기록을 맞춰요. 이 화면에서는 예시 코드 <b>${DEMO.code}</b>로 참여해 볼 수 있어요.</p>`;
+    else if (famView === 'create') B.innerHTML = `<div class="fam-f">
+      <label>가족 이름<input type="text" id="fName" maxlength="20" placeholder="예: 우리집, 302호" value="우리집"></label>
+      <label>내 이름(가족에게 보이는 이름)<input type="text" id="fNick" maxlength="10" placeholder="예: 엄마, 첫째"></label>
+      <label>정원 <span class="note" style="font-weight:400">2~6명 · 다 차면 코드가 있어도 못 들어와요</span>${stepper('fMax', 4)}</label>
+      <label>코드 유효기간<select id="fExp"><option value="1">1시간</option><option value="24" selected>24시간</option><option value="168">7일</option></select></label>
+      <div class="fam-err" id="fErr"></div>
+      <div class="fam-acts"><button type="button" class="btn" data-fv="start">이전</button><button type="button" class="btn primary" id="fCreate">만들고 코드 받기</button></div></div>`;
+    else if (famView === 'code') B.innerHTML = `<p class="fam-intro">가족에게 이 코드를 보내 주세요. 코드는 지금만 보여요. 나중에는 새로 발급하면 돼요.</p>
+      <div class="fam-code num" aria-label="팀코드 ${FAM.code.split('').join(' ')}">${FAM.code}</div>
+      <div class="fam-meta"><span>${left()}</span><span>현재 ${famActive().length}/${FAM.max}명</span></div>
+      <div class="fam-acts"><button type="button" class="btn" id="fCopy">코드 복사</button><button type="button" class="btn" id="fShare">공유하기</button></div>
+      <div class="fam-acts"><button type="button" class="btn primary" data-fv="list">완료</button></div>`;
+    else if (famView === 'join') B.innerHTML = `<div class="fam-f">
+      <label>받은 코드 6자리<input type="text" id="fCode" class="fam-codein" maxlength="9" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="ABC234"></label>
+      <div class="fam-err" id="fErr"></div>
+      <div class="fam-acts"><button type="button" class="btn" data-fv="start">이전</button><button type="button" class="btn primary" id="fPrev">확인</button></div>
+      <p class="fam-poc">PoC 미리보기: 예시 코드 <b>${DEMO.code}</b></p></div>`;
+    else if (famView === 'confirm') B.innerHTML = `<div class="fam-f">
+      <div class="fam-card"><span class="note">이 가족에 참여할까요?</span><b>${esc(DEMO.name)}</b><span>방장 ${esc(DEMO.owner)} · 현재 ${DEMO.others.length}/${DEMO.max}명</span></div>
+      <label>내 이름(가족에게 보이는 이름)<input type="text" id="fNick" maxlength="10" placeholder="예: 첫째"></label>
+      <label class="fam-agree"><input type="checkbox" id="fAgree">내가 '가족 공개'로 둔 기록은 가족 구성원이 볼 수 있어요. '나만 보기' 기록은 보이지 않아요.</label>
+      <div class="fam-err" id="fErr"></div>
+      <div class="fam-acts"><button type="button" class="btn" data-fv="join">이전</button><button type="button" class="btn primary" id="fJoin" disabled>참여하기</button></div></div>`;
+    else if (famView === 'list') {
+      const A = famActive(), own = isOwner();
+      B.innerHTML = `<div class="fam-head"><b>${esc(FAM.name)}</b><span class="note num">${A.length}/${FAM.max}명</span></div>
+      <ul class="fam-list">${A.map((m) => `<li><span class="fam-av">${esc(m.nick.slice(0, 1))}</span><span class="fam-who"><b>${esc(m.nick)}${m.role === 'owner' ? '<span class="fam-badge">방장</span>' : ''}${m.id === FAM.me ? '<span class="fam-me">나</span>' : ''}</b><small>${dd(m.joined)}</small></span>${own && m.id !== FAM.me ? `<span class="fam-row-acts"><button type="button" data-tr="${m.id}">방장 넘기기</button><button type="button" class="fam-danger" data-kick="${m.id}">내보내기</button></span>` : ''}</li>`).join('')}</ul>
+      <div class="fam-sec"><h3>내 기록</h3>
+        <div class="fam-line"><span>새 기록 기본 공개<br><span class="note">${famVis() === 'household' ? '가족 공개' : '나만 보기'}</span></span><button type="button" class="fam-tog" id="fVis" aria-pressed="${famVis() === 'household'}" aria-label="가족 공개"></button></div></div>
+      ${own ? `<div class="fam-sec"><h3>방장 관리</h3>
+        <div class="fam-line"><span>팀코드<br><span class="note">${FAM.code && FAM.exp > Date.now() ? left() : '활성 코드 없음'}</span></span><span style="display:flex;gap:6px">${FAM.code ? '<button type="button" class="btn" id="fRevoke">끄기</button>' : ''}<button type="button" class="btn" id="fReissue">새로 발급</button></span></div>
+        <div class="fam-line"><span>정원</span>${stepper('lMax', FAM.max)}</div>
+        <div class="fam-line"><span>가입 잠금<br><span class="note">켜면 코드가 있어도 못 들어와요</span></span><button type="button" class="fam-tog" id="fLock" aria-pressed="${!!FAM.locked}" aria-label="가입 잠금"></button></div>
+        <button type="button" class="btn" id="fSim">구성원이 들어온 것처럼 보기 (미리보기)</button>
+        <button type="button" class="btn fam-danger" id="fDis">가족 해산</button></div>` : ''}
+      <div class="fam-sec"><button type="button" class="btn" data-fv="leave">가족에서 나가기</button></div>
+      <p class="fam-poc">PoC 미리보기: 이 기기 안에서 흐름만 보여 줘요. 내보내거나 나간 사람의 기존 기록은 지워지지 않고 일지에 남아요.</p>`;
+    } else if (famView === 'leave') {
+      const others = famActive().filter((m) => m.id !== FAM.me).sort((a, b) => a.joined - b.joined);
+      B.innerHTML = `<div class="fam-f">${!isOwner() ? `<p class="fam-intro">${esc(FAM.name)}에서 나갈까요? 내가 남긴 기록은 가족 일지에 남아요.</p>`
+        : others.length ? `<p class="fam-intro">방장을 넘길 사람을 골라 주세요. 기본은 가장 먼저 들어온 사람이에요.</p><div class="fam-pick">${others.map((m, i) => `<label><input type="radio" name="fTo" value="${m.id}" ${i ? '' : 'checked'}>${esc(m.nick)} <span class="note">${dd(m.joined)}</span></label>`).join('')}</div>`
+        : `<div class="fam-warn">혼자 남아 있어서 나가면 가족과 팀코드가 삭제돼요.</div>`}
+        <div class="fam-acts"><button type="button" class="btn" data-fv="list">취소</button><button type="button" class="btn primary" id="fLeave">나가기</button></div></div>`;
+    } else if (famView === 'kick') {
+      const m = FAM.members.find((x) => x.id === famArg);
+      B.innerHTML = `<div class="fam-f"><p class="fam-intro"><b>${esc(m.nick)}</b> 님을 가족에서 내보낼까요? 이분이 남긴 기록은 일지에 남고, 같은 가족에는 다시 들어올 수 없어요.</p>
+        <label class="fam-agree"><input type="checkbox" id="fRe" checked>팀코드도 새로 발급하기 (기존 코드가 밖으로 퍼지지 않게)</label>
+        <div class="fam-acts"><button type="button" class="btn" data-fv="list">취소</button><button type="button" class="btn primary fam-danger" id="fKick">내보내기</button></div></div>`;
+    } else if (famView === 'dis') B.innerHTML = `<div class="fam-f"><div class="fam-warn">가족을 해산하면 구성원 모두 가족에서 빠지고 팀코드도 사라져요. 각자의 기록은 각자 휴대폰에 남아요.</div>
+        <div class="fam-acts"><button type="button" class="btn" data-fv="list">취소</button><button type="button" class="btn primary fam-danger" id="fDisOk">해산하기</button></div></div>`;
+  }
+  const ferr = (m) => { const e = $('#fErr'); if (e) e.textContent = m; };
+  $('#famBody').addEventListener('click', (ev) => {
+    const t = ev.target.closest('button'); if (!t) return;
+    if (t.dataset.fv) return go2(t.dataset.fv);
+    if (t.dataset.st) { const el = $('#' + t.dataset.st), min = t.dataset.st === 'lMax' ? Math.max(2, famActive().length) : 2; let v = Math.max(min, Math.min(6, +el.textContent + +t.dataset.d));
+      if (t.dataset.st === 'lMax') { if (+el.textContent + +t.dataset.d < min) { toast('현재 인원보다 작게 줄일 수 없어요'); return; } FAM.max = v; famSave(); } el.textContent = v; return; }
+    if (t.dataset.kick) return go2('kick', t.dataset.kick);
+    if (t.dataset.tr) { const m = FAM.members.find((x) => x.id === t.dataset.tr); famMe().role = 'member'; m.role = 'owner'; famSave(); toast(`${m.nick} 님이 방장이 됐어요`); return famDraw(); }
+    switch (t.id) {
+      case 'fCreate': { const nick = $('#fNick').value.trim(), name = $('#fName').value.trim(); if (!name) return ferr('가족 이름을 적어 주세요'); if (!nick) return ferr('내 이름을 적어 주세요');
+        const id = mkId(); FAM = { name, max: +$('#fMax').textContent, locked: false, me: id, vis: 'household', members: [{ id, nick, role: 'owner', status: 'active', joined: Date.now() }] }; issue(+$('#fExp').value); famSave(); return go2('code'); }
+      case 'fCopy': navigator.clipboard && navigator.clipboard.writeText(FAM.code).then(() => toast('코드를 복사했어요'), () => toast(FAM.code)); return;
+      case 'fShare': { const txt = `쿵쾅 가족 '${FAM.name}'에 들어와 주세요. 팀코드 ${FAM.code} (${left()})`; if (navigator.share) navigator.share({ title: '쿵쾅 가족 초대', text: txt, url: location.href.split('#')[0] }).catch(() => {}); else navigator.clipboard && navigator.clipboard.writeText(txt).then(() => toast('초대 문구를 복사했어요')); return; }
+      case 'fPrev': { const now = Date.now(); famTries = famTries.filter((x) => now - x < 6e5); if (famTries.length >= 10) return ferr('잠시 후 다시 시도해 주세요');
+        const c = normCode($('#fCode').value); if (c.length !== 6 || [...c].some((ch) => !CODESET.includes(ch))) { famTries.push(now); return ferr('코드를 다시 확인해 주세요 (6자리, 0·O·1·I·L은 쓰지 않아요)'); }
+        if (FAM && famMe()) return ferr('이미 가족에 속해 있어요. 나간 뒤 참여해 주세요');
+        if (c !== DEMO.code) { famTries.push(now); return ferr('코드를 다시 확인해 주세요'); } return go2('confirm'); }
+      case 'fJoin': { const nick = $('#fNick').value.trim(); if (!nick) return ferr('내 이름을 적어 주세요'); const id = mkId(), base = Date.now();
+        FAM = { name: DEMO.name, max: DEMO.max, locked: false, me: id, vis: 'household', members: [...DEMO.others.map(([n, r, ago]) => ({ id: mkId(), nick: n, role: r, status: 'active', joined: base - ago * 864e5 })), { id, nick, role: 'member', status: 'active', joined: base }] };
+        famSave(); toast(`${DEMO.name}에 참여했어요`); refreshJ(); return go2('list'); }
+      case 'fVis': FAM.vis = famVis() === 'household' ? 'private' : 'household'; famSave(); return famDraw();
+      case 'fLock': FAM.locked = !FAM.locked; famSave(); return famDraw();
+      case 'fRevoke': FAM.code = null; FAM.exp = 0; famSave(); toast('팀코드를 껐어요'); return famDraw();
+      case 'fReissue': issue(); famSave(); return go2('code');
+      case 'fSim': { if (FAM.locked) return toast('지금은 참여할 수 없는 가족이에요 (가입 잠금)'); if (!FAM.code || FAM.exp <= Date.now()) return toast('활성 팀코드가 없어요. 새로 발급해 주세요'); if (famActive().length >= FAM.max) return toast('정원이 가득 찼어요');
+        const names = ['아빠', '엄마', '첫째', '둘째', '할머니', '삼촌'].filter((n) => !FAM.members.some((m) => m.nick === n)); FAM.members.push({ id: mkId(), nick: names[0] || '가족' + FAM.members.length, role: 'member', status: 'active', joined: Date.now() }); famSave(); refreshJ(); return famDraw(); }
+      case 'fKick': { const m = FAM.members.find((x) => x.id === famArg); m.status = 'kicked'; m.left = Date.now(); if ($('#fRe').checked) { issue(); famSave(); toast(`${m.nick} 님을 내보내고 코드를 새로 발급했어요`); refreshJ(); return go2('code'); } famSave(); refreshJ(); toast(`${m.nick} 님을 내보냈어요`); return go2('list'); }
+      case 'fLeave': { const me = famMe(), others = famActive().filter((m) => m.id !== FAM.me);
+        if (me.role === 'owner' && others.length) { const to = ($('input[name=fTo]:checked') || {}).value, nx = others.find((m) => m.id === to) || others.sort((a, b) => a.joined - b.joined)[0]; me.role = 'member'; nx.role = 'owner'; }
+        me.status = 'left'; FAM = null; famSave(); refreshJ(); toast('가족에서 나왔어요'); return go2('start'); }
+      case 'fDis': return go2('dis');
+      case 'fDisOk': FAM = null; famSave(); refreshJ(); toast('가족을 해산했어요'); return go2('start');
+    }
+  });
+  $('#famBody').addEventListener('input', (ev) => { if (ev.target.id === 'fCode') { const p = ev.target.selectionStart; ev.target.value = ev.target.value.toUpperCase(); ev.target.setSelectionRange(p, p); ferr(''); } });
+  $('#famBody').addEventListener('change', (ev) => { if (ev.target.id === 'fAgree') $('#fJoin').disabled = !ev.target.checked; });
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-openfam]')) openFam(); });
+  $('#closeFam').addEventListener('click', closeFam);
+  $('#sheetBg').addEventListener('click', () => { if (!$('#famSheet').hidden) closeFam(); });
+  function refreshJ() { try { if (location.hash.startsWith('#journal')) show(); } catch (e) {} }
+  famChip();
   const openPick = () => { $('#sheet').hidden = false; $('#sheetBg').hidden = false; $('#closePick').focus(); };
   const closePick = () => { $('#sheet').hidden = true; $('#sheetBg').hidden = true; };
   $('#openPick').addEventListener('click', openPick);
@@ -1651,7 +1833,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   }
   function entries() { if (exMode === null) exMode = !log.length; isExample = exMode; return exMode ? exampleLog() : log; }
   function addEntry(r) {
-    exMode = false; log.push({ cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
+    exMode = false; const au = famMe(); log.push({ author: au ? au.nick : undefined, vis: au ? famVis() : undefined, cal: r.cal, ts: r.start.getTime(), type: r.main || 'other', count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), res: snapshot(r) });
     log.sort((a, b) => a.ts - b.ts);
     try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); log[log.length - 1].res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
   }
@@ -1732,7 +1914,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const d = new Date(e.ts), on = pick.has(e.ts);
     return `<div class="gr${on ? ' on' : ''}" role="listitem">${sel ? `<label class="ck" aria-label="${fmt(d)} 선택"><input type="checkbox" data-sel="${e.ts}" ${on ? 'checked' : ''}></label>` : ''}<a class="ga" href="#log-${e.ts}">
       <span class="gt num"><b>${pad(d.getHours())}:${pad(d.getMinutes())}</b>${sel ? '' : `<small>${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]})</small>`}</span>
-      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small></span>
+      <span class="gm"><b><i class="sw" style="background:var(--t-${T[e.type].color})"></i>${T[e.type].name}</b><small class="num">${authorOf(e) ? `<span class="au">${esc(authorOf(e))}${e.vis === 'private' ? '(나만)' : ''}</span> · ` : ''}${e.count}회 · 최고 ${e.lmax}dB${e.night ? ' · 야간' : ''}${e.how === 'raw' ? ' · 보정 전' : e.how === 'file' ? ' · 파일' : ''}</small></span>
       <span class="pill ${e.over}">${stTxt[e.over]}</span><svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></a></div>`;
   }
   function dayLabel(t) {
@@ -1845,7 +2027,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const total = E.reduce((s, e) => s + e.count, 0), nightN = E.filter((e) => e.night).reduce((s, e) => s + e.count, 0);
     const d = new Date(), cal = E.find((e) => e.cal)?.cal ?? +$('#cal').value;
     const HOW = { cal: '보정 후 직접 녹음', raw: '보정 전 직접 녹음', file: '녹음 파일(dB 참고)' };
-    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}${e.how && HOW[e.how] ? ` · ${HOW[e.how]}` : ''}`);
+    const lines = E.map((e, i) => `${String(i + 1).padStart(2, ' ')}. ${fmt(new Date(e.ts))}${e.night ? ' [야간]' : ' [주간]'}  ${T[e.type].name} ${e.count}회 · 최고 ${e.lmax}dB(A) · ${stTxt[e.over]}${e.how && HOW[e.how] ? ` · ${HOW[e.how]}` : ''}${authorOf(e) ? ` · 기록: ${authorOf(e)}` : ''}`);
     const nCal = E.filter((e) => e.how === 'cal').length;
     return `층간소음 피해 기록 일지${isExample ? '  (※ 기능 설명용 예시 데이터)' : ''}
 
