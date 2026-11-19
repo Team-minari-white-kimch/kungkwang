@@ -1750,7 +1750,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
       <span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="3" width="19" height="3.2" rx="1.4" fill="#fff"/><path d="M3.5 13.5h2.2l2-4.5 3 9 2.6-7 2.2 4.6 1.7-2.1H20.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       <span><b>쿵쾅</b><small>층간소음, 감정 대신 기록으로</small></span>
     </a>
-    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#stats" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><button type="button" class="tab rec-tab" id="tabRec" aria-label="바로 녹음 시작"><span class="rt-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>녹음</button><a class="tab" href="#report" data-view="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg>해결</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a></nav>
+    <nav class="tabs" aria-label="메뉴"><a class="tab" href="#analyze" data-view="analyze"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-6.5 8 6.5"/><path d="M6 9.5V20h12V9.5"/><path d="M10 20v-5h4v5"/></svg>홈</a><a class="tab" href="#journal" data-view="journal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>소음일지</a><button type="button" class="tab rec-tab" id="tabRec" aria-label="바로 녹음 시작"><span class="rt-c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>녹음</button><a class="tab" href="#report" data-view="report"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg>해결</a><a class="tab" href="#family" data-view="family"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg>가족공유</a></nav>
   </div>
 </header>
 
@@ -1815,7 +1815,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <section class="view" id="v-journal" aria-labelledby="h1-journal" hidden>
     <div class="phd jphd"><div class="phd-t"><h1 id="h1-journal">소음일지</h1><p class="phd-s" id="jSub"></p></div>
         <div class="phd-a"><button class="mini famchip" id="famBtn" type="button" data-openfam hidden><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg><span id="famBtnT">가족</span></button>
-        <button class="mini jtool icon-btn" id="jTool" type="button" aria-pressed="false" aria-label="검색·선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
+        <button class="mini jtool icon-btn" id="jTool" type="button" aria-pressed="true" aria-label="검색·선택"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4"/></svg></button>
         <button class="mini" id="exBtn" type="button" aria-pressed="false" hidden>예시</button><button type="button" class="exchip" id="exChip" aria-pressed="true" title="예시 일지 보기/숨기기"><i></i>예시</button></div></div>
           <div class="jhead">
       <div class="eyebrow sr" id="jEye">소음일지</div>
@@ -1825,7 +1825,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
     </div>
     <div id="jDash" class="dash"></div>
     <div class="jcal" id="jCal" hidden></div>
-    <div class="card board" id="jBoard" hidden>
+    <div class="jt-on card board" id="jBoard" hidden>
       <form class="bsearch" id="sForm" role="search">
         <select id="qField" aria-label="검색 조건"><option value="all">전체</option><option value="type">소리 종류</option><option value="date">날짜</option><option value="verdict">판정</option><option value="time">시간대</option><option value="file">파일 이름</option></select>
         <label class="sbox" for="q"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="q" type="search" placeholder="검색어 입력" autocomplete="off"></label>
@@ -2995,7 +2995,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e) { toast('저장 공간이 부족해 그래프 없이 저장했습니다'); ne.res = null; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (e2) {} }
     return ne;
   }
-  let jtab = 'dash', dmenu = 'heat', dper = 7;
+  let jtab = 'board', dmenu = 'heat', dper = 7;
   const SF = { day: '', per: 0, au: '', field: 'all', q: '', from: '', to: '', types: new Set(), tz: 'all', vd: new Set(), minDb: '' };
   const svgEl = (w, h, inner) => `<svg viewBox="0 0 ${w} ${h}" role="img">${inner}</svg>`;
   function dashboard(E0) {
