@@ -1600,6 +1600,34 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 .kbox .hs b{font-size:18px;font-weight:800;letter-spacing:-.02em}
 .kbox .hs b small{font-size:11px;font-weight:600;color:var(--fg2);margin-left:1px}
 .kbox .hs span{font-size:11.5px;color:var(--fg2)}
+.cap2{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 6px;font-size:12.5px}
+.cap2 b{font-size:13px}
+.lg{display:inline-flex;align-items:center;gap:4px;font-size:11px;color:var(--fg2);font-weight:500}
+.lg i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-left:6px}
+.lg i:first-child{margin-left:0}
+.lg i.n{background:var(--accent)} .lg i.d{background:color-mix(in srgb,var(--accent) 35%,var(--sunk))}
+.lg i.o{background:var(--bad);border-radius:50%} .lg i.w{background:var(--warn);border-radius:50%} .lg i.k{background:var(--ok);border-radius:50%}
+.lg i.ln{width:12px;height:0;border-top:2px dashed var(--bad);border-radius:0}
+.ai-mini{font-size:10px;font-weight:700;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:1px 6px}
+.tbox{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:6px 12px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px 16px}
+.tb-i{width:12px;height:12px;border-radius:50%}
+.tb-t{display:flex;flex-direction:column} .tb-t small{font-size:11.5px;color:var(--fg2)} .tb-t b{font-size:16px}
+.tb-v{font-size:22px;font-weight:800} .tb-v small{font-size:12px;color:var(--fg2)}
+.tb-bar{grid-column:1/-1;display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px}
+.tb-bar i{display:block}
+.tb-lg{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11.5px;color:var(--fg2)}
+.tb-lg i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}
+#v-journal .dcols{display:flex;flex-direction:column;gap:10px;align-items:stretch}
+#v-journal .dcols>*{width:100%;box-sizing:border-box;margin:0}
+.ibox{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.ib{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:3px}
+.ib small{font-size:11.5px;color:var(--fg2);font-weight:600}
+.ib b{font-size:24px;font-weight:800;letter-spacing:-.02em;line-height:1.15}
+.ib b em{font-style:normal;font-size:12px;color:var(--fg2);margin-left:2px;font-weight:600}
+.ib>span{font-size:11.5px;color:var(--fg2)}
+.ib.bad{background:var(--bad-soft);border-color:transparent} .ib.bad b{color:var(--bad)}
+.ibar{display:block;height:6px;border-radius:3px;background:var(--sunk);overflow:hidden;margin-top:4px}
+.ibar i{display:block;height:100%;background:var(--accent);border-radius:3px}
 .night-note{font-size:13px;background:var(--warn-soft);color:var(--fg);border-radius:10px;padding:9px 12px;margin:0 0 12px;line-height:1.5;word-break:keep-all}
 .onb{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;overflow:auto;padding:calc(env(safe-area-inset-top,0px) + 20px) 16px calc(env(safe-area-inset-bottom,0px) + 20px)}
 .onb-in{width:min(440px,100%);margin:auto;display:flex;flex-direction:column;gap:22px}
@@ -2928,6 +2956,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     // 히트맵(기존 렌더 재사용)
     const R3 = [...E].reverse().slice(0, 3);
     const npct = total ? Math.round(nightN / total * 100) : 0, topType = bys[0] ? T[bys[0][0]].name : '-';
+    const WD = ['일', '월', '화', '수', '목', '금', '토'], wdc = new Array(7).fill(0); E.forEach((e) => { wdc[new Date(e.ts).getDay()] += e.count; }); const wdMax = wdc.indexOf(Math.max(...wdc));
     // 시간대 24칸 막대
     const W3 = 520, H3 = 170, bw3 = (W3 - pl - 6) / 24, hm = Math.max(1, ...hours), s3 = (v) => (H3 - pb - pt) * v / hm;
     let g3 = `<line x1="${pl}" x2="${W3}" y1="${H3 - pb}" y2="${H3 - pb}" stroke="var(--line)"/>`;
@@ -2937,10 +2966,10 @@ if (typeof module !== 'undefined') module.exports = KE;
       if (v && v === hm) g3 += `<text x="${x + (bw3 - 3) / 2}" y="${H3 - pb - s3(v) - 5}" text-anchor="middle" font-size="11" font-weight="700" fill="var(--fg)">${v}</text>`; });
     const tabs = [['heat', '시간대'], ['daily', '날짜별'], ['type', '소리 종류'], ['peak', '최고 소음']];
     const panel = {
-      heat: `<p class="cap">몇 시에 많이 들렸나 · 진한 막대가 야간(22~06시)</p>${svgEl(W3, H3, g3)}`,
-      daily: `<p class="cap">최근 ${ND}일 · 진한 막대가 야간</p>${svgEl(W, H, g)}`,
-      type: `<p class="cap">AI가 분류한 소리 종류별 횟수</p><div class="hb">${bys.map(([k, c]) => `<div class="hb-r"><span>${T[k].name}</span><span class="bar"><i style="width:${c / bmx * 100}%;background:var(--t-${T[k].color})"></i></span><b>${c}회</b></div>`).join('') || '<p class="note">기록이 없어요.</p>'}</div>`,
-      peak: `<p class="cap">기록별 최고 소음 · 점선은 야간 52 · 주간 57dB 기준 · 빨강 초과</p>${L.length ? svgEl(W2, H2, g2) : '<p class="note">기록이 없어요.</p>'}`
+      heat: `<p class="cap2"><b>시간대별 발생 빈도</b><span class="lg"><i class="n"></i>야간<i class="d"></i>주간</span></p>${svgEl(W3, H3, g3)}`,
+      daily: `<p class="cap2"><b>일별 발생 건수 · ${ND}일</b><span class="lg"><i class="n"></i>야간<i class="d"></i>주간</span></p>${svgEl(W, H, g)}`,
+      type: `<p class="cap2"><b>유형별 발생 횟수</b><span class="lg"><span class="ai-mini">AI 분류</span></span></p><div class="hb">${bys.map(([k, c]) => `<div class="hb-r"><span>${T[k].name}</span><span class="bar"><i style="width:${c / bmx * 100}%;background:var(--t-${T[k].color})"></i></span><b>${c}회</b></div>`).join('') || '<p class="note">기록이 없어요.</p>'}</div>`,
+      peak: `<p class="cap2"><b>기록별 최고 소음도</b><span class="lg"><i class="o"></i>초과<i class="w"></i>근접<i class="k"></i>이내<i class="ln"></i>기준</span></p>${L.length ? svgEl(W2, H2, g2) : '<p class="note">기록이 없어요.</p>'}`
     };
     if (!panel[dmenu]) dmenu = 'heat';
     const stat = (v, u, k) => `<div class="hs"><b>${v}<small>${u}</small></b><span>${k}</span></div>`;
@@ -2955,6 +2984,11 @@ if (typeof module !== 'undefined') module.exports = KE;
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
+        <section class="ibox"><div class="ib ${over ? 'bad' : ''}"><small>기준 초과</small><b class="num">${over}<em>건</em></b><span>근접 ${near}건 · 전체 ${E.length}건</span></div>
+          <div class="ib"><small>야간 비중</small><b class="num">${npct}<em>%</em></b><span class="ibar"><i style="width:${npct}%"></i></span></div>
+          <div class="ib"><small>최다 시간대</small><b class="num">${E.length ? ph : '-'}<em>${E.length ? '시' : ''}</em></b><span>${E.length ? (ph >= 22 || ph < 6 ? '야간' : '주간') + ' · ' + hours[ph] + '회' : ''}</span></div>
+          <div class="ib"><small>최다 요일</small><b>${E.length ? WD[wdMax] + '<em>요일</em>' : '-'}</b><span>${E.length ? wdc[wdMax] + '회' : ''}</span></div></section>
+        ${E.length ? `<section class="tbox"><span class="tb-i" style="background:var(--t-${T[bys[0][0]].color})"></span><span class="tb-t"><small>주요 소음 유형</small><b>${topType}</b></span><span class="tb-v num">${Math.round(bys[0][1] / Math.max(1, total) * 100)}<small>%</small></span><span class="tb-bar">${bys.slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})" title="${T[k].name} ${c}회"></i>`).join('')}</span><span class="tb-lg">${bys.slice(0, 4).map(([k, c]) => `<span><i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${c}</span>`).join('')}</span></section>` : ''}
         <section class="kbox">${stat(E.length, '건', '기록')}${stat(total, '회', '들린 소리')}${stat(E.length ? avgMax.toFixed(1) : '-', E.length ? 'dB' : '', '평균 최고')}${stat(E.length ? peak.lmax : '-', E.length ? 'dB' : '', '가장 컸던 때')}</section>
       </div>`;
   }
