@@ -1486,7 +1486,7 @@ li:not(.now)>.rm-r{min-height:28px}
 .gwk .wk-l{color:rgba(255,255,255,.8)}
 .gwk .wk-l i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
 .gwk .wk-l i.n{background:#fff} .gwk .wk-l i.d{background:rgba(255,255,255,.35)}
-#jSub,#v-more .phd-s{display:none!important}
+#v-more .phd-s{display:none!important}
 #v-journal .phd,#v-report .phd,#v-family .phd,#v-more .phd{min-height:52px}
 .rm-r[role=button]{cursor:pointer;border-radius:10px}
 .rm-r[role=button]:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
@@ -2977,8 +2977,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $$('[data-jt]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.jt === jtab)));
     $('#jTool').hidden = jtab === 'dash';
     $('#sgB').toggleAttribute('aria-current', jtab === 'board'); $('#sgD').toggleAttribute('aria-current', jtab === 'dash'); $('#sgB').setAttribute('aria-current', jtab === 'board' ? 'page' : ''); $('#sgD').setAttribute('aria-current', jtab === 'dash' ? 'page' : ''); if (jtab !== 'board') $('#sgB').removeAttribute('aria-current'); if (jtab !== 'dash') $('#sgD').removeAttribute('aria-current');
-    { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').innerHTML = E.length ? `기록 <b>${E.length}건</b> · 최근 7일 기준 초과 <b>${o7}건</b>` : '아직 기록이 없어요';
-      if (jtab === 'dash') { const wc = weekCmp(E).replace(/<[^>]+>/g, ''); if (wc) $('#jSub').innerHTML = wc.replace('지난주', '지난주'); }
+    { const w7 = Date.now() - 7 * 864e5, o7 = E.filter((e) => e.ts >= w7 && e.over === 'over').length; $('#jSub').textContent = jtab === 'dash' ? '쌓인 기록으로 패턴을 봐요' : '들린 소리를 날짜별로 모아요';
       const xb = $('#exBan'); xb.hidden = false; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
