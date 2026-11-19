@@ -1679,6 +1679,25 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 .rl-hint{font-size:11.5px;color:var(--fg2);margin:2px 0 0 10px}
 button.rl-empty{text-align:left;font:inherit;font-size:12.5px;cursor:pointer}
 button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
+
+.d2{display:flex;flex-direction:column;gap:8px}
+.d2h{display:flex;justify-content:space-between;align-items:baseline;padding:4px 2px 0}.d2h b{font-size:15px}.d2h span{font-size:11.5px;color:var(--fg2)}
+.d2g{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vt{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:11px 13px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.vt>small{font-size:11.5px;color:var(--fg2);font-weight:700}
+.vt>b{font-size:22px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.vt>b em{font-style:normal;font-size:11.5px;color:var(--fg2);margin-left:2px;font-weight:600}.vt>b.red{color:var(--bad)}
+.sb{display:flex;height:8px;border-radius:4px;overflow:hidden;gap:2px;background:var(--sunk)}.sb.tall{height:12px;border-radius:6px}.sb i{display:block;min-width:0}
+.vl{display:flex;flex-wrap:wrap;align-items:center;gap:2px 4px;font-size:10.5px;color:var(--fg2)}.vl i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:4px}.vl i:first-child{margin-left:0}
+.dn{display:flex;align-items:center;gap:10px;margin-top:2px}.dn span{font-size:12px;font-weight:700;line-height:1.35}.dn span small{font-weight:500;color:var(--fg2);font-size:10.5px}
+.sp24{display:flex;align-items:flex-end;gap:1px;height:30px}.sp24 i{flex:1;background:color-mix(in srgb,var(--accent) 25%,var(--sunk));border-radius:1.5px}.sp24 i.nt{background:color-mix(in srgb,var(--accent) 50%,var(--sunk))}.sp24 i.on{background:var(--accent)}
+.ax{display:flex;justify-content:space-between;font-size:9px;color:var(--fg2);margin-top:-2px}
+.sp7{display:flex;align-items:flex-end;gap:4px;height:42px}.sp7>span{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:2px}.sp7 i{width:100%;max-width:14px;background:color-mix(in srgb,var(--accent) 25%,var(--sunk));border-radius:3px}.sp7 i.on{background:var(--accent)}.sp7 small{font-size:9px;color:var(--fg2)}
+.vt.w{width:100%;box-sizing:border-box}
+.gz{padding:22px 4px 0}
+.gt{position:relative;height:10px;border-radius:5px;background:var(--sunk)}.gt>i{position:absolute;top:0;bottom:0;border-radius:5px}
+.mk{position:absolute;top:-4px;width:3px;height:18px;background:var(--fg);border-radius:2px;transform:translateX(-50%)}.mk b{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);font-size:10.5px;white-space:nowrap}
+.mk.pk{background:var(--bad)}.mk.pk b{color:var(--bad)}
+.gx{position:relative;height:14px;margin-top:4px;font-size:9.5px;color:var(--fg2)}.gx span{position:absolute;transform:translateX(-50%);white-space:nowrap}.gx span:first-child{transform:none}.gx span:last-child{transform:translateX(-100%)}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -3023,24 +3042,22 @@ if (typeof module !== 'undefined') module.exports = KE;
     const per = `<div class="pchips" role="group" aria-label="기간">${[['7', '7일'], ['30', '30일'], ['all', '전체']].map(([k, l]) => `<button type="button" data-per="${k}" aria-pressed="${String(dper) === k}">${l}</button>`).join('')}</div>`;
     return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>
       <div class="dcols">
-        <section class="d1">
-          <div class="d1g">
-            <div class="c ${over ? 'bad' : ''}"><small>기준 초과</small><b class="num">${over}<em>건</em></b></div>
-            <div class="c"><small>야간 비중</small><b class="num">${npct}<em>%</em></b><span class="ibar"><i style="width:${npct}%"></i></span></div>
-            <div class="c"><small>최다 시간대</small><b class="num">${E.length ? ph : '-'}<em>${E.length ? '시' : ''}</em></b></div>
-            <div class="c"><small>최다 요일</small><b>${E.length ? WD[wdMax] : '-'}<em>${E.length ? '요일' : ''}</em></b></div>
-            <div class="c"><small>기록</small><b class="num">${E.length}<em>건</em></b></div>
-            <div class="c"><small>들린 소리</small><b class="num">${total}<em>회</em></b></div>
-            <div class="c"><small>평균 최고</small><b class="num">${E.length ? avgMax.toFixed(1) : '-'}<em>${E.length ? 'dB' : ''}</em></b></div>
-            <div class="c"><small>최고 소음</small><b class="num">${E.length ? peak.lmax : '-'}<em>${E.length ? 'dB' : ''}</em></b></div>
-          </div>
-          ${E.length ? `<div class="d1t"><small>주요 유형</small><span class="tb-bar">${bys.slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})" title="${T[k].name} ${c}회"></i>`).join('')}</span><span class="tb-lg">${bys.slice(0, 4).map(([k, c]) => `<span><i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${Math.round(c / Math.max(1, total) * 100)}%</span>`).join('')}</span></div>` : ''}
-        </section>
         <section class="dcard2">
           <div class="dc-h"><h3>소음 패턴</h3></div>
           <div class="utabs" role="tablist">${tabs.map(([k, l]) => `<button type="button" role="tab" data-dm="${k}" aria-selected="${dmenu === k}">${l}</button>`).join('')}</div>
           <div class="cp-body">${E.length ? panel[dmenu] : '<p class="note">기록이 쌓이면 그래프가 보여요.</p>'}</div>
         </section>
+        ${E.length ? `<div class="d2">
+          <div class="d2h"><b>한눈에 보기</b><span>기록 ${E.length}건 · 소리 ${total}회</span></div>
+          <div class="d2g">
+            <div class="vt"><small>기준 초과</small><b class="num ${over ? 'red' : ''}">${over}<em>건</em></b><span class="sb"><i style="flex:${over};background:var(--bad)"></i><i style="flex:${near};background:var(--warn)"></i><i style="flex:${E.length - over - near};background:var(--ok)"></i></span><span class="vl"><i style="background:var(--bad)"></i>초과 ${over}<i style="background:var(--warn)"></i>근접 ${near}<i style="background:var(--ok)"></i>이내 ${E.length - over - near}</span></div>
+            <div class="vt"><small>야간 비중</small><div class="dn"><svg viewBox="0 0 60 60" width="60" height="60"><circle cx="30" cy="30" r="24" fill="none" stroke="var(--sunk)" stroke-width="8"/><circle cx="30" cy="30" r="24" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${(2 * Math.PI * 24 * npct / 100).toFixed(1)} 999" transform="rotate(-90 30 30)"/><text x="30" y="35" text-anchor="middle" font-size="14" font-weight="800" fill="var(--fg)">${npct}%</text></svg><span>야간 ${nightN}회<br><small>22~06시</small></span></div></div>
+            <div class="vt"><small>최다 시간대</small><b class="num">${ph}<em>시</em></b><span class="sp24">${hours.map((v, h) => `<i class="${h === ph ? 'on' : (h >= 22 || h < 6) ? 'nt' : ''}" style="height:${Math.max(6, Math.round(v / Math.max(1, hours[ph]) * 100))}%"></i>`).join('')}</span><span class="ax"><span>0</span><span>6</span><span>12</span><span>18</span><span>24</span></span></div>
+            <div class="vt"><small>최다 요일</small><b>${WD[wdMax]}<em>요일</em></b><span class="sp7">${wdc.map((v, i) => `<span><i class="${i === wdMax ? 'on' : ''}" style="height:${Math.max(6, Math.round(v / Math.max(1, wdc[wdMax]) * 100))}%"></i><small>${WD[i]}</small></span>`).join('')}</span></div>
+          </div>
+          <div class="vt w"><small>소음도</small><div class="gz"><div class="gt"><i style="left:0;width:${(52 - 40) / 40 * 100}%;background:color-mix(in srgb,var(--ok) 30%,transparent)"></i><i style="left:${(52 - 40) / 40 * 100}%;width:${5 / 40 * 100}%;background:color-mix(in srgb,var(--warn) 35%,transparent)"></i><i style="left:${(57 - 40) / 40 * 100}%;right:0;background:color-mix(in srgb,var(--bad) 25%,transparent)"></i><span class="mk" style="left:${Math.min(100, Math.max(0, (avgMax - 40) / 40 * 100))}%"><b>평균 ${avgMax.toFixed(1)}</b></span><span class="mk pk" style="left:${Math.min(100, Math.max(0, (peak.lmax - 40) / 40 * 100))}%"><b>최고 ${peak.lmax}</b></span></div><div class="gx"><span>40</span><span style="left:30%">52</span><span style="left:42.5%">57</span><span style="left:75%">70</span><span style="left:100%">80 dB</span></div></div></div>
+          <div class="vt w"><small>주요 유형</small><span class="sb tall">${bys.filter((x) => x[1] / Math.max(1, total) >= .01).slice(0, 4).map(([k, c]) => `<i style="flex:${c};background:var(--t-${T[k].color})"></i>`).join('')}</span><span class="vl">${bys.filter((x) => x[1] / Math.max(1, total) >= .01).slice(0, 4).map(([k, c]) => `<i style="background:var(--t-${T[k].color})"></i>${T[k].name.replace(/\(.*\)/, '')} ${Math.round(c / Math.max(1, total) * 100)}%`).join('')}</span></div>
+        </div>` : ''}
       </div>`;
   }
   const fmtD = (t) => { const d = new Date(t); return `${d.getMonth() + 1}/${d.getDate()}`; };
