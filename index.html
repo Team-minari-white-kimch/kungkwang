@@ -3048,7 +3048,6 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (lastNight.length) N.push(['b', '어젯밤 기록 ' + lastNight.length + '건', `기준 초과 ${lastNight.filter((e) => e.over === 'over').length}건 · 소음일지에서 확인해요`, '#journal']);
     const { ci, st } = progState();
     if (st && st.id !== 'rec') N.push(['', `해결 ${ci + 1}단계 · ${st.t}`, '지금 할 일이 있어요. 해결 탭에서 문안을 만들어 보세요.', '#report']);
-    else if (st && st.id === 'rec' && E.length >= 3) N.push(['', '기록이 조금만 더 있으면 돼요', `지금 ${E.length}건 · 5건 이상이면 다음 단계로 넘어가요`, '#report']);
     const noHarm = E.filter((e) => !e.example && !harmTxt(e.harm)).length; if (noHarm) N.push(['w', `생활 피해를 남기지 않은 기록 ${noHarm}건`, '피해 종류·강도를 남기면 상담·조정 때 근거가 돼요.', '#journal']);
     if (!calState()) N.push(['w', '휴대폰 dB 보정 전이에요', '8초면 끝나요. 보정해야 dB가 정확해져요.', 'cal']);
     if (!MYAPT) N.push(['', '우리 아파트 정보를 넣어 보세요', '준공 연도로 소음 취약도와 맞춤 해결 순서를 알려 드려요.', 'apt']);
@@ -3064,7 +3063,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#notiSheet').hidden = false; $('#sheetBg').hidden = false;
   });
   $('#closeNoti').addEventListener('click', () => { $('#notiSheet').hidden = true; $('#sheetBg').hidden = true; });
-  function renderTabDot() { const { st } = progState(), t = $('a.tab[data-view=report]'); if (!t) return; let d = t.querySelector('.tdot'); const on = !!st && st.id !== 'rec'; if (on && !d) { d = document.createElement('span'); d.className = 'tdot'; d.setAttribute('aria-label', '할 일 있음'); t.appendChild(d); } if (!on && d) d.remove(); }
+  function renderTabDot() { const d0 = document.querySelector('a.tab[data-view=report] .tdot'); if (d0) d0.remove(); return; const { st } = progState(), t = $('a.tab[data-view=report]'); if (!t) return; let d = t.querySelector('.tdot'); const on = !!st && st.id !== 'rec'; if (on && !d) { d = document.createElement('span'); d.className = 'tdot'; d.setAttribute('aria-label', '할 일 있음'); t.appendChild(d); } if (!on && d) d.remove(); }
   /* ---------- 홈 화면 추가 ---------- */
   let bip = null; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); bip = e; renderInst(); });
   function renderInst() {
@@ -3622,17 +3621,17 @@ ${lines.join('\n')}
   const PIC = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 12l2 2 4-4"/></svg>';
   const CHK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>';
   const CLK = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg>';
-  function progState() { const E = entries(), recAuto = E.length >= 5; const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id]; const small = MYAPT && !aptEval(MYAPT).big; let ci = STG.findIndex((st) => !isDone(st) && !(small && st.id === 'committee')); if (ci < 0) ci = STG.length; return { ci, st: STG[ci], isDone, E, nDone: STG.filter(isDone).length }; }
+  function progState() { const E = entries(), recAuto = E.length >= 1; const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id]; const small = MYAPT && !aptEval(MYAPT).big; let ci = STG.findIndex((st) => !isDone(st) && !(small && st.id === 'committee')); if (ci < 0) ci = STG.length; return { ci, st: STG[ci], isDone, E, nDone: STG.filter(isDone).length }; }
   function renderProgress() {
     const E = entries(), ex = isExample;
-    const recAuto = E.length >= 5;
+    const recAuto = E.length >= 1;
     const isDone = (st) => st.id === 'rec' ? (PG.done.rec || recAuto) : !!PG.done[st.id];
     let ci = STG.findIndex((st) => !isDone(st)); if (ci < 0) ci = STG.length; const rec0 = ci;
     if (PG.focus) { const fi = STG.findIndex((st) => st.id === PG.focus); if (fi >= 0) ci = fi; }
     const curSt = STG[ci], curDone = curSt && isDone(curSt), picked = !!PG.focus && ci !== rec0;
     const GO = { rec: ['#analyze', '녹음하러 가기'], neighbor: ['#r-neighbor', '이웃에게 보낼 글 만들기'], office: ['#r-office', '관리사무소 요청서 만들기'], committee: ['#r-committee', '조정 신청서 만들기'], center: ['#r-center', '이웃사이센터 상담 준비하기'], dispute: ['#r-dispute', '분쟁조정 경위서 만들기'] };
     $('#rSub').innerHTML = `층간소음, 단계별로 차분하게`;
-    const DESC = { rec: '날짜·시간·소리 종류가 남은 기록을 모아요. 5건 이상이고 야간 기록이 있으면 다음 단계로 가기 좋아요.', neighbor: '감정 대신 기록으로, 짧고 정중한 글을 보내요. 직접 찾아가지 않는 게 원칙이에요.', office: '관리사무소에 사실 확인과 중단 권고를 요청해요. 공동주택관리법 제20조에 따른 절차예요.', committee: '권고 뒤에도 계속되면 단지 층간소음관리위원회에 조정을 신청해요.', center: '층간소음 이웃사이센터에서 전문 상담을 받고, 필요하면 공인 장비로 현장 측정을 받아요.', dispute: '앞 단계로 해결되지 않으면 분쟁조정위원회에 공식 조정을 신청해요.' };
+    const DESC = { rec: '날짜·시간·소리 종류가 남은 기록을 모아요. 1건만 있어도 다음 단계로 갈 수 있고, 5건 이상·야간 기록이 있으면 더 설득력 있어요.', neighbor: '감정 대신 기록으로, 짧고 정중한 글을 보내요. 직접 찾아가지 않는 게 원칙이에요.', office: '관리사무소에 사실 확인과 중단 권고를 요청해요. 공동주택관리법 제20조에 따른 절차예요.', committee: '권고 뒤에도 계속되면 단지 층간소음관리위원회에 조정을 신청해요.', center: '층간소음 이웃사이센터에서 전문 상담을 받고, 필요하면 공인 장비로 현장 측정을 받아요.', dispute: '앞 단계로 해결되지 않으면 분쟁조정위원회에 공식 조정을 신청해요.' };
     const nDone = STG.filter(isDone).length;
     const ckHTML = (st) => `<div class="rm-ck">${st.ck.map(([id, t, auto]) => { const a = auto ? auto(E) : null, on = auto ? a : !!PG.ck[id]; return `<label class="${on ? 'on' : ''}"><input type="checkbox" data-pck="${id}" ${on ? 'checked' : ''} ${auto ? 'disabled' : ''}><span>${t}</span>${auto ? `<span class="auto">${a ? '자동 확인 ✓' : '아직'}</span>` : ''}</label>`; }).join('')}</div>`;
     const P = progState(), recN = E.length, rid = P.st ? P.st.id : null;
@@ -3642,7 +3641,7 @@ ${lines.join('\n')}
     $$('#v-report .warn-box').forEach((w) => { w.hidden = rtab === 'log'; });
     if (rtab === 'log') { renderRlog(); return; }
     $('#pg').innerHTML = aptCardHTML() + `
-      <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 5 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
+      <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 1 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
         const sp = false;
         return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b>${dn ? `<small>${md(PG.done[o.id])} 완료</small>` : sp ? '<small>건너뛴 단계</small>' : sk ? '<small>위원회가 없으면 건너뛰어도 돼요</small>' : ''}</span>${rc ? '<span class="badge rcb">추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ul>
