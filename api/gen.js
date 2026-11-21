@@ -1,12 +1,12 @@
 // 쿵쾅 생성형 AI 문안 함수 (Vercel 서버 함수)
 // - Gemini API 키는 Vercel 환경변수 GEMINI_API_KEY에만 둔다 (공개 페이지에 넣지 않음)
 // - 쿵쾅 공개 주소에서 온 요청만 받는다
-const ALLOW = /^https:\/\/(fordgril307-wq\.github\.io|kungkwang[\w-]*\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
+const ALLOW = /^https:\/\/(team-minari-white-kimch\.github\.io|fordgril307-wq\.github\.io|kungkwang[\w-]*\.vercel\.app)$|^http:\/\/localhost(:\d+)?$/;
 
 module.exports = async (req, res) => {
   const origin = req.headers.origin || '';
   const ok = ALLOW.test(origin);
-  res.setHeader('Access-Control-Allow-Origin', ok ? origin : 'https://fordgril307-wq.github.io');
+  res.setHeader('Access-Control-Allow-Origin', ok ? origin : 'https://team-minari-white-kimch.github.io');
   res.setHeader('Vary', 'Origin');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
