@@ -3528,7 +3528,15 @@ ${lines.join('\n')}
   $('#copyAll').addEventListener('click', () => { const R = [...entries()].reverse().filter(matches).reverse(); if (!R.length) { toast('복사할 기록이 없습니다'); return; } copy(logText(R), `기록 ${R.length}건을 상담용 일지로 복사했습니다`); });
 
   /* ---------- STEP 3: 알리는 방법 5가지 ---------- */
-  const getSample = async () => { try { return window.claude?.use ? await window.claude.use('sample') : null; } catch (e) { return null; } };
+  /* 생성형 AI: Claude 화면에서는 Claude, 공개 주소(GitHub Pages)에서는 Gemini(서버 함수 경유 — 키는 서버에만 보관) */
+  const GEN_URL = 'https://kungkwang.vercel.app/api/gen';
+  const getSample = async () => {
+    try { if (window.claude?.use) { const sm = await window.claude.use('sample'); if (sm) { const w = (p, o) => sm(p, o); w.by = 'Claude'; return w; } } } catch (e) {}
+    if (!GEN_URL) return null;
+    const g = async (prompt) => { const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 25000);
+      try { const r = await fetch(GEN_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt }), signal: ac.signal }); const j = await r.json().catch(() => ({})); if (!r.ok || !j.text) throw new Error(j.error || 'gen ' + r.status); return { text: j.text }; } finally { clearTimeout(tm); } };
+    g.by = 'Gemini'; return g;
+  };
   function logSummary() {
     const E = chosen(), by = {}, hours = {};
     if (!E.length) return null;
@@ -3744,7 +3752,7 @@ ${lines.join('\n')}
       const prompt = o.ai ? o.ai(s) : `너는 층간소음 피해 세대가 공식 기관에 낼 문서의 '피해 상황' 문단을 쓰는 도우미야. 문서 종류: ${o.t}. 아래 기록 요약만 근거로 3~4문장의 한국어 문단을 써.
 규칙: 1) 상대 세대를 비난·단정하거나 감정적인 표현 금지 2) 날짜·시간대·소리 종류·횟수 같은 사실만 3) 측정값은 휴대폰 참고값이라고 밝힐 것 4) 법 조항·처벌 언급 금지 5) 문단만 출력.
 기록 요약: 기간 ${s.from}~${s.to}(${s.days}일, ${s.E.length}건), 주된 소리 ${s.topT.join(', ')}, 자주 들린 시각 ${s.topH.join('시, ')}시, 야간 비중 ${s.nightPct}%, 최고소음도 기준 초과 ${s.over}건·근접 ${s.near}건`;
-      try { const r = await sample(prompt, { modelTier: 'quick' }); done(o.doc(s, r.text.trim()), o.whole ? 'AI(Claude)가 쓴 초안입니다. 보내기 전에 직접 다듬어 주세요.' : '피해 상황 문단은 AI(Claude)가 일지로 정리했습니다. 제출 전에 확인해 주세요.'); }
+      try { const r = await sample(prompt, { modelTier: 'quick' }); done(o.doc(s, r.text.trim()), o.whole ? `AI(${sample.by})가 쓴 초안입니다. 보내기 전에 직접 다듬어 주세요.` : `피해 상황 문단은 AI(${sample.by})가 일지로 정리했습니다. 제출 전에 확인해 주세요.`); }
       catch (e) { done(o.doc(s, null), '기본 문안으로 만들었습니다.'); }
       finally { if (document.body.contains(btn)) { btn.disabled = false; btn.textContent = o.btn; } }
     });
