@@ -1510,21 +1510,6 @@ li.done.now{border:1.5px solid var(--accent)}
 @keyframes dmIn{from{opacity:0}to{opacity:1}}
 @keyframes dmPop{from{transform:scale(.9);opacity:0}to{transform:none;opacity:1}}
 /* v41 dashboard + methods */
-.dsh{cursor:pointer}
-.dsb{display:flex;align-items:center;gap:14px}
-.ring{width:76px;height:76px;flex:none}
-.dsb-t{display:flex;flex-direction:column;gap:2px;min-width:0}
-.dsb-t small{font-size:11.5px;color:var(--accent);font-weight:700}
-.dsb-t b{font-size:15.5px;letter-spacing:-.02em}
-.dsb-t span{font-size:12px;color:var(--fg2)}
-.dst{list-style:none;margin:2px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);position:relative}
-.dst::before{content:"";position:absolute;left:8%;right:8%;top:14px;height:2px;background:var(--line)}
-.dst li{position:relative;text-align:center}
-.dst a{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;color:var(--fg2);font-size:11px}
-.dst i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12px;background:var(--surface);border:2px solid var(--line2);color:var(--fg2)}
-.dst li.done i{background:var(--accent);border-color:var(--accent);color:#fff}
-.dst li.now i{border-color:var(--accent);color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
-.dst li.now span{color:var(--accent);font-weight:800}
 .qa button{min-height:76px!important;gap:6px!important;font-size:13px!important}
 .qa .qi{width:34px!important;height:34px!important;border-radius:11px!important}
 .qa .qi svg{width:18px;height:18px}
@@ -1909,7 +1894,6 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
         <button type="button" data-openfam><span class="qi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3.5 19c.6-3 3-4.6 5.5-4.6s4.9 1.6 5.5 4.6M15 14.6c2.3-.3 4.6 1 5.2 3.9"/></svg></span>가족 초대</button></div>
       <div class="inst" id="instBan" hidden></div>
       <span id="wkCard" hidden></span>
-      <div class="hcard dsh" id="svCard" role="link" tabindex="0"></div>
       <button class="recent2" id="recent2" type="button"></button>
       <a class="solve-chip" id="solveChip" href="#report"></a>
       <span hidden><button class="icon-btn" id="setBtn" type="button" aria-expanded="false" aria-controls="setPanel" aria-label="측정 설정"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg></button></span>
@@ -2902,17 +2886,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       <div class="wk">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><i style="height:${Math.max(4, cnt[i][0] / mx * 64)}px"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i><span>${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div>
       ${weekCmp(E)}
       <div class="wk-l"><span><i style="background:var(--accent)"></i>야간(22~06시)</span><span><i style="background:color-mix(in srgb,var(--accent) 22%,transparent)"></i>주간</span><span style="margin-left:auto">총 ${W.length}건</span></div>`;
-    const { ci, st } = progState();
-    { const P = progState(), SH = { rec: '기록', neighbor: '이웃', office: '관리소', committee: '위원회', center: '센터', dispute: '조정' }, GOH = { rec: '#analyze' };
-      const pct = Math.round(P.nDone / STG.length * 100), R = 30, C = 2 * Math.PI * R, cur = P.st;
-      const ckN = cur ? cur.ck.filter(([id, t, auto]) => auto ? auto(P.E) : PG.ck[id]).length : 0;
-      $('#svCard').innerHTML = `<div class="hcard-h"><b>해결 진행</b><small>해결로 가기 ›</small></div>
-      <div class="dsb"><svg class="ring" viewBox="0 0 76 76" aria-hidden="true"><circle cx="38" cy="38" r="${R}" fill="none" stroke="var(--sunk)" stroke-width="8"/><circle cx="38" cy="38" r="${R}" fill="none" stroke="var(--accent)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C * pct / 100} ${C}" transform="rotate(-90 38 38)"/><text x="38" y="36" text-anchor="middle" font-size="17" font-weight="800" fill="var(--fg)">${P.nDone}/${STG.length}</text><text x="38" y="51" text-anchor="middle" font-size="9.5" fill="var(--fg2)">단계 완료</text></svg>
-        <div class="dsb-t"><small>다음 추천 단계</small><b>${cur ? cur.t : '모든 단계를 마쳤어요'}</b><span>${cur ? `준비 서류 ${ckN}/${cur.ck.length} · ${cur.s}` : '수고 많으셨어요'}</span></div></div>
-      <ol class="dst">${STG.map((st, k) => { const dn = P.isDone(st), now = k === P.ci; return `<li class="${dn ? 'done' : ''}${now ? ' now' : ''}"><a href="${GOH[st.id] || '#r-' + st.id}" data-stop="1"><i>${dn ? '✓' : k + 1}</i><span>${SH[st.id]}</span></a></li>`; }).join('')}</ol>`;
-      $$('#svCard [data-stop]').forEach((a) => a.addEventListener('click', (e) => e.stopPropagation())); }
   }
-  document.addEventListener('click', (e) => { if (e.target.closest('#svCard') && !e.target.closest('[data-stop]')) location.hash = 'report'; });
   function renderSolveChip() { const c = $('#solveChip'); if (!c) return; const { ci, st } = progState(); c.innerHTML = `<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg></span><span>해결 진행 <b>${Math.min(ci + 1, STG.length)}/${STG.length}단계</b> · ${st ? st.t : '완료'}</span><span class="chev">›</span>`; }
 
   /* 가족 얼굴 아바타 */
