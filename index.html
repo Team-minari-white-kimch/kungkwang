@@ -3095,14 +3095,14 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#instX').onclick = () => { try { localStorage.setItem('kungkwang.inst', 'off'); } catch (e) {} b.hidden = true; };
     $('#instGo') && ($('#instGo').onclick = async () => { bip.prompt(); try { await bip.userChoice; } catch (e) {} bip = null; renderInst(); });
   }
-  /* ---------- AI 기록 분석: 반복 패턴·증거 진단 ---------- */
+  /* ---------- AI 기록 분석: 반복 패턴·기록 진단 ---------- */
   const josa = (w, a, b) => { const c = w.replace(/\(.*\)|\s/g, '').slice(-1).charCodeAt(0) - 0xAC00; return w + (c >= 0 && c <= 11171 && c % 28 ? a : b); };
   const dayKey = (t) => { const d = new Date(t); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; };
   function slotName(h) { const e = (h + 2) % 24, n = (x) => x % 12 || 12; return `${h >= 21 || h < 4 ? '밤' : h < 6 ? '새벽' : h < 12 ? '오전' : h < 18 ? '오후' : '저녁'} ${n(h)}~${n(e)}시`; }
   function aiDiag(E) {
     const W = E.filter((e) => e.ts >= Date.now() - 7 * 864e5), inSlot = (e, h) => (new Date(e.ts).getHours() - h + 24) % 24 < 2;
     let best = null;
-    for (let h = 0; h < 24; h++) { const L = W.filter((e) => inSlot(e, h)), d = new Set(L.map((e) => dayKey(e.ts))).size; if (d && (!best || d > best.d || (d === best.d && L.length > best.L.length))) best = { h, d, L }; }
+    for (let h = 0; h < 24; h++) { const L = W.filter((e) => inSlot(e, h)); if (!L.some((e) => new Date(e.ts).getHours() === h)) continue; const d = new Set(L.map((e) => dayKey(e.ts))).size; if (d && (!best || d > best.d || (d === best.d && L.length > best.L.length))) best = { h, d, L }; }
     let pat = W.length ? `최근 7일 기록 ${W.length}건 · 아직 반복되는 시간대는 뚜렷하지 않아요` : '최근 7일 기록이 없어요', patTxt = pat, slot = '';
     if (best && best.d >= 2) {
       const tc = {}; best.L.forEach((e) => { tc[e.type] = (tc[e.type] || 0) + 1; }); const ty = Object.keys(tc).sort((a, b) => tc[b] - tc[a])[0];
@@ -3119,10 +3119,10 @@ if (typeof module !== 'undefined') module.exports = KE;
       { k: '기준 초과', ok: over >= 3, v: `${over}회`, need: `기준 초과가 ${3 - over}회 더 기록되면` },
     ];
     const nOk = ck.filter((c) => c.ok).length, miss = ck.find((c) => !c.ok);
-    return { pat, patTxt, slot, ck, nOk, ready: !miss, next: miss ? `${miss.need} 상담 신청에 충분해요` : '이웃사이센터 상담 신청에 쓸 만큼 모였어요' };
+    return { pat, patTxt, slot, ck, nOk, ready: !miss, next: miss ? `${miss.need} 더 정확하게 분석할 수 있어요` : '반복 패턴을 분석하기에 충분한 기록이 모였어요' };
   }
   const dxHead = (t) => `<div class="dx-h"><i>AI 분석</i>${t}</div>`;
-  const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 증거 충분 · 상담 신청 가능' : `● 증거 ${D.nOk}/4 · ${D.ck.find((c) => !c.ok).k} 부족`}</span>`;
+  const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
   function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s">${D.pat}</p>${dxBadge(D)}`; }
   function aiStatsHTML(E) {
     const D = aiDiag(E);
@@ -3134,10 +3134,10 @@ if (typeof module !== 'undefined') module.exports = KE;
   function aiResHTML(r, worst) {
     const ts = r.start.getTime(), E = entries(), has = E.some((e) => e.ts === ts);
     const D = aiDiag(has ? E : [...E, { ts, type: r.main || 'other', night: r.night, over: worst }]), days = D.ck[0].v;
-    return `<div class="dx soft">${dxHead('증거 진행')}<p class="dx-s">${has ? '이 기록까지' : '이 기록을 저장하면'} 기록한 날 <em>${days}</em>${has ? '예요' : '째예요'}</p><div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div><p class="dx-n">${D.slot ? `${D.patTxt}. ` : ''}${D.next}.</p></div>`;
+    return `<div class="dx soft">${dxHead('분석 정보')}<p class="dx-s">${has ? '이 기록까지' : '이 기록을 저장하면'} 기록한 날 <em>${days}</em>${has ? '예요' : '째예요'}</p><div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div><p class="dx-n">${D.slot ? `${D.patTxt}. ` : ''}${D.next}.</p></div>`;
   }
   const REC_WHY = { rec: (D) => `${D.next}.`, neighbor: (D) => `${D.slot ? D.patTxt + '. ' : ''}아직 이웃에게 알린 기록이 없어요. 짧고 정중한 글부터 시작해 보세요.`, office: (D) => `이웃에게 알린 뒤에도 ${D.slot ? D.patTxt.replace(/^.*?에 /, '') : '소음이 이어지고 있어요'}. 관리사무소에 사실 확인을 요청해 보세요.`,
-    committee: () => '관리사무소 권고 뒤에도 소음이 이어지고 있어요. 단지 층간소음관리위원회에 조정을 신청해 보세요.', center: (D) => `공인 장비로 측정받으면 객관적인 근거가 생겨요.${D.ready ? '' : ` 상담 전에 ${D.next.replace(' 상담 신청에 충분해요', ' 좋아요')}.`}`, dispute: () => '앞 단계로 해결되지 않았다면 공식 조정을 신청할 수 있어요.' };
+    committee: () => '관리사무소 권고 뒤에도 소음이 이어지고 있어요. 단지 층간소음관리위원회에 조정을 신청해 보세요.', center: (D) => `공인 장비로 측정받으면 객관적인 근거가 생겨요.${D.ready ? '' : ` 상담 전에 ${D.next.replace(' 더 정확하게 분석할 수 있어요', ' 좋아요')}.`}`, dispute: () => '앞 단계로 해결되지 않았다면 공식 조정을 신청할 수 있어요.' };
   function aiRecHTML(P) {
     if (!P.st) return '';
     const D = aiDiag(P.E), href = P.st.id === 'rec' ? '#analyze' : '#r-' + P.st.id;
