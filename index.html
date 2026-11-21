@@ -3694,8 +3694,9 @@ ${lines.join('\n')}
     $('#rlQ').addEventListener('search', () => { if (!$('#rlQ').value && rlq) { rlq = ''; renderRlog(); } });
     $$('#pg [data-rlv]').forEach((b) => b.addEventListener('click', () => openRV(+b.dataset.rlv, !!b.dataset.ex)));
   }
-  let rvTs = null;
-  function openRV(ts, ex) { const x = allRlog().find((q) => q.ts === ts && !!q.ex === ex); if (!x) return; rvTs = ex ? null : ts; const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m);
+  let rvTs = null, rvM = 'dispute';
+  const RVDOC = { neighbor: '이웃에게 보낼 글 보기', office: '관리사무소 요청서 보기', committee: '조정 신청서 보기', center: '상담 준비 자료 보기', dispute: '분쟁조정 경위서 보기' };
+  function openRV(ts, ex) { const x = allRlog().find((q) => q.ts === ts && !!q.ex === ex); if (!x) return; rvTs = ex ? null : ts; rvM = OPTS.some((q) => q.id === x.m) ? x.m : 'dispute'; $('#rvDoc').textContent = RVDOC[rvM]; const d = new Date(x.ts), o = OPTS.find((q) => q.id === x.m);
     $('#rvBody').innerHTML = `<div class="rv-m"><span class="rlc-m">${o ? o.sh : '기타'}</span>${ex ? '<span class="exk3">예시</span>' : ''}</div>
       <dl class="rv-l"><div><dt>날짜·시간</dt><dd class="num">${d.getFullYear()}.${pad(d.getMonth() + 1)}.${pad(d.getDate())} (${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}</dd></div><div><dt>방법</dt><dd>${o ? o.t : '기타'}</dd></div><div><dt>한 일</dt><dd>${esc(x.what)}</dd></div><div><dt>결과·반응</dt><dd>${x.res ? esc(x.res) : '<span class="note">적지 않음</span>'}</dd></div></dl>
       <p class="rv-n">이 기록은 분쟁조정 경위서의 '해결을 위해 거친 절차'에 날짜순으로 들어가요.</p>`;
@@ -3704,9 +3705,9 @@ ${lines.join('\n')}
   $('#rvClose').addEventListener('click', closeRV);
   $('#rvEdit').addEventListener('click', () => { const t = rvTs; closeRV(); openRL(t); });
   $('#rvDel').addEventListener('click', () => { PG.rlog = (PG.rlog || []).filter((x) => x.ts !== rvTs); pgSave(); closeRV(); renderProgress(); toast('지웠어요'); });
-  $('#rvDoc').addEventListener('click', () => { closeRV(); const o = OPTS.find((x) => x.id === 'dispute'), sm = logSummary();
-    if (sm) { F.doc_dispute = o.doc(sm, null) + '\n\n※ 신청인의 동·호수와 이름은 상대 세대에 알리지 말아 주시기 바랍니다.'; wzFor = 'dispute'; wz = 3; }
-    go('r-dispute'); setTimeout(() => { const d = $('#docOut'); if (!d) return; const i = d.innerText.indexOf('[대응 경과'); if (i >= 0) { d.scrollIntoView({ block: 'start' }); } }, 300); });
+  $('#rvDoc').addEventListener('click', () => { closeRV(); const m = rvM, o = OPTS.find((x) => x.id === m), sm = logSummary();
+    if (sm && o) { F['doc_' + m] = o.doc(sm, null) + (m === 'neighbor' ? '' : '\n\n※ 신청인의 동·호수와 이름은 상대 세대에 알리지 말아 주시기 바랍니다.'); wzFor = m; wz = 3; }
+    go('r-' + m); if (m === 'dispute') setTimeout(() => { const d = $('#docOut'); if (d && d.innerText.includes('[대응 경과')) d.scrollIntoView({ block: 'start' }); }, 300); });
   function renderOpts() {
     try { renderProgress(); } catch (e) { console.error(e); }
     $('#opts').innerHTML = OPTS.map((o, i) => `<a class="opt" href="#r-${o.id}"><span class="k">${i + 1}</span><b>${o.t}</b><span class="lv">${o.lv}</span><small>${o.s}</small></a>`).join('');
