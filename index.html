@@ -1833,6 +1833,23 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 
 .apt-cmp .cr{grid-template-columns:92px 1fr 76px}
 .apt-cmp .cd{white-space:nowrap;display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}.apt-cmp .cd small{font-size:10px;font-weight:600;color:var(--fg2)}
+.dx{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;color:var(--fg);text-decoration:none;box-sizing:border-box;width:100%}
+.dx.soft{background:var(--accent-soft);border-color:transparent}
+.dx-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent)}
+.dx-h i{font-style:normal;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:2px 6px;font-size:11px}
+.dx-s{font-size:16px;font-weight:800;line-height:1.45;margin:0}
+.dx-s em{font-style:normal;color:var(--accent)}
+.dx-n{font-size:13px;color:var(--fg2);line-height:1.5;margin:0}.dx-n b{color:var(--fg)}
+.dx-b{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;border-radius:999px;padding:5px 11px;width:max-content;max-width:100%}
+.dx-b.ok{background:var(--ok-soft);color:var(--ok)}.dx-b.wait{background:var(--warn-soft);color:var(--warn)}
+.dx-bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}.dx-bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.dx-ck{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.dx-ck li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.dx-ck li b{margin-left:auto;font-variant-numeric:tabular-nums;text-align:right}
+.dx-ck li i{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;font-style:normal;flex:none;color:#fff;background:var(--ok)}
+.dx-ck li.no i{background:var(--warn)}
+.dx-go{display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:var(--accent);border-top:1px solid var(--line);padding-top:10px;text-decoration:none}
+.dash>.dx{margin-bottom:12px}#aiHome{margin-bottom:12px}#pg>.dx{margin:4px 0 14px}.resbody>.dx{margin:0}
 </style>
 
 <div class="splash" id="splash" aria-hidden="true"><div class="sp-in">
@@ -1908,6 +1925,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
           <path class="g-bld-sound" d="m30 21 9 4m-1-14 7 8m7-13v9" fill="none" stroke-width="3" stroke-linecap="round"/>
         </svg>
         <span hidden><b id="gsT"></b><b id="gsW"></b><b id="gsN"></b></span></div>
+      <a class="dx soft" href="#stats" id="aiHome"></a>
       <a class="gwk" href="#stats" id="gWk"></a>
       <button type="button" class="nightc" id="nightBtn"><span class="ni"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg></span><span class="nt"><b>자는 동안 자동 기록</b><small>켜 두면, 큰 소리가 날 때만 알아서 녹음해요</small></span><svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
       <div class="qa"><button type="button" id="qaPick"><span class="qi"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span>파일 올리기</button>
@@ -2902,6 +2920,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const days = []; for (let i = 6; i >= 0; i--) { const d = new Date(t0); d.setDate(d.getDate() - i); days.push(d); }
     const cnt = days.map((d) => { const a = d.getTime(), b = a + 864e5, L = E.filter((e) => e.ts >= a && e.ts < b); return [L.length, L.filter((e) => e.night).length]; });
     const mx = Math.max(1, ...cnt.map((c) => c[0]));
+    $('#aiHome').innerHTML = aiHomeHTML(E); aiEnhance($('#aiHome'));
     $('#gWk').innerHTML = `<div class="gwk-h"><b>이번 주 소음 요약</b><span>분석 보기 ›</span></div><div class="wk2">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><span class="tk"><i style="height:${cnt[i][0] ? Math.max(10, cnt[i][0] / mx * 100) : 0}%"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i></span><span class="dl">${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div><div class="gwk-b"><div class="wk-l"><span><i class="n"></i>야간</span><span><i class="d"></i>주간</span><span class="tot">총 <b>${W.length}</b>건</span></div></div>`;
     $('#wkCard').innerHTML = `<div class="hcard-h"><b>이번 주 소음${isExample ? ' <span class="note" style="font-weight:400">· 예시</span>' : ''}</b><small>분석 보기 ›</small></div>
       <div class="wk">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><i style="height:${Math.max(4, cnt[i][0] / mx * 64)}px"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i><span>${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div>
@@ -3075,6 +3094,91 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#instX').onclick = () => { try { localStorage.setItem('kungkwang.inst', 'off'); } catch (e) {} b.hidden = true; };
     $('#instGo') && ($('#instGo').onclick = async () => { bip.prompt(); try { await bip.userChoice; } catch (e) {} bip = null; renderInst(); });
   }
+  /* ---------- AI 기록 분석: 반복 패턴·기록 진단 ---------- */
+  const josa = (w, a, b) => { const c = w.replace(/\(.*\)|\s/g, '').slice(-1).charCodeAt(0) - 0xAC00; return w + (c >= 0 && c <= 11171 && c % 28 ? a : b); };
+  const dayKey = (t) => { const d = new Date(t); return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`; };
+  function slotName(h) { const e = (h + 2) % 24, n = (x) => x % 12 || 12; return `${h >= 21 || h < 4 ? '밤' : h < 6 ? '새벽' : h < 12 ? '오전' : h < 18 ? '오후' : '저녁'} ${n(h)}~${n(e)}시`; }
+  function aiDiag(E) {
+    const W = E.filter((e) => e.ts >= Date.now() - 7 * 864e5), inSlot = (e, h) => (new Date(e.ts).getHours() - h + 24) % 24 < 2;
+    let best = null;
+    for (let h = 0; h < 24; h++) { const L = W.filter((e) => inSlot(e, h)); if (!L.some((e) => new Date(e.ts).getHours() === h)) continue; const d = new Set(L.map((e) => dayKey(e.ts))).size; if (d && (!best || d > best.d || (d === best.d && L.length > best.L.length))) best = { h, d, L }; }
+    let pat = W.length ? `최근 7일 기록 ${W.length}건 · 아직 반복되는 시간대는 뚜렷하지 않아요` : '최근 7일 기록이 없어요', patTxt = pat, slot = '';
+    if (best && best.d >= 2) {
+      const tc = {}; best.L.forEach((e) => { tc[e.type] = (tc[e.type] || 0) + 1; }); const ty = Object.keys(tc).sort((a, b) => tc[b] - tc[a])[0];
+      const wd = [...new Set(best.L.map((e) => new Date(e.ts).getDay()))], pre = wd.every((x) => x > 0 && x < 6) ? '평일 ' : wd.every((x) => x === 0 || x === 6) ? '주말 ' : '';
+      slot = slotName(best.h); const nm = T[ty] ? T[ty].name : '소음';
+      pat = `${pre}${slot.replace(/(\S+)$/, '<em>$1</em>')}에 <em>${josa(nm, '이', '가')}</em> 최근 7일 중 <em>${best.d}일</em> 반복됐어요`; patTxt = pat.replace(/<[^>]+>/g, '');
+    }
+    const days = new Set(E.map((e) => dayKey(e.ts))).size, rep = best ? new Set(E.filter((e) => inSlot(e, best.h)).map((e) => dayKey(e.ts))).size : 0;
+    const night = E.filter((e) => e.night).length, over = E.filter((e) => e.over === 'over').length;
+    const ck = [
+      { k: '기록한 날', ok: days >= 5, v: `${days}일`, need: `${5 - days}일 더 기록하면` },
+      { k: '같은 시간대 반복', ok: rep >= 3, v: slot ? `${slot} · ${rep}일` : '아직 없음', need: `같은 시간대 기록이 ${Math.max(1, 3 - rep)}일 더 있으면` },
+      { k: '밤 소음 포함', ok: night >= 1, v: `${night}건`, need: '밤(22~06시) 기록이 1건 있으면' },
+      { k: '기준 초과', ok: over >= 3, v: `${over}회`, need: `기준 초과가 ${3 - over}회 더 기록되면` },
+    ];
+    const nOk = ck.filter((c) => c.ok).length, miss = ck.find((c) => !c.ok);
+    return { pat, patTxt, slot, ck, nOk, ready: !miss, next: miss ? `${miss.need} 더 정확하게 분석할 수 있어요` : '반복 패턴을 분석하기에 충분한 기록이 모였어요' };
+  }
+  const dxHead = (t) => `<div class="dx-h"><i data-aib>기록 분석</i>${t}</div>`;
+  /* Gemini 요약: 집계 숫자만 서버 함수(api/gen, 아래 GEN_URL과 같은 주소)로 보내고, 실패하면 규칙 문장을 그대로 둔다 */
+  const AI_URL = 'https://kungkwang.vercel.app/api/gen';
+  const AI_PROMPT = `너는 층간소음 기록 앱 '쿵쾅'의 분석 도우미야. 아래 JSON은 사용자의 소음 기록을 앱이 집계한 결과야.
+규칙: JSON에 있는 사실과 숫자만 쓰고 새 숫자나 추측을 만들지 마. 법적 판정이나 이웃에 대한 단정은 하지 마(휴대폰 측정은 참고값). 차분한 해요체.
+summary: 최근 소음 패턴 한 문장(60자 이내). advice: 분석을 더 정확하게 하려면 무엇을 더 기록하면 좋은지, 충분하면 그 사실을 한 문장(70자 이내, checks의 ok=false 우선). reason: nextStep을 왜 지금 추천하는지 1~2문장(100자 이내, doneSteps 참고).
+다른 말 없이 {"summary":"...","advice":"...","reason":"..."} 형식의 JSON만 답해.
+`;
+  let aiReq = null;
+  function aiFacts() {
+    const E = entries(), D = aiDiag(E), P = progState(), now = Date.now(), harm = {};
+    E.forEach((e) => { (e.harm && e.harm.kinds || []).forEach((k) => { harm[k] = (harm[k] || 0) + 1; }); });
+    return { pattern: D.slot ? D.patTxt : '', recent7: E.filter((e) => e.ts >= now - 7 * 864e5).length,
+      nightThisWeek: E.filter((e) => e.ts >= now - 7 * 864e5 && e.night).length, nightLastWeek: E.filter((e) => e.ts >= now - 14 * 864e5 && e.ts < now - 7 * 864e5 && e.night).length,
+      checks: D.ck.map((c) => ({ item: c.k, ok: c.ok, value: c.v })), harm, doneSteps: STG.filter((st) => P.isDone(st)).map((st) => st.t), nextStep: P.st ? P.st.t : '' };
+  }
+  function aiAsk() {
+    if (!AI_URL) return Promise.resolve(null);
+    const f = aiFacts(), k = JSON.stringify(f);
+    try { const c = JSON.parse(localStorage.getItem('kungkwang.ai') || 'null'); if (c && c.k === k) return Promise.resolve(c.v); } catch (e) {}
+    if (aiReq && aiReq.k === k) return aiReq.p;
+    const p = fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: AI_PROMPT + k }) }).then((r) => r.ok ? r.json() : null)
+      .then((j) => { let v = null; try { v = JSON.parse(String(j && j.text || '').replace(/^```(json)?|```$/gm, '').trim()); } catch (e) {} if (v && v.summary) { try { localStorage.setItem('kungkwang.ai', JSON.stringify({ k, v })); } catch (e) {} return v; } return null; }).catch(() => null);
+    aiReq = { k, p }; return p;
+  }
+  function aiEnhance(root) {
+    if (!root || !root.querySelector('[data-ai]')) return;
+    aiAsk().then((v) => { if (!v) return; root.querySelectorAll('[data-ai]').forEach((el) => { const t = v[el.dataset.ai]; if (t) el.textContent = t; });
+      root.querySelectorAll('[data-aib]').forEach((el) => { el.textContent = 'AI 분석'; }); });
+  }
+  const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
+  function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s" data-ai="summary">${D.pat}</p>${dxBadge(D)}`; }
+  function aiStatsHTML(E) {
+    const D = aiDiag(E);
+    return `<div class="dx">${dxHead('기록 진단 · 최근 7일 패턴')}<p class="dx-s" data-ai="summary">${D.pat}</p>${weekCmp(E).replace('class="wcmp"', 'class="wcmp dx-n"')}
+      ${dxBadge(D)}<div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div>
+      <ul class="dx-ck">${D.ck.map((c) => `<li class="${c.ok ? '' : 'no'}"><i>${c.ok ? '✓' : '!'}</i>${c.k}<b>${c.v}</b></li>`).join('')}</ul>
+      <p class="dx-n" data-ai="advice">${D.next}.</p><a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
+  }
+  function aiResHTML(r, worst) {
+    const ts = r.start.getTime(), E = entries(), has = E.some((e) => e.ts === ts);
+    const D = aiDiag(has ? E : [...E, { ts, type: r.main || 'other', night: r.night, over: worst }]), days = D.ck[0].v;
+    return `<div class="dx soft">${dxHead('분석 정보')}<p class="dx-s">${has ? '이 기록까지' : '이 기록을 저장하면'} 기록한 날 <em>${days}</em>${has ? '예요' : '째예요'}</p><div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div><p class="dx-n">${D.slot ? `${D.patTxt}. ` : ''}${D.next}.</p></div>`;
+  }
+  const REC_WHY = { rec: (D) => `${D.next}.`, neighbor: (D) => `${D.slot ? D.patTxt + '. ' : ''}아직 이웃에게 알린 기록이 없어요. 짧고 정중한 글부터 시작해 보세요.`, office: (D) => `이웃에게 알린 뒤에도 ${D.slot ? D.patTxt.replace(/^.*?에 /, '') : '소음이 이어지고 있어요'}. 관리사무소에 사실 확인을 요청해 보세요.`,
+    committee: () => '관리사무소 권고 뒤에도 소음이 이어지고 있어요. 단지 층간소음관리위원회에 조정을 신청해 보세요.', center: (D) => `공인 장비로 측정받으면 객관적인 근거가 생겨요.${D.ready ? '' : ` 상담 전에 ${D.next.replace(' 더 정확하게 분석할 수 있어요', ' 좋아요')}.`}`, dispute: () => '앞 단계로 해결되지 않았다면 공식 조정을 신청할 수 있어요.' };
+  function aiRecHTML(P) {
+    if (!P.st) return '';
+    const D = aiDiag(P.E), href = P.st.id === 'rec' ? '#analyze' : '#r-' + P.st.id;
+    return `<a class="dx soft" href="${href}">${dxHead('기록을 바탕으로 추천해요')}<p class="dx-s">${P.st.t}</p><p class="dx-n" data-ai="reason">${REC_WHY[P.st.id](D)}</p></a>`;
+  }
+  /* ---------- 주간 비교 ---------- */
+  function weekCmp(E) {
+    const now = Date.now(), a = now - 7 * 864e5, b = now - 14 * 864e5;
+    const tw = E.filter((e) => e.ts >= a && e.night).length, lw = E.filter((e) => e.ts >= b && e.ts < a && e.night).length;
+    if (!tw && !lw) return '';
+    const d = tw - lw;
+    return `<div class="wcmp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 15a8 8 0 1 1-6-11.5M20 4v5h-5"/></svg>${d === 0 ? `지난주와 야간 소음이 같아요 (${tw}건)` : d > 0 ? `지난주보다 야간 소음이 <b class="up">${d}건 늘었어요</b> (${lw} → ${tw}건)` : `지난주보다 야간 소음이 <b class="dn">${-d}건 줄었어요</b> (${lw} → ${tw}건)`}</div>`;
+  }
   $('#dontOk').addEventListener('click', () => { $('#dontMod').hidden = true; mark('dont'); });
   $('#dontMod').addEventListener('click', (e) => { if (e.target.id === 'dontMod') { $('#dontMod').hidden = true; mark('dont'); } });
   $('#dontBtn').addEventListener('click', () => { $('#dontMod').hidden = false; });
@@ -3182,6 +3286,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     el.innerHTML = `
       <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span class="pill ${worst} wv-v">${vt}</span><span class="wv-src">${isEx ? '예시' : isMic ? (calHow ? '보정됨' : '보정 전') : '파일'}</span><span style="margin-left:auto" id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
+      ${fromLog ? '' : aiResHTML(r, worst)}
       <div class="rtabs" role="tablist"><button type="button" data-rt="a" aria-pressed="true">분석 요약</button><button type="button" data-rt="b" aria-pressed="false">상세 정보</button></div>
       <div class="rpane" id="rpA">
         <div class="mt"><div><small>1분 평균 소음</small><b class="num">${r.leq1.toFixed(1)} dB</b></div><div><small>최대 피크</small><b class="num">${r.lmax.toFixed(1)} dB</b></div><div><small>반복 횟수</small><b class="num">${n}회</b></div><div><small>녹음 길이</small><b class="num">약 ${Math.round(r.durSec)}초</b></div></div>
@@ -3337,7 +3442,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const head = over ? `기준 초과 <em>${over}건</em>` : near ? `기준 근접 <em>${near}건</em>` : E.length ? '기준 이내' : '기록 없음';
     const sub = E.length ? `소리의 <b>${npct}%</b>가 밤 10시 이후 · 가장 잦은 시각 <b>${ph}시</b> · 주로 <b>${topType}</b>` : '이 기간에 저장한 기록이 없어요.';
     const per = `<div class="pchips" role="group" aria-label="기간">${[['7', '7일'], ['30', '30일'], ['all', '전체']].map(([k, l]) => `<button type="button" data-per="${k}" aria-pressed="${String(dper) === k}">${l}</button>`).join('')}</div>`;
-    return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>
+    return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>${aiStatsHTML(E0)}
       <div class="dcols">
         <section class="dcard2">
           <div class="dc-h"><h3>소음 패턴</h3></div>
@@ -3432,7 +3537,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       const xb = $('#exBan'); xb.hidden = true; $('#exChip').setAttribute('aria-pressed', String(!!isExample)); $('#exChip').title = isExample ? '예시 숨기기' : '예시 보기'; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
-      $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML();
+      $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML(); aiEnhance($('#jDash'));
       $$('#jDash [data-dm]').forEach((b) => b.addEventListener('click', () => { dmenu = b.dataset.dm; renderJournal(); }));
       $$('#jDash [data-per]').forEach((b) => b.addEventListener('click', () => { dper = b.dataset.per === 'all' ? 'all' : +b.dataset.per; renderJournal(); }));
       $('#toBoard') && $('#toBoard').addEventListener('click', () => go('journal'));
@@ -3640,7 +3745,8 @@ ${lines.join('\n')}
     $('#rgM').toggleAttribute('aria-current', rtab === 'how'); $('#rgL').toggleAttribute('aria-current', rtab === 'log'); if (rtab === 'how') $('#rgM').setAttribute('aria-current', 'page'); else $('#rgL').setAttribute('aria-current', 'page');
     $$('#v-report .warn-box').forEach((w) => { w.hidden = rtab === 'log'; });
     if (rtab === 'log') { renderRlog(); return; }
-    $('#pg').innerHTML = aptCardHTML() + `
+    setTimeout(() => aiEnhance($('#pg')));
+    $('#pg').innerHTML = aptCardHTML() + aiRecHTML(P) + `
       <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 1 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
         const sp = false;
