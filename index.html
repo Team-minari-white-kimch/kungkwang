@@ -3083,7 +3083,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     $('#notiSheet').hidden = false; $('#sheetBg').hidden = false;
   });
   $('#closeNoti').addEventListener('click', () => { $('#notiSheet').hidden = true; $('#sheetBg').hidden = true; });
-  function renderTabDot() { const { st } = progState(), t = $('a.tab[data-view=report]'); if (!t) return; let d = t.querySelector('.tdot'); const on = !!st && st.id !== 'rec'; if (on && !d) { d = document.createElement('span'); d.className = 'tdot'; d.setAttribute('aria-label', '할 일 있음'); t.appendChild(d); } if (!on && d) d.remove(); }
+  function renderTabDot() { const d = document.querySelector('a.tab[data-view=report] .tdot'); if (d) d.remove(); }
   /* ---------- 홈 화면 추가 ---------- */
   let bip = null; window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); bip = e; renderInst(); });
   function renderInst() {
