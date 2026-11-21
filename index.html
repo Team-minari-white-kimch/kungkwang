@@ -2915,7 +2915,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     const days = []; for (let i = 6; i >= 0; i--) { const d = new Date(t0); d.setDate(d.getDate() - i); days.push(d); }
     const cnt = days.map((d) => { const a = d.getTime(), b = a + 864e5, L = E.filter((e) => e.ts >= a && e.ts < b); return [L.length, L.filter((e) => e.night).length]; });
     const mx = Math.max(1, ...cnt.map((c) => c[0]));
-    $('#aiHome').innerHTML = aiHomeHTML(E);
+    $('#aiHome').innerHTML = aiHomeHTML(E); aiEnhance($('#aiHome'));
     $('#gWk').innerHTML = `<div class="gwk-h"><b>이번 주 소음 요약</b><span>분석 보기 ›</span></div><div class="wk2">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><span class="tk"><i style="height:${cnt[i][0] ? Math.max(10, cnt[i][0] / mx * 100) : 0}%"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i></span><span class="dl">${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div><div class="gwk-b">${weekCmp(E)}<div class="wk-l"><span><i class="n"></i>야간</span><span><i class="d"></i>주간</span><span class="tot">총 <b>${W.length}</b>건${isExample ? ' · 예시 포함' : ''}</span></div></div>`;
     $('#wkCard').innerHTML = `<div class="hcard-h"><b>이번 주 소음${isExample ? ' <span class="note" style="font-weight:400">· 예시</span>' : ''}</b><small>분석 보기 ›</small></div>
       <div class="wk">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><i style="height:${Math.max(4, cnt[i][0] / mx * 64)}px"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i><span>${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div>
@@ -3121,15 +3121,39 @@ if (typeof module !== 'undefined') module.exports = KE;
     const nOk = ck.filter((c) => c.ok).length, miss = ck.find((c) => !c.ok);
     return { pat, patTxt, slot, ck, nOk, ready: !miss, next: miss ? `${miss.need} 더 정확하게 분석할 수 있어요` : '반복 패턴을 분석하기에 충분한 기록이 모였어요' };
   }
-  const dxHead = (t) => `<div class="dx-h"><i>AI 분석</i>${t}</div>`;
+  const dxHead = (t) => `<div class="dx-h"><i data-aib>기록 분석</i>${t}</div>`;
+  /* Gemini 요약: 집계 숫자만 서버(api/summary)로 보내고, 실패하면 규칙 문장을 그대로 둔다 */
+  const AI_URL = '';
+  let aiReq = null;
+  function aiFacts() {
+    const E = entries(), D = aiDiag(E), P = progState(), now = Date.now(), harm = {};
+    E.forEach((e) => { (e.harm && e.harm.kinds || []).forEach((k) => { harm[k] = (harm[k] || 0) + 1; }); });
+    return { pattern: D.slot ? D.patTxt : '', recent7: E.filter((e) => e.ts >= now - 7 * 864e5).length,
+      nightThisWeek: E.filter((e) => e.ts >= now - 7 * 864e5 && e.night).length, nightLastWeek: E.filter((e) => e.ts >= now - 14 * 864e5 && e.ts < now - 7 * 864e5 && e.night).length,
+      checks: D.ck.map((c) => ({ item: c.k, ok: c.ok, value: c.v })), harm, doneSteps: STG.filter((st) => P.isDone(st)).map((st) => st.t), nextStep: P.st ? P.st.t : '' };
+  }
+  function aiAsk() {
+    if (!AI_URL) return Promise.resolve(null);
+    const f = aiFacts(), k = JSON.stringify(f);
+    try { const c = JSON.parse(localStorage.getItem('kungkwang.ai') || 'null'); if (c && c.k === k) return Promise.resolve(c.v); } catch (e) {}
+    if (aiReq && aiReq.k === k) return aiReq.p;
+    const p = fetch(AI_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: k }).then((r) => r.ok ? r.json() : null)
+      .then((v) => { if (v && v.summary) { try { localStorage.setItem('kungkwang.ai', JSON.stringify({ k, v })); } catch (e) {} return v; } return null; }).catch(() => null);
+    aiReq = { k, p }; return p;
+  }
+  function aiEnhance(root) {
+    if (!root || !root.querySelector('[data-ai]')) return;
+    aiAsk().then((v) => { if (!v) return; root.querySelectorAll('[data-ai]').forEach((el) => { const t = v[el.dataset.ai]; if (t) el.textContent = t; });
+      root.querySelectorAll('[data-aib]').forEach((el) => { el.textContent = 'AI 분석'; }); });
+  }
   const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
-  function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s">${D.pat}</p>${dxBadge(D)}`; }
+  function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s" data-ai="summary">${D.pat}</p>${dxBadge(D)}`; }
   function aiStatsHTML(E) {
     const D = aiDiag(E);
-    return `<div class="dx">${dxHead('기록 진단 · 최근 7일 패턴')}<p class="dx-s">${D.pat}</p>${weekCmp(E).replace('class="wcmp"', 'class="wcmp dx-n"')}
+    return `<div class="dx">${dxHead('기록 진단 · 최근 7일 패턴')}<p class="dx-s" data-ai="summary">${D.pat}</p>${weekCmp(E).replace('class="wcmp"', 'class="wcmp dx-n"')}
       ${dxBadge(D)}<div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div>
       <ul class="dx-ck">${D.ck.map((c) => `<li class="${c.ok ? '' : 'no'}"><i>${c.ok ? '✓' : '!'}</i>${c.k}<b>${c.v}</b></li>`).join('')}</ul>
-      <p class="dx-n">${D.next}.</p><a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
+      <p class="dx-n" data-ai="advice">${D.next}.</p><a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
   }
   function aiResHTML(r, worst) {
     const ts = r.start.getTime(), E = entries(), has = E.some((e) => e.ts === ts);
@@ -3141,7 +3165,7 @@ if (typeof module !== 'undefined') module.exports = KE;
   function aiRecHTML(P) {
     if (!P.st) return '';
     const D = aiDiag(P.E), href = P.st.id === 'rec' ? '#analyze' : '#r-' + P.st.id;
-    return `<a class="dx soft" href="${href}">${dxHead('기록을 바탕으로 추천해요')}<p class="dx-s">${P.st.t}</p><p class="dx-n">${REC_WHY[P.st.id](D)}</p></a>`;
+    return `<a class="dx soft" href="${href}">${dxHead('기록을 바탕으로 추천해요')}<p class="dx-s">${P.st.t}</p><p class="dx-n" data-ai="reason">${REC_WHY[P.st.id](D)}</p></a>`;
   }
   /* ---------- 주간 비교 ---------- */
   function weekCmp(E) {
@@ -3509,7 +3533,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       const xb = $('#exBan'); xb.hidden = true; $('#exChip').setAttribute('aria-pressed', String(!!isExample)); $('#exChip').title = isExample ? '예시 숨기기' : '예시 보기'; if (!isExample) { xb.innerHTML = '<span class="xd" style="background:var(--line2)"></span><span>내 기록만 보고 있어요</span><button type="button" class="txtbtn" id="exOff">예시 보기</button>'; $('#exOff').onclick = () => $('#exBtn').click(); } if (isExample) { xb.innerHTML = `<span class="xd"></span><span>${log.length ? `내 기록 ${log.length}건과 예시 일지를 함께 보고 있어요` : '예시 일지를 함께 보여 드려요'}</span><button type="button" class="txtbtn" id="exOff">예시 숨기기</button>`; $('#exOff').onclick = () => $('#exBtn').click(); } }
     $('#jN').textContent = E.length || '';
     if (jtab === 'dash') {
-      $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML();
+      $('#jDash').innerHTML = E.length ? dashboard(E) : emptyHTML(); aiEnhance($('#jDash'));
       $$('#jDash [data-dm]').forEach((b) => b.addEventListener('click', () => { dmenu = b.dataset.dm; renderJournal(); }));
       $$('#jDash [data-per]').forEach((b) => b.addEventListener('click', () => { dper = b.dataset.per === 'all' ? 'all' : +b.dataset.per; renderJournal(); }));
       $('#toBoard') && $('#toBoard').addEventListener('click', () => go('journal'));
@@ -3709,6 +3733,7 @@ ${lines.join('\n')}
     $('#rgM').toggleAttribute('aria-current', rtab === 'how'); $('#rgL').toggleAttribute('aria-current', rtab === 'log'); if (rtab === 'how') $('#rgM').setAttribute('aria-current', 'page'); else $('#rgL').setAttribute('aria-current', 'page');
     $$('#v-report .warn-box').forEach((w) => { w.hidden = rtab === 'log'; });
     if (rtab === 'log') { renderRlog(); return; }
+    setTimeout(() => aiEnhance($('#pg')));
     $('#pg').innerHTML = aptCardHTML() + aiRecHTML(P) + `
       <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 5 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
