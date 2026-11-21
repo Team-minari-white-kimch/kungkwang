@@ -3125,8 +3125,8 @@ if (typeof module !== 'undefined') module.exports = KE;
   const AI_URL = 'https://kungkwang.vercel.app/api/gen';
   const AI_PROMPT = `너는 층간소음 기록 앱 '쿵쾅'의 분석 도우미야. 아래 JSON은 사용자의 소음 기록을 앱이 집계한 결과야.
 규칙: JSON에 있는 사실과 숫자만 쓰고 새 숫자나 추측을 만들지 마. 법적 판정이나 이웃에 대한 단정은 하지 마(휴대폰 측정은 참고값). 차분한 해요체.
-summary: 최근 소음 패턴 한 문장(60자 이내). advice: 분석을 더 정확하게 하려면 무엇을 더 기록하면 좋은지, 충분하면 그 사실을 한 문장(70자 이내, checks의 ok=false 우선). reason: nextStep을 왜 지금 추천하는지 1~2문장(100자 이내, doneSteps 참고).
-다른 말 없이 {"summary":"...","advice":"...","reason":"..."} 형식의 JSON만 답해.
+summary: 최근 소음 패턴 한 문장(60자 이내). advice: 분석을 더 정확하게 하려면 무엇을 더 기록하면 좋은지, 충분하면 그 사실을 한 문장(70자 이내, checks의 ok=false 우선).
+다른 말 없이 {"summary":"...","advice":"..."} 형식의 JSON만 답해.
 `;
   let aiReq = null;
   function aiFacts() {
@@ -3164,13 +3164,7 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: 분석을 더 �
     const D = aiDiag(has ? E : [...E, { ts, type: r.main || 'other', night: r.night, over: worst }]), days = D.ck[0].v;
     return `<div class="dx soft">${dxHead('분석 정보')}<p class="dx-s">${has ? '이 기록까지' : '이 기록을 저장하면'} 기록한 날 <em>${days}</em>${has ? '예요' : '째예요'}</p><div class="dx-bar"><i style="width:${D.nOk * 25}%"></i></div><p class="dx-n">${D.slot ? `${D.patTxt}. ` : ''}${D.next}.</p></div>`;
   }
-  const REC_WHY = { rec: (D) => `${D.next}.`, neighbor: (D) => `${D.slot ? D.patTxt + '. ' : ''}아직 이웃에게 알린 기록이 없어요. 짧고 정중한 글부터 시작해 보세요.`, office: (D) => `이웃에게 알린 뒤에도 ${D.slot ? D.patTxt.replace(/^.*?에 /, '') : '소음이 이어지고 있어요'}. 관리사무소에 사실 확인을 요청해 보세요.`,
-    committee: () => '관리사무소 권고 뒤에도 소음이 이어지고 있어요. 단지 층간소음관리위원회에 조정을 신청해 보세요.', center: (D) => `공인 장비로 측정받으면 객관적인 근거가 생겨요.${D.ready ? '' : ` 상담 전에 ${D.next.replace(' 더 정확하게 분석할 수 있어요', ' 좋아요')}.`}`, dispute: () => '앞 단계로 해결되지 않았다면 공식 조정을 신청할 수 있어요.' };
-  function aiRecHTML(P) {
-    if (!P.st) return '';
-    const D = aiDiag(P.E), href = P.st.id === 'rec' ? '#analyze' : '#r-' + P.st.id;
-    return `<a class="dx soft" href="${href}">${dxHead('기록을 바탕으로 추천해요')}<p class="dx-s">${P.st.t}</p><p class="dx-n" data-ai="reason">${REC_WHY[P.st.id](D)}</p></a>`;
-  }
+
   /* ---------- 주간 비교 ---------- */
   function weekCmp(E) {
     const now = Date.now(), a = now - 7 * 864e5, b = now - 14 * 864e5;
@@ -3745,13 +3739,13 @@ ${lines.join('\n')}
     $('#rgM').toggleAttribute('aria-current', rtab === 'how'); $('#rgL').toggleAttribute('aria-current', rtab === 'log'); if (rtab === 'how') $('#rgM').setAttribute('aria-current', 'page'); else $('#rgL').setAttribute('aria-current', 'page');
     $$('#v-report .warn-box').forEach((w) => { w.hidden = rtab === 'log'; });
     if (rtab === 'log') { renderRlog(); return; }
-    setTimeout(() => aiEnhance($('#pg')));
-    $('#pg').innerHTML = aptCardHTML() + aiRecHTML(P) + `
+    $('#pg').innerHTML = aptCardHTML() + `
       <div class="rmh"><h2>알리는 방법 <button type="button" class="qbtn" id="mthQ" aria-label="언제 어떤 방법을 쓰나요">?</button></h2><a class="recchip ${recN >= 1 ? 'ok' : ''}" href="#journal">${recN >= 5 ? '✓ ' : ''}기록 ${recN}건${recN >= 5 ? '' : ' · 5건 이상 권장'}</a></div>
       <ul class="mth">${OPTS.map((o, k) => { const dn = !!PG.done[o.id], rc = o.id === rid, sk = small && o.id === 'committee';
         const sp = false;
-        return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b>${dn ? `<small>${md(PG.done[o.id])} 완료</small>` : sp ? '<small>건너뛴 단계</small>' : sk ? '<small>위원회가 없으면 건너뛰어도 돼요</small>' : ''}</span>${rc ? '<span class="badge rcb">추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ul>
+        return `<li class="${dn ? 'done' : ''}${sp ? ' sp' : ''}${rc ? ' rc' : ''}"><a href="#r-${o.id}"><span class="mi">${dn ? CHK : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${OI[o.id]}</svg>`}</span><span class="mt-t"><b>${o.t}</b>${dn ? `<small>${md(PG.done[o.id])} 완료</small>` : sp ? '<small>건너뛴 단계</small>' : sk ? '<small>위원회가 없으면 건너뛰어도 돼요</small>' : ''}</span>${rc ? '<span class="badge rcb" data-aibadge>추천</span>' : dn ? '<span class="badge dnb">완료</span>' : sp ? '<span class="badge">건너뜀</span>' : `<span class="badge">${o.lv}</span>`}</a>${dn ? `<button type="button" class="mth-u" data-pundo="${o.id}">되돌리기</button>` : ''}</li>`; }).join('')}</ul>
       `;
+    aiAsk().then((v) => { if (v) $$('#pg [data-aibadge]').forEach((b) => { b.textContent = 'AI 추천'; }); });
     $$('#pg [data-pf]').forEach((r) => { const f = () => { PG.focus = r.dataset.pf; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); }; r.addEventListener('click', f); r.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); f(); } }); });
     $$('#pg [data-pdone]').forEach((b) => b.addEventListener('click', () => { PG.done[b.dataset.pdone] = Date.now(); delete PG.focus; pgSave(); renderProgress(); scrollTo({ top: 0, behavior: 'smooth' }); toast('잘하셨어요 · 완료로 표시했어요'); }));
     $$('#pg [data-pundo]').forEach((b) => b.addEventListener('click', () => { delete PG.done[b.dataset.pundo]; if (PG.skip) delete PG.skip[b.dataset.pundo]; pgSave(); renderProgress(); toast('되돌렸어요'); }));
