@@ -1267,8 +1267,6 @@ li.skip .rm-st{background:var(--sunk);color:var(--fg2)}
 .nl .ni.w{background:var(--warn-soft);color:var(--warn)} .nl .ni.b{background:var(--bad-soft);color:var(--bad)}
 .nl b{display:block;font-size:14.5px} .nl small{font-size:12.5px;color:var(--fg2);line-height:1.5;word-break:keep-all}
 .nl-empty{text-align:center;color:var(--fg2);font-size:14px;padding:24px 0}
-.wcmp{font-size:12.5px;padding:8px 10px;border-radius:10px;background:var(--sunk);color:var(--fg);display:flex;gap:6px;align-items:center}
-.wcmp b.up{color:var(--bad)} .wcmp b.dn{color:var(--ok)}
 .inst{position:relative;display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px dashed var(--line2);border-radius:16px;padding:12px 40px 12px 14px}
 .inst .ii{width:34px;height:34px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
 .inst b{font-size:14px;display:block} .inst small{font-size:12.5px;color:var(--fg2);line-height:1.55;display:block;word-break:keep-all}
@@ -1415,7 +1413,6 @@ body:has(.fullpg:not([hidden])) .tabs{display:none!important}
 .wk{height:58px!important;gap:6px}
 .wk i{max-width:18px}
 .wk span{font-size:10.5px}
-.wcmp{padding:6px 10px;font-size:12px}
 .wk-l{font-size:11px}
 .sv{gap:6px}
 .sv-r .ic{width:28px;height:28px;border-radius:9px}
@@ -1473,17 +1470,12 @@ li:not(.now)>.rm-r{min-height:28px}
 .gwk{display:flex;flex-direction:column;gap:8px;background:rgba(255,255,255,.12);border-radius:14px;padding:10px 12px;color:#fff;text-decoration:none;position:relative;z-index:1}
 .gwk-h{display:flex;justify-content:space-between;align-items:center;font-size:12.5px}
 .greet .gwk-h b{font-size:13px!important;margin:0!important;display:inline} .gwk-h span{opacity:.85;font-size:12px}
-.greet .gwk .wcmp{display:block;font-size:12px;line-height:1.5;padding:6px 10px}
-.greet .gwk .wcmp b{font-size:12px!important;display:inline!important;margin:0!important;font-weight:800}
-.greet .gwk .wcmp svg{vertical-align:-3px;margin-right:4px}
 .greet .gwk .wk-l span{font-size:11px}
 .gwk .wk{height:66px!important}
 .gwk .wk i{background:rgba(255,255,255,.3)!important}
 .gwk .wk i em{background:#fff!important}
 .gwk .wk span{color:rgba(255,255,255,.8)!important}
 .gwk .wk div.t span{color:#fff!important;font-weight:800}
-.gwk .wcmp{background:rgba(255,255,255,.14);color:#fff}
-.gwk .wcmp b.up{color:#FFD1D6} .gwk .wcmp b.dn{color:#C8F5D8}
 .gwk .wk-l{color:rgba(255,255,255,.8)}
 .gwk .wk-l i{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px}
 .gwk .wk-l i.n{background:#fff} .gwk .wk-l i.d{background:rgba(255,255,255,.35)}
@@ -1809,9 +1801,6 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .wk2 .tk i em{position:absolute;left:0;right:0;top:0;background:#9A6DEB;display:block}
 .wk2 .dl{font-size:12.5px;color:var(--fg2)}.wk2 .t .dl{color:var(--accent);font-weight:800}
 .gwk-b{background:#F4EEFD;border-radius:16px;padding:10px 12px;display:flex;flex-direction:column;gap:8px}
-.gwk-b .wcmp{background:transparent!important;color:var(--fg)!important;padding:0!important;font-size:13px!important}
-.gwk-b .wcmp b{color:var(--accent)!important;font-weight:800}.gwk-b .wcmp b.up,.gwk-b .wcmp b.dn{color:var(--accent)!important}
-.gwk-b .wcmp svg{color:var(--accent)}
 .gwk-b .wk-l{color:var(--fg2)!important;font-size:12.5px;align-items:center}
 .gwk-b .wk-l i{width:12px!important;height:12px!important;border-radius:3px!important}
 .gwk-b .wk-l i.n{background:#9A6DEB!important}.gwk-b .wk-l i.d{background:#D6C4F7!important}
@@ -1832,7 +1821,6 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .wk2 .tk{background:#2A2234}:root:not([data-theme="light"]) .gwk-b{background:#241D2D}:root:not([data-theme="light"]) .nightc .ni,:root:not([data-theme="light"]) #v-analyze .qa .qi{background:#2A1F3D!important}:root:not([data-theme="light"]) .tabs .tab[aria-current="page"]:not(.rec-tab){background:#2A1F3D!important}:root:not([data-theme="light"]) .greet{background:transparent!important}}
 :root[data-theme="dark"] .greet{background:transparent!important}
 
-.gwk-b .wcmp{display:block!important;line-height:1.55}.gwk-b .wcmp svg{vertical-align:-3px;margin-right:6px}
 .greet .g-bld{--building-fill:#D7C5FA;--building-window:#FCF9FF;--building-ground:#EFE7FC;--building-sound:#B48AF6}
 .g-bld-towers{fill:var(--building-fill)}
 .g-bld-windows{fill:var(--building-window)}
@@ -2914,10 +2902,9 @@ if (typeof module !== 'undefined') module.exports = KE;
     const days = []; for (let i = 6; i >= 0; i--) { const d = new Date(t0); d.setDate(d.getDate() - i); days.push(d); }
     const cnt = days.map((d) => { const a = d.getTime(), b = a + 864e5, L = E.filter((e) => e.ts >= a && e.ts < b); return [L.length, L.filter((e) => e.night).length]; });
     const mx = Math.max(1, ...cnt.map((c) => c[0]));
-    $('#gWk').innerHTML = `<div class="gwk-h"><b>이번 주 소음 요약</b><span>분석 보기 ›</span></div><div class="wk2">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><span class="tk"><i style="height:${cnt[i][0] ? Math.max(10, cnt[i][0] / mx * 100) : 0}%"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i></span><span class="dl">${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div><div class="gwk-b">${weekCmp(E)}<div class="wk-l"><span><i class="n"></i>야간</span><span><i class="d"></i>주간</span><span class="tot">총 <b>${W.length}</b>건</span></div></div>`;
+    $('#gWk').innerHTML = `<div class="gwk-h"><b>이번 주 소음 요약</b><span>분석 보기 ›</span></div><div class="wk2">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><span class="tk"><i style="height:${cnt[i][0] ? Math.max(10, cnt[i][0] / mx * 100) : 0}%"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i></span><span class="dl">${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div><div class="gwk-b"><div class="wk-l"><span><i class="n"></i>야간</span><span><i class="d"></i>주간</span><span class="tot">총 <b>${W.length}</b>건</span></div></div>`;
     $('#wkCard').innerHTML = `<div class="hcard-h"><b>이번 주 소음${isExample ? ' <span class="note" style="font-weight:400">· 예시</span>' : ''}</b><small>분석 보기 ›</small></div>
       <div class="wk">${days.map((d, i) => `<div class="${i === 6 ? 't' : ''}"><i style="height:${Math.max(4, cnt[i][0] / mx * 64)}px"><em style="height:${cnt[i][0] ? cnt[i][1] / cnt[i][0] * 100 : 0}%"></em></i><span>${i === 6 ? '오늘' : wk[d.getDay()]}</span></div>`).join('')}</div>
-      ${weekCmp(E)}
       <div class="wk-l"><span><i style="background:var(--accent)"></i>야간(22~06시)</span><span><i style="background:color-mix(in srgb,var(--accent) 22%,transparent)"></i>주간</span><span style="margin-left:auto">총 ${W.length}건</span></div>`;
   }
   function renderSolveChip() { const c = $('#solveChip'); if (!c) return; const { ci, st } = progState(); c.innerHTML = `<span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 21V4.5a.5.5 0 0 1 .5-.5H15l1 2h3.5a.5.5 0 0 1 .5.5V15a.5.5 0 0 1-.5.5H14l-1-2H5"/></svg></span><span>해결 진행 <b>${Math.min(ci + 1, STG.length)}/${STG.length}단계</b> · ${st ? st.t : '완료'}</span><span class="chev">›</span>`; }
@@ -3088,14 +3075,6 @@ if (typeof module !== 'undefined') module.exports = KE;
     b.hidden = false;
     $('#instX').onclick = () => { try { localStorage.setItem('kungkwang.inst', 'off'); } catch (e) {} b.hidden = true; };
     $('#instGo') && ($('#instGo').onclick = async () => { bip.prompt(); try { await bip.userChoice; } catch (e) {} bip = null; renderInst(); });
-  }
-  /* ---------- 주간 비교 ---------- */
-  function weekCmp(E) {
-    const now = Date.now(), a = now - 7 * 864e5, b = now - 14 * 864e5;
-    const tw = E.filter((e) => e.ts >= a && e.night).length, lw = E.filter((e) => e.ts >= b && e.ts < a && e.night).length;
-    if (!tw && !lw) return '';
-    const d = tw - lw;
-    return `<div class="wcmp"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20 15a8 8 0 1 1-6-11.5M20 4v5h-5"/></svg>${d === 0 ? `지난주와 야간 소음이 같아요 (${tw}건)` : d > 0 ? `지난주보다 야간 소음이 <b class="up">${d}건 늘었어요</b> (${lw} → ${tw}건)` : `지난주보다 야간 소음이 <b class="dn">${-d}건 줄었어요</b> (${lw} → ${tw}건)`}</div>`;
   }
   $('#dontOk').addEventListener('click', () => { $('#dontMod').hidden = true; mark('dont'); });
   $('#dontMod').addEventListener('click', (e) => { if (e.target.id === 'dontMod') { $('#dontMod').hidden = true; mark('dont'); } });
