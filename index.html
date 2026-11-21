@@ -3283,7 +3283,7 @@ if (typeof module !== 'undefined') module.exports = KE;
       out.push({ ts: d.getTime(), type: r.main || (isMix ? 'other' : type), count: Object.values(r.counts).reduce((a, b) => a + b, 0), lmax: +r.lmax.toFixed(1), night: r.night, over: worstOf(r), src: r.label, how: r.how, counts: r.counts, leq1: +r.leq1.toFixed(1), example: true, res: snapshot(r), harm: r.night ? { kinds: hh >= 22 || hh < 6 ? ['sleep'] : ['rest'], lv: 3 + (i % 3 === 0 ? 1 : 0), memo: i % 4 === 0 ? '잠들려는데 쿵쿵 소리에 깼어요. 다시 잠들기 어려웠어요.' : '' } : (i % 5 === 0 ? { kinds: ['study'], lv: 2, memo: '' } : (i % 7 === 0 ? { kinds: ['work'], lv: 3, memo: '' } : undefined)) });
     });
     out.sort((a, b) => a.ts - b.ts);
-    return (exCache = out);
+    return (exCache = out.filter((e) => e.ts <= Date.now()));
   }
   function entries() { isExample = exMode; return exMode ? [...log, ...exampleLog()].sort((a, b) => a.ts - b.ts) : log; }
   function addEntry(r) {
@@ -3691,7 +3691,9 @@ ${lines.join('\n')}
   $('#rvClose').addEventListener('click', closeRV);
   $('#rvEdit').addEventListener('click', () => { const t = rvTs; closeRV(); openRL(t); });
   $('#rvDel').addEventListener('click', () => { PG.rlog = (PG.rlog || []).filter((x) => x.ts !== rvTs); pgSave(); closeRV(); renderProgress(); toast('지웠어요'); });
-  $('#rvDoc').addEventListener('click', () => { closeRV(); go('r-dispute'); });
+  $('#rvDoc').addEventListener('click', () => { closeRV(); const o = OPTS.find((x) => x.id === 'dispute'), sm = logSummary();
+    if (sm) { F.doc_dispute = o.doc(sm, null) + '\n\n※ 신청인의 동·호수와 이름은 상대 세대에 알리지 말아 주시기 바랍니다.'; wzFor = 'dispute'; wz = 3; }
+    go('r-dispute'); setTimeout(() => { const d = $('#docOut'); if (!d) return; const i = d.innerText.indexOf('[대응 경과'); if (i >= 0) { d.scrollIntoView({ block: 'start' }); } }, 300); });
   function renderOpts() {
     try { renderProgress(); } catch (e) { console.error(e); }
     $('#opts').innerHTML = OPTS.map((o, i) => `<a class="opt" href="#r-${o.id}"><span class="k">${i + 1}</span><b>${o.t}</b><span class="lv">${o.lv}</span><small>${o.s}</small></a>`).join('');
