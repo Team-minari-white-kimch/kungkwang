@@ -1832,7 +1832,16 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .g-bld-sound{stroke:var(--building-sound)}
 :root[data-theme="dark"] .greet .g-bld{--building-fill:#6F549D;--building-window:#E7D7FF;--building-ground:#332544;--building-sound:#C39DF6}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .greet .g-bld{--building-fill:#6F549D;--building-window:#E7D7FF;--building-ground:#332544;--building-sound:#C39DF6}}
-@media (max-width:680px){.tabs .tab[aria-current="page"]:not(.rec-tab){margin:2px 8px 4px}}
+/* 아래 메뉴: 선택 표시(보라 네모)를 탭 크기와 상관없는 배경 조각으로 그림.
+   예전에는 선택된 탭에만 바깥 여백(좌우 8px)을 줘서 메뉴를 누를 때마다 녹음 버튼이 최대 16px 옆으로 움직였음 */
+@media (max-width:680px){
+  .tabs .tab:not(.rec-tab){isolation:isolate}
+  .tabs .tab:not(.rec-tab)::before{content:"";position:absolute;inset:2px 8px 4px;border-radius:14px;z-index:-1;background:transparent;pointer-events:none}
+  .tabs .tab[aria-current="page"]:not(.rec-tab):not(#_n){background:transparent!important;margin:0!important}
+  .tabs .tab[aria-current="page"]:not(.rec-tab)::before{background:#F1EAFD}
+  :root[data-theme="dark"] .tabs .tab[aria-current="page"]:not(.rec-tab)::before{background:#2A1F3D}
+}
+@media (max-width:680px) and (prefers-color-scheme:dark){:root:not([data-theme="light"]) .tabs .tab[aria-current="page"]:not(.rec-tab)::before{background:#2A1F3D}}
 
 
 .apt-cmp .cr{grid-template-columns:92px 1fr 76px}
