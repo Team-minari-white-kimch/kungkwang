@@ -71,7 +71,7 @@ td.q{color:var(--fg2)}
 /* 화면 */
 .phones{display:flex;justify-content:space-between;margin-top:6px}
 .ph{width:118px;text-align:center}
-.ph .fr{border:4px solid #26202e;border-radius:16px;overflow:hidden;height:205px;background:#fff}
+.ph .fr{border:4px solid #26202e;border-radius:16px;overflow:hidden;height:196px;background:#fff}
 .ph .fr img{width:100%;display:block}
 .ph b{display:block;font-size:11.5px;margin-top:5px}
 .ph span{font-size:9.6px;color:var(--fg2)}
@@ -151,7 +151,10 @@ td.q{color:var(--fg2)}
 .sv em{font-style:normal;text-align:right;font-weight:700;color:var(--fg2)}
 .sv div.on{color:#1d1626;font-weight:700}.sv div.on i b{background:#5B21B6}.sv div.on em{color:#5B21B6}
 .rb{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px;padding:7px 14px;background:var(--soft);border-radius:12px}
-.rbt .st-h{font-size:11.5px}.rbn{margin-top:3px;font-size:9.6px;color:var(--fg2)}.rbn>b{font-size:16px;font-weight:800;color:#5B21B6;margin-right:7px}.rbn span b{color:#1d1626}
+.rbt .st-h{font-size:11.5px}.rbn{margin-top:3px;font-size:9.6px;color:var(--fg2)}.rbn{display:flex;align-items:center;gap:9px;line-height:1.35}.rbn>b{font-size:22px;font-weight:800;color:#5B21B6;margin-right:7px}.rbn span b{color:#1d1626}
+.stk{width:330px;flex:none}
+.bar3{display:flex;height:16px;border-radius:8px;overflow:hidden;gap:2px}.bar3 i{display:block;height:100%}
+.lb3{display:flex;justify-content:space-between;margin-top:6px;font-size:9.4px;color:var(--fg2)}.lb3 span{display:flex;align-items:center;gap:4px;white-space:nowrap}.lb3 i{width:8px;height:8px;border-radius:2px;display:inline-block}.lb3 b{color:#1d1626}.lb3 span.on{color:#5B21B6;font-weight:700}.lb3 span.on b{color:#5B21B6}
 /* 측정·보정 */
 .meas{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
 .meas h3{margin:0 0 3px;font-size:11px;font-weight:800}
@@ -280,9 +283,12 @@ td.q{color:var(--fg2)}
   </div>
 
   <div class="rb">
-    <div class="rbt"><div class="st-h">2026년, 상담이 다시 늘고 있다</div><div class="cap">이웃사이센터 전화상담 · 해마다 줄다가 올해 반등</div>
-      <div class="rbn"><b>하루 110건</b><span>1~8월 26,852건, 이미 지난해 연간의 <b>82%</b></span></div></div>
-    <svg width="360" height="58" viewBox="0 0 360 58" style="flex:none"><polyline points="20.0,14.8 84.0,22.8 148.0,27.9 212.0,32.3 276.0,32.8" fill="none" stroke="#A7A3AD" stroke-width="2"/><line x1="276.0" y1="32.8" x2="340.0" y2="40.3" stroke="#5B21B6" stroke-width="2" stroke-dasharray="3 3"/><circle cx="20.0" cy="14.8" r="2.6" fill="#A7A3AD"/><text x="20.0" y="9.8" text-anchor="middle" font-size="8" fill="#5d5666">4.7만</text><text x="20.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2021</text><circle cx="84.0" cy="22.8" r="2.6" fill="#A7A3AD"/><text x="84.0" y="17.8" text-anchor="middle" font-size="8" fill="#5d5666">4.0만</text><text x="84.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2022</text><circle cx="148.0" cy="27.9" r="2.6" fill="#A7A3AD"/><text x="148.0" y="22.9" text-anchor="middle" font-size="8" fill="#5d5666">3.6만</text><text x="148.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2023</text><circle cx="212.0" cy="32.3" r="2.6" fill="#A7A3AD"/><text x="212.0" y="27.3" text-anchor="middle" font-size="8" fill="#5d5666">3.3만</text><text x="212.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2024</text><circle cx="276.0" cy="32.8" r="2.6" fill="#A7A3AD"/><text x="276.0" y="27.8" text-anchor="middle" font-size="8" fill="#5d5666">3.3만</text><text x="276.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2025</text><circle cx="340.0" cy="40.3" r="3.3" fill="#fff" stroke="#5B21B6" stroke-width="2"/><text x="340.0" y="34.3" text-anchor="middle" font-size="8" font-weight="700" fill="#5B21B6">2.7만</text><text x="340.0" y="57" text-anchor="middle" font-size="8" font-weight="700" fill="#5B21B6">2026(~8월)</text></svg>
+    <div class="rbt"><div class="st-h">현장진단 20건 중 1건만 실제 소음 측정까지</div><div class="cap">이웃사이센터 현장진단 90,937건 (2016~2026.8)</div>
+      <div class="rbn"><b>4.6%</b><span>공식 측정까지 가는 경우는 드물다<br>→ <b>그 사이를 채울 기록이 필요하다</b></span></div></div>
+    <div class="stk">
+      <div class="bar3"><i style="width:77.1%;background:#D3D0D8"></i><i style="width:18.3%;background:#A7A3AD"></i><i style="width:4.6%;background:#5B21B6"></i></div>
+      <div class="lb3"><span><i style="background:#D3D0D8"></i>추가 전화상담 <b>77.1%</b></span><span><i style="background:#A7A3AD"></i>방문 상담 <b>18.3%</b></span><span class="on"><i style="background:#5B21B6"></i>소음 측정 <b>4.6%</b></span></div>
+    </div>
   </div>
   <div class="sec"><h2><i>02</i>문제를 겪는 사람</h2></div>
   <table>
