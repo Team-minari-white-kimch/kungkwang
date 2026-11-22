@@ -145,7 +145,7 @@ canvas{display:block;width:100%;height:180px}
 .chk .foot{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11.5px;color:var(--fg2)}
 .pill{display:inline-block;font-size:11.5px;font-weight:700;border-radius:999px;padding:2px 9px;white-space:nowrap}
 .pill.over{color:var(--bad);background:var(--bad-soft)} .pill.near{color:var(--warn);background:var(--warn-soft)}
-.pill.ok{color:var(--ok);background:var(--ok-soft)} .pill.na{color:var(--fg2);background:var(--sunk)}
+.pill.ok{color:var(--ok);background:var(--ok-soft)} .pill.na,.pill.hold{color:var(--fg2);background:var(--sunk)}
 .note{font-size:12px;color:var(--fg2)}
 details.why summary{cursor:pointer;font-size:13px;color:var(--fg2);font-weight:500}
 .tbl-wrap{overflow-x:auto;min-width:0}
@@ -1871,7 +1871,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
     <ol class="onb-steps">
       <li><span class="n">1</span><div><b>이어폰·블루투스 빼기</b><span>기준 소리가 휴대폰 스피커로 나와야 해요.</span></div></li>
       <li><span class="n">2</span><div><b>미디어 볼륨 최대</b><span>볼륨 버튼으로 끝까지 올려 주세요.</span></div></li>
-      <li><span class="n">3</span><div><b>평소 녹음할 방, 그 자리에</b><span>탁자나 바닥에 화면이 위로 오게 놓아 주세요.</span></div></li>
+      <li><span class="n">3</span><div><b>평소 녹음할 방, 그 자리에</b><span>바닥에 직접 눕히지 말고 거치대나 쿠션 위에 세워 두세요.</span></div></li>
     </ol>
     <p class="night-note" id="onbNight" hidden>밤이라 기준 소리가 크게 나요. 낮에 해도 괜찮아요.</p>
     <div class="onb-acts">
@@ -2082,14 +2082,14 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <ol class="cal-steps">
     <li><b>이어폰·블루투스 빼기</b><span>유선 이어폰을 빼고, 블루투스(버즈·에어팟·스피커·차량)는 잠시 꺼 주세요. 기준 소리가 휴대폰 스피커로 나와야 해요.</span></li>
     <li><b>미디어 볼륨을 최대로</b><span>볼륨 버튼으로 미디어(음악) 소리를 끝까지 올려 주세요.</span></li>
-    <li><b>평소 녹음할 방, 그 자리에</b><span>녹음할 때 둘 탁자나 바닥에 화면이 위로 오게 놓아 주세요. 케이스가 마이크·스피커를 막지 않는지도 확인해요.</span></li>
+    <li><b>평소 녹음할 방, 그 자리에</b><span>녹음할 때 둘 자리(거치대·쿠션 위)에 그대로 두세요. 바닥·탁자에 직접 닿으면 진동까지 소리로 잡혀요. 케이스가 마이크·스피커를 막지 않는지도 확인해요.</span></li>
     <li><b>자동 보정 시작</b><span>2초 동안 주변 소리를 듣고, 6초 동안 기준 소리를 내며 들어요.</span>
       <button type="button" class="btn primary" id="selfCal">자동 보정 시작</button><div class="cal-out" id="selfOut"></div></li>
   </ol>
   <details class="cal-adv"><summary>소음측정기가 있다면: 정밀 보정</summary>
     <ol class="cal-steps">
-      <li><b>기준 측정기 옆에 두기</b><span>소음계나 다른 기기의 측정 앱을 이 휴대폰 바로 옆에 둬요.</span></li>
-      <li><b>일정한 소리 틀기</b><span>1~2m 떨어진 스피커에서 일정한 소리를 틀어요.</span><button type="button" class="btn" id="calTone">보정용 소리 재생</button></li>
+      <li><b>기준 측정기와 마이크 붙이기</b><span>소음계(KS C IEC 61672-1 등급 2 이상, A특성·빠름)를 이 휴대폰 마이크 바로 옆(수 cm 안)에 둬요. 측정 앱은 기준으로 쓰지 마세요.</span></li>
+      <li><b>다른 기기에서 일정한 소리 틀기</b><span>1~2m 떨어진 스피커나 다른 휴대폰에서 이 페이지를 열고 아래 버튼으로 소리를 틀어요. 보정하는 휴대폰에서 틀면 안 돼요.</span><button type="button" class="btn" id="calTone">보정용 소리 재생</button></li>
       <li><b>두 기기로 동시에 재기</b><span>10초 동안 기준 측정기의 평균값을 봐 두세요.</span><button type="button" class="btn" id="calRec">10초 측정</button><div class="cal-out num" id="calOut"></div></li>
       <li><b>기준값 넣고 적용</b><div class="cal-in"><input id="calRef" type="number" inputmode="decimal" min="20" max="120" step="0.1" placeholder="기준 측정기 값"><span>dB</span><button type="button" class="btn primary" id="calApply" disabled>적용</button></div></li>
     </ol>
@@ -2151,7 +2151,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <ol class="posl2">
     <li><b>바닥에서 1.2~1.5m 높이</b><span>서랍장·책장 위처럼. 바닥·침대·이불 위는 피하세요.</span></li>
     <li><b>벽·큰 가구에서 1m, 닫힌 문·창에서 1.5m 이상</b><span>방이 좁으면 방 한가운데에 두세요.</span></li>
-    <li><b>손에 들지 말고 세워 두기</b><span>몸에서 50cm 이상 떨어뜨리고, 휴대폰 아래쪽 마이크 구멍을 가리지 마세요.</span></li>
+    <li><b>손에 들지 말고, 바닥·탁자에 직접 닿지 않게 세워 두기</b><span>거치대나 쿠션 위에 세워 두세요. 바닥에 닿으면 위층 충격의 진동이 휴대폰에 그대로 전해져 실제보다 크게 재요. 몸에서 50cm 이상 떨어뜨리고, 아래쪽 마이크 구멍을 가리지 마세요.</span></li>
     <li><b>창문은 닫고, 방문은 열어 두기</b><span>화장실·베란다 문은 닫고, 냉장고·선풍기·시계에서 멀리 두세요.</span></li>
     <li><b>보정도 이 자리에서</b><span>자리를 바꾸면 dB 보정을 다시 해 주세요.</span></li>
   </ol>
@@ -2250,6 +2250,48 @@ const KE = (() => {
   })();
   const hann = Float64Array.from({ length: N }, (_, i) => 0.5 - 0.5 * Math.cos(2 * Math.PI * i / (N - 1)));
 
+  /* ---------- dB 레벨 계산 (KS C IEC 61672-1 방식) ----------
+     A특성: IEC 61672-1 부속서 E의 아날로그 극점(20.6, 107.7, 737.9, 12194 Hz)을 쌍선형 변환한 시간영역 IIR 필터.
+     FFT 구간별 가중은 저음 해상도(31 Hz 간격)가 낮아 31.5 Hz에서 +6 dB 오차가 났음 → 필터로 교체.
+     16 kHz에서는 12194 Hz 극점이 나이퀴스트(8 kHz)를 넘어 저역통과 1단만 써서 4 kHz까지 오차 0.2 dB 이내로 맞춤.
+     LEG: 기존 FFT 방식과 같은 dB 눈금을 유지하는 상수(1 kHz에서 두 방식이 같은 값). 저장된 보정값·예시 소리를 그대로 쓰기 위함. */
+  const LEG = 10 * Math.log10(N / 2 * hann.reduce((s, w) => s + w * w, 0));
+  function aWeighter(fs) {
+    const W = [20.598997, 107.65265, 737.86223, 12194.217].map((f) => 2 * Math.PI * f), c = 2 * fs;
+    const hp = (w) => [c / (c + w), -c / (c + w), (w - c) / (c + w)], lp = (w) => [w / (c + w), w / (c + w), (w - c) / (c + w)];
+    const S = [hp(W[0]), hp(W[0]), hp(W[1]), hp(W[2])].concat(fs >= 40000 ? [lp(W[3]), lp(W[3])] : [lp(W[3])]);
+    const mag2 = (f) => { const z = 2 * Math.PI * f / fs; let m = 1; for (const [b0, b1, a1] of S) { const nr = b0 + b1 * Math.cos(z), ni = -b1 * Math.sin(z), dr = 1 + a1 * Math.cos(z), di = -a1 * Math.sin(z); m *= (nr * nr + ni * ni) / (dr * dr + di * di); } return m; };
+    const g = 1 / Math.sqrt(mag2(1000)), st = new Float64Array(S.length * 2), ns = S.length, C = Float64Array.from(S.flat()); // 1 kHz에서 0 dB
+    return {
+      process(x) { // 상태를 이어서 처리(실시간 블록 처리 가능)
+        const out = new Float32Array(x.length); // 10분 녹음도 메모리 부담 적게(필터 상태는 Float64)
+        for (let i = 0; i < x.length; i++) {
+          let v = x[i] * g;
+          for (let s = 0, k = 0; s < ns; s++, k += 3) { const yv = C[k] * v + C[k + 1] * st[2 * s] - C[k + 2] * st[2 * s + 1]; st[2 * s] = v; st[2 * s + 1] = yv; v = yv; }
+          out[i] = v;
+        }
+        return out;
+      },
+      gainDb: (f) => 10 * Math.log10(mag2(f) * g * g)
+    };
+  }
+  const dbOf = (ms) => 10 * Math.log10(ms + 1e-20) + LEG; // 평균제곱 → 엔진 dB 눈금
+  const FAST = 0.125; // 시간가중 빠름(F), 125 ms
+  /* 실시간용: 한 블록의 A특성 등가 레벨(보정값 더하기 전). 자동 기록 모드가 분석과 같은 눈금을 쓰도록 함 */
+  function meter(fs) {
+    const aw = aWeighter(fs);
+    return (x) => { let m = 0; for (let i = 0; i < x.length; i++) m += x[i]; m /= x.length || 1; // 블록 평균(직류) 제거
+      const y = aw.process(m ? Float32Array.from(x, (v) => v - m) : x); let s = 0; for (let i = 0; i < y.length; i++) s += y[i] * y[i]; return dbOf(s / y.length); };
+  }
+  /* 배경소음 보정 (소음·진동 공정시험기준 배경소음 보정 규정)
+     차이 10 dB 이상: 보정 없음 / 3.0~9.9 dB: 보정치 -10·log(1-10^(-0.1·d)) / 3 dB 미만: 재측정(판정 불가) */
+  function bgCorrect(L, bg) {
+    const d = L - bg;
+    if (!isFinite(bg) || d >= 10) return { v: L, corr: 0, d, hold: false };
+    if (d >= 3) { const corr = 10 * Math.log10(1 - 10 ** (-0.1 * d)); return { v: L + corr, corr, d, hold: false }; }
+    return { v: L, corr: 0, d, hold: true };
+  }
+
   function frames(y) {
     const out = [];
     for (let i = 0; i + N <= y.length; i += H) {
@@ -2275,7 +2317,7 @@ const KE = (() => {
       for (let k = i; k < j; k++) pk = Math.max(pk, L[k]);
       let above = 0;
       for (let k = i; k < j; k++) { const p = 10 ** (L[k] / 10); w += p; lowS += fr[k].low * p; cenS += fr[k].cen * p; if (L[k] > pk - 10) above++; }
-      ev.push({ t: i * H / SR, span: (j - i) * H / SR, dur: above * H / SR, peakFS: pk, low: lowS / w, cen: cenS / w });
+      ev.push({ i0: i, i1: j, t: i * H / SR, span: (j - i) * H / SR, dur: above * H / SR, peakFS: pk, low: lowS / w, cen: cenS / w });
       i = j;
     }
     return { floor, ev };
@@ -2311,16 +2353,27 @@ const KE = (() => {
 
   /* ---------- 메인 분석 ---------- */
   function analyze(y16, opts) {
-    const { cal = 95, start = new Date(), yamnet = null } = opts || {};
+    const { cal = 95, start = new Date(), yamnet = null, unc = 0 } = opts || {};
     const fr = frames(y16);
-    // 빠른 응답(125ms) 레벨
-    const a = Math.exp(-(H / SR) / 0.125); let acc = 10 ** (fr[0].L / 10);
-    const Lf = fr.map((f) => { acc = a * acc + (1 - a) * 10 ** (f.L / 10); return 10 * Math.log10(acc) + cal; });
+    // 레벨은 시간영역 A특성 필터 신호로 계산 (분류용 특징·사건 찾기는 기존 FFT 프레임 사용)
+    let dc = 0; for (let i = 0; i < y16.length; i++) dc += y16[i]; dc /= y16.length || 1; // 마이크 직류 성분 제거(필터 시작 순간 가짜 큰 소리 방지)
+    let y0 = y16; if (dc) { y0 = new Float32Array(y16.length); for (let i = 0; i < y16.length; i++) y0[i] = y16[i] - dc; }
+    const ya = aWeighter(SR).process(y0);
+    // 빠름(F, 125 ms) 시간가중: 샘플마다 지수평균(IEC 61672-1), 프레임 끝에서 값을 읽음
+    const al = 1 - Math.exp(-1 / (FAST * SR));
+    let acc = 0; for (let k = 0; k < Math.min(N, ya.length); k++) acc += ya[k] * ya[k]; acc /= Math.min(N, ya.length) || 1;
+    const LfRaw = new Float64Array(fr.length);
+    for (let i = 0, f = 0; i < ya.length && f < fr.length; i++) { acc += al * (ya[i] * ya[i] - acc); if (i === f * H + N - 1) LfRaw[f++] = dbOf(acc); }
+    const Lf = Array.from(LfRaw, (v) => v + cal);
+    // 배경소음: 빠름 레벨의 하위 10% 값(L90 근사)
+    const bgRaw = pct(Array.from(LfRaw), 0.1);
     const { floor, ev } = detectEvents(fr);
     ev.forEach((e) => {
       const hint = yamnet ? yamnet.hintAt(e.t, e.span) : null;
       Object.assign(e, ruleType(e, hint), { yHint: hint });
-      e.peak = e.peakFS + cal;
+      // 사건 최고값 = 사건 구간의 빠름(F) 레벨 최댓값 (기존: 32 ms 프레임 최댓값 → 6.5 dB 과대)
+      let pk = -Infinity; for (let k = e.i0; k < e.i1; k++) pk = Math.max(pk, LfRaw[k]);
+      e.peakFS = pk; e.peak = bgCorrect(pk, bgRaw).v + cal;
     });
     refineRhythm(ev);
     const durSec = y16.length / SR;
@@ -2328,34 +2381,50 @@ const KE = (() => {
     let sustained = null;
     if (yamnet && yamnet.dominant && ['music', 'speech', 'appl'].includes(yamnet.dominant.type) && yamnet.dominant.score > 0.3 && ev.filter((e) => TYPES[e.type].group === 'impact').length < 3) sustained = yamnet.dominant;
 
-    const meanP = fr.reduce((s, f) => s + 10 ** (f.L / 10), 0) / fr.length;
-    const leq = 10 * Math.log10(meanP) + cal;
-    let leq1 = leq; // 1분 등가: 60초 이상이면 1분 창 최댓값
-    const per = Math.floor(60 * SR / H);
-    if (fr.length >= per) {
-      leq1 = -Infinity;
-      for (let i = 0; i + per <= fr.length; i += Math.floor(per / 6)) {
-        let s = 0; for (let k = i; k < i + per; k++) s += 10 ** (fr[k].L / 10);
-        leq1 = Math.max(leq1, 10 * Math.log10(s / per) + cal);
-      }
-    }
-    const lmax = Math.max(...Lf);
+    // 블록(16 ms) 에너지 → 등가소음도
+    const nb = Math.floor(ya.length / H), blk = new Float64Array(nb);
+    for (let j = 0; j < nb; j++) { let s = 0; for (let k = j * H; k < (j + 1) * H; k++) s += ya[k] * ya[k]; blk[j] = s / H; }
+    const leq = dbOf(blk.reduce((s, v) => s + v, 0) / (nb || 1)) + cal; // 녹음 전체 평균(보정에 사용)
+    const bgMs = 10 ** ((bgRaw - LEG) / 10);
+    // T초 등가소음도: 녹음이 T초 이상이면 T초 창 중 최댓값, 짧으면 남은 시간을 배경소음으로 채워 T초로 환산
+    // (기존: 짧은 녹음의 평균을 그대로 써서 소리가 몰린 경우 최대 수 dB 과대)
+    const winLeq = (T) => {
+      const per = Math.round(T * SR / H);
+      if (nb >= per) { let best = -Infinity, s = 0; for (let j = 0; j < per; j++) s += blk[j]; best = s; const step = Math.max(1, Math.floor(per / 6));
+        for (let j = per, c = 0; j < nb; j++) { s += blk[j] - blk[j - per]; if (++c % step === 0) best = Math.max(best, s); } best = Math.max(best, s); return { raw: dbOf(best / per), padded: false }; }
+      return { raw: dbOf((blk.reduce((s, v) => s + v, 0) + bgMs * (per - nb)) / per), padded: true };
+    };
+    const w1 = winLeq(60), w5 = winLeq(300);
+    const c1 = ((c) => w1.padded && c.hold ? { ...c, hold: false } : c)(bgCorrect(w1.raw, bgRaw)), // 1분보다 짧아 배경소음으로 채운 경우는 '배경이 커서'가 아니므로 판정 불가로 두지 않음
+          cm = bgCorrect(LfRaw.reduce((m, v) => v > m ? v : m, -Infinity), bgRaw); // 긴 녹음에서 Math.max(...배열) 인자 수 초과 방지
+    // 공기전달(음악·TV)은 녹음 내내 이어지는 소리라 녹음 안에서 배경소음을 따로 알 수 없음 → 보정하지 않음
+    const c5 = { v: w5.raw, corr: 0, d: Infinity, hold: false };
+    const leq1 = c1.v + cal, leq5 = c5.v + cal, lmax = cm.v + cal;
+    // 클리핑(디지털 최대치 도달) → 최고소음도는 하한값
+    let pkAbs = 0; for (let i = 0; i < y16.length; i++) { const v = Math.abs(y16[i]); if (v > pkAbs) pkAbs = v; }
+    const clip = pkAbs >= 0.98;
     const night = isNight(start), period = night ? 'night' : 'day';
     const si = STD.impact[period], sa = STD.air[period];
-    const overLmax = ev.filter((e) => TYPES[e.type].group === 'impact' && e.peak > si.lmax).length;
+    // 확실한 초과만 셈: 최고값이 기준 + 오차범위(unc)를 넘은 경우
+    const overLmax = ev.filter((e) => TYPES[e.type].group === 'impact' && e.peak > si.lmax + unc).length;
     const impactEv = ev.filter((e) => TYPES[e.type].group === 'impact');
     const counts = {}; ev.forEach((e) => { counts[e.type] = (counts[e.type] || 0) + 1; });
     if (sustained) counts[sustained.type] = (counts[sustained.type] || 0) + 1;
     const main = Object.entries(counts).sort((p, q) => q[1] - p[1])[0];
-    const judge = (v, lim) => v > lim ? 'over' : v > lim - 3 ? 'near' : 'ok';
+    // 오차범위(unc)를 고려한 판정(ILAC-G8 보호대역 방식): 기준+오차 초과 → 초과, 기준-max(3,오차) 이하 → 이내, 그 사이 → 근처(판정 보류)
+    const judge = (v, lim) => v > lim + unc ? 'over' : v > lim - Math.max(3, unc) ? 'near' : 'ok';
+    const bgNote = (c) => c.hold ? `배경소음과 차이 ${c.d.toFixed(1)} dB(3 dB 미만)라 판정 불가 · 더 조용할 때 다시 녹음` : c.corr ? `배경소음 보정 ${c.corr.toFixed(1)} dB` : '';
+    const jn = (...a) => a.filter(Boolean).join(' · ');
+    let stMax = impactEv.length ? (cm.hold ? 'hold' : overLmax >= 3 ? 'over' : judge(lmax, si.lmax) === 'ok' ? 'ok' : 'near') : 'na';
+    if (clip && stMax === 'ok') stMax = 'near';
     return {
-      durSec, start, night, period, cal, floor: floor + cal, Lf, hop: H / SR, ev, counts, sustained,
+      durSec, start, night, period, cal, unc, clip, floor: floor + cal, bg: bgRaw + cal, Lf, hop: H / SR, ev, counts, sustained,
       main: main ? main[0] : null,
-      leq, leq1, lmax, overLmax,
+      leq, leq1, leq5, lmax, overLmax,
       checks: [
-        { k: '직접충격 1분 등가소음도', v: leq1, lim: si.leq, st: impactEv.length ? judge(leq1, si.leq) : 'na', note: durSec < 60 ? '녹음이 1분보다 짧아 전체 구간 평균으로 계산' : '1분 창 중 가장 큰 값' },
-        { k: '직접충격 최고소음도', v: lmax, lim: si.lmax, st: impactEv.length ? (overLmax >= 3 ? 'over' : judge(lmax, si.lmax) === 'ok' ? 'ok' : 'near') : 'na', note: `기준 초과 ${overLmax}회 (1시간에 3회 이상이면 기준 초과)` },
-        { k: '공기전달 5분 등가소음도', v: leq, lim: sa.leq, st: sustained ? judge(leq, sa.leq) : 'na', note: durSec < 300 ? '녹음이 5분보다 짧아 전체 구간 평균으로 계산' : '' }
+        { k: '직접충격 1분 등가소음도', v: leq1, lim: si.leq, st: impactEv.length ? (c1.hold ? 'hold' : judge(leq1, si.leq)) : 'na', note: jn(w1.padded ? '녹음이 1분보다 짧아 남은 시간을 배경소음으로 채워 1분으로 환산' : '1분 창 중 가장 큰 값', bgNote(c1)) },
+        { k: '직접충격 최고소음도', v: lmax, lim: si.lmax, st: stMax, note: jn(`기준 초과 ${overLmax}회 (1시간에 3회 이상이면 기준 초과)`, clip ? '녹음이 최대치에 닿아 실제 최고소음도는 이보다 클 수 있음' : '', bgNote(cm)) },
+        { k: '공기전달 5분 등가소음도', v: leq5, lim: sa.leq, st: sustained ? (c5.hold ? 'hold' : judge(leq5, sa.leq)) : 'na', note: jn(w5.padded ? '녹음이 5분보다 짧아 남은 시간을 배경소음으로 채워 5분으로 환산' : '5분 창 중 가장 큰 값', bgNote(c5)) }
       ]
     };
   }
@@ -2396,7 +2465,7 @@ const KE = (() => {
     parts.forEach(([k, t0, adj = 0], j) => { const s = synth(k, seed + j * 13, adj), i0 = Math.floor(t0 * SR); for (let i = 0; i < s.length && i0 + i < y.length; i++) y[i0 + i] += s[i]; });
     return y;
   }
-  return { SR, STD, TYPES, ymapOf, analyze, synth, mix, isNight };
+  return { SR, STD, TYPES, ymapOf, analyze, synth, mix, isNight, aWeighter, meter, bgCorrect, LEG };
 })();
 if (typeof module !== 'undefined') module.exports = KE;
 
@@ -2412,7 +2481,13 @@ if (typeof module !== 'undefined') module.exports = KE;
   const fmt = (d) => `${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}`;
   const localInput = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
   const copy = async (text, okMsg) => { try { await navigator.clipboard.writeText(text); toast(okMsg); } catch (e) { toast('복사가 막혀 있어 내용을 직접 선택해 주세요'); } };
-  const stTxt = { over: '기준 초과', near: '기준 근접', ok: '기준 이내', na: '해당 없음' };
+  const stTxt = { over: '기준 초과', near: '기준 근처', ok: '기준 이내', na: '해당 없음', hold: '판정 불가' };
+  /* 보정 방식별 오차범위(dB) — 판정 보호대역. 임시값: 검증 실험(폰 여러 대 + 소음계) 결과로 바꿔야 함.
+     meter: 소음계 비교 보정 / self: 폰 스피커 자동 보정(근거 약함) / raw: 보정 전 / file: 다른 앱 녹음 파일 / ex: 예시 소리 */
+  const UNC = { meter: 2, self: 6, raw: 8, file: 8, ex: 0 };
+  function uncOf(how) { return how === 'ex' ? UNC.ex : how === 'file' ? UNC.file : how === 'cal' ? (UNC[calState()] ?? UNC.self) : UNC.raw; }
+  /* 브라우저가 음성 처리(에코·잡음 제거·자동 음량)를 실제로 껐는지 확인 (W3C Media Capture: 제약조건은 요청일 뿐, 적용값은 getSettings) */
+  function procOn(stream) { try { const s = stream.getAudioTracks()[0].getSettings(); return ['echoCancellation', 'noiseSuppression', 'autoGainControl'].filter((k) => s[k] === true); } catch (e) { return []; } }
 
   /* ---------- 메뉴(해시) ---------- */
   const VIEWS = ['analyze', 'result', 'journal', 'report', 'rdetail', 'family', 'more'];
@@ -2538,6 +2613,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { micFail(e); return; }
     $('#micMsg').hidden = true;
+    { const on = procOn(stream); if (on.length) toast(`이 브라우저가 음성 처리(${on.join(', ')})를 끄지 못해 dB가 실제와 다를 수 있어요`); }
     const rec = new MediaRecorder(stream), parts = [];
     rec.ondataavailable = (e) => parts.push(e.data);
     rec.onstop = async () => { stream.getTracks().forEach((t) => t.stop()); btn.classList.remove('live'); btn.innerHTML = label;
@@ -2572,14 +2648,15 @@ if (typeof module !== 'undefined') module.exports = KE;
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { $('#nvSt').innerHTML = '마이크를 켤 수 없어요 (앱 주소에서 마이크 허용 필요)'; $('#nvTip').innerHTML = '<button type="button" class="btn sm" id="nvDemo">예시 소리로 체험하기</button>'; $('#nvDemo').addEventListener('click', nvDemo); return; }
+    { const on = procOn(stream); if (on.length) toast(`이 브라우저가 음성 처리(${on.join(', ')})를 끄지 못해 dB가 실제와 다를 수 있어요`); }
     const ctx = new (window.AudioContext || window.webkitAudioContext)(); await ctx.resume();
-    const src = ctx.createMediaStreamSource(stream), pr = ctx.createScriptProcessor(4096, 1, 1), sr = ctx.sampleRate, PRE = Math.round(sr * 2);
+    const src = ctx.createMediaStreamSource(stream), pr = ctx.createScriptProcessor(4096, 1, 1), sr = ctx.sampleRate, PRE = Math.round(sr * 2), lvOf = KE.meter(sr); // 분석과 같은 A특성 dB 눈금
     const ring = new Float32Array(PRE); let rp = 0;
     Object.assign(NV, { stream, ctx, pr, t1: Date.now() }); await wake(); nvTick();
     const cal = () => +$('#cal').value || 95, calOk = !!calState();
     pr.onaudioprocess = (ev) => {
-      const x = ev.inputBuffer.getChannelData(0); let ss = 0; for (let i = 0; i < x.length; i++) ss += x[i] * x[i];
-      const lv = 10 * Math.log10(ss / x.length + 1e-12) + cal(), now = performance.now();
+      const x = ev.inputBuffer.getChannelData(0);
+      const lv = lvOf(x) + cal(), now = performance.now();
       if (NV.bg == null) NV.bg = lv; const thr = Math.max(NV.bg + NV.sens, calOk ? 40 : -999);
       nvMeter(lv, thr);
       if (NV.cap) { NV.cap.parts.push(new Float32Array(x)); if (lv > thr - 3) NV.cap.lastLoud = now; NV.cap.max = Math.max(NV.cap.max, lv);
@@ -2602,7 +2679,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     if (NV.on) $('#nvCap').textContent = '';
   }
   function nvSave(y, start, demo) {
-    const r = KE.analyze(y, { cal: demo ? 100 : +$('#cal').value, start, yamnet: demo ? null : yamnetOf(y) }); const cnt = Object.values(r.counts).reduce((a, b) => a + b, 0);
+    const r = KE.analyze(y, { cal: demo ? 100 : +$('#cal').value, start, yamnet: demo ? null : yamnetOf(y), unc: demo ? 0 : uncOf(calState() ? 'cal' : 'raw') }); const cnt = Object.values(r.counts).reduce((a, b) => a + b, 0);
     if (!cnt) return; r.label = demo ? '자동 기록 (예시)' : '자동 기록'; r.how = demo ? 'ex' : calState() ? 'cal' : 'raw';
     let e; if (demo) e = { ts: start.getTime(), type: r.main || 'other', lmax: +r.lmax.toFixed(1), over: worstOf(r), count: cnt };
     else { const keep = curHarm; curHarm = { kinds: [], lv: 0, memo: '' }; e = addEntry(r); curHarm = keep; e.auto = 1; try { localStorage.setItem(KEY, JSON.stringify(log)); } catch (x) {} }
@@ -2654,12 +2731,13 @@ if (typeof module !== 'undefined') module.exports = KE;
     last = { y, label };
     const start = new Date($('#when').value || Date.now());
     const ym = yamnetOf(y);
-    const r = KE.analyze(y, { cal: +$('#cal').value, start, yamnet: ym });
+    const how0 = /예시/.test(label) ? 'ex' : label === '마이크 녹음' ? (calState() ? 'cal' : 'raw') : 'file';
+    const r = KE.analyze(y, { cal: +$('#cal').value, start, yamnet: ym, unc: uncOf(how0) });
     r.label = label; r.ym = ym; r.how = /예시/.test(label) ? 'ex' : label === '마이크 녹음' ? (calState() ? 'cal' : 'raw') : 'file'; lastRes = r; render(r); renderRecent(r);
   }
   function renderRecent(r) {
     const b = $('#recent'), n = Object.values(r.counts).reduce((a, c) => a + c, 0);
-    const worst = r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near') ? 'near' : r.checks.every((c) => c.st === 'na') ? 'na' : 'ok';
+    const worst = r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near' || c.st === 'hold') ? 'near' : r.checks.every((c) => c.st === 'na') ? 'na' : 'ok';
     const k = 22, step = Math.max(1, Math.floor(r.Lf.length / k)), lo = 30, hi = Math.max(70, r.lmax);
     const bars = Array.from({ length: k }, (_, i) => Math.max(...r.Lf.slice(i * step, (i + 1) * step).concat([lo])));
     b.innerHTML = `<span class="bars" aria-hidden="true">${bars.map((v) => `<i style="height:${Math.max(6, (v - lo) / (hi - lo) * 100)}%"></i>`).join('')}</span>
@@ -2686,7 +2764,9 @@ if (typeof module !== 'undefined') module.exports = KE;
     const ctx = new (window.AudioContext || window.webkitAudioContext)(), n = ctx.sampleRate * 2, buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
     let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0; // 핑크 노이즈
     for (let i = 0; i < n; i++) { const w = Math.random() * 2 - 1; b0 = .99886 * b0 + w * .0555179; b1 = .99332 * b1 + w * .0750759; b2 = .969 * b2 + w * .153852; b3 = .8665 * b3 + w * .3104856; b4 = .55 * b4 + w * .5329522; b5 = -.7616 * b5 - w * .016898; d[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + w * .5362) * .08; b6 = w * .115926; }
-    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(ctx.destination); src.start();
+    // 250 Hz~4 kHz로 제한: 방의 저음 정상파(위치마다 수~10 dB 차이)를 피해 두 기기가 같은 소리를 듣게 함
+    const hp = ctx.createBiquadFilter(), lp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 250; lp.type = 'lowpass'; lp.frequency.value = 4000;
+    const src = ctx.createBufferSource(); src.buffer = buf; src.loop = true; src.connect(hp); hp.connect(lp); lp.connect(ctx.destination); src.start();
     tone = { ctx, src }; $('#calTone').textContent = '소리 멈추기';
   });
   $('#calRec').addEventListener('click', async () => {
@@ -2694,6 +2774,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { $('#calOut').textContent = '마이크를 켤 수 없어요. 앱 주소에서 열고 마이크를 허용해 주세요.'; return; }
+    { const on = procOn(stream); if (on.length) { stream.getTracks().forEach((t) => t.stop()); $('#calOut').innerHTML = `<b>이 브라우저는 음성 처리(${on.join(', ')})를 끌 수 없어 보정할 수 없어요</b><br><span class="note">크롬 최신 버전에서 다시 시도해 주세요.</span>`; return; } }
     const rec = new MediaRecorder(stream), parts = []; rec.ondataavailable = (e) => parts.push(e.data);
     b.disabled = true; let s = 10; b.textContent = `${s}초 측정 중…`;
     const iv = setInterval(() => { s--; b.textContent = `${s}초 측정 중…`; if (s <= 0) { clearInterval(iv); rec.stop(); } }, 1000);
@@ -2737,6 +2818,7 @@ if (typeof module !== 'undefined') module.exports = KE;
     let stream;
     try { stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false } }); }
     catch (e) { out.textContent = '마이크를 켤 수 없어요. 앱 주소에서 열고 마이크를 허용해 주세요.'; return; }
+    { const on = procOn(stream); if (on.length) { stream.getTracks().forEach((t) => t.stop()); out.innerHTML = `<b>이 브라우저는 음성 처리(${on.join(', ')})를 끌 수 없어 보정할 수 없어요</b><br><span class="note">크롬 최신 버전에서 다시 시도해 주세요.</span>`; return; } }
     // 이어폰·블루투스 연결 감지(브라우저가 기기 이름을 알려 줄 때만)
     const EAR = /bluetooth|headset|headphone|earphone|earbud|buds|airpods|hands-?free|이어폰|헤드셋|헤드폰|블루투스/i;
     try {
@@ -2758,7 +2840,7 @@ if (typeof module !== 'undefined') module.exports = KE;
         if (!isFinite(tone) || snr < 10) { out.innerHTML = `<b>기준 소리가 잘 안 들렸어요</b> <span class="note">(주변보다 ${isFinite(snr) ? snr.toFixed(0) : 0} dB 큼)</span><br><span class="note">이어폰·블루투스가 연결돼 있지 않은지, 볼륨이 최대인지 확인하고 조용한 곳에서 다시 해 주세요.</span>`; return; }
         const c = Math.max(60, Math.min(140, Math.round(SELF_REF - tone)));
         $('#cal').value = c; $('#calV').textContent = c; try { localStorage.setItem(CALKEY, c); localStorage.setItem(CALKEY + '.how', 'self'); } catch (e) {} updateCalChip();
-        out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.</span>`;
+        out.innerHTML = `보정 완료 · 보정값 <b>${c}</b><br><span class="note">기준 소리가 주변보다 ${snr.toFixed(0)} dB 크게 들렸어요. 이 휴대폰에 저장돼요.<br>스피커로 하는 자동 보정은 휴대폰마다 오차가 커서(약 ±${UNC.self} dB), 기준과 가까운 소리는 '기준 근처'로 보여요. 소음계가 있으면 정밀 보정을 해 주세요.</span>`;
         if (last && last.label === '마이크 녹음' && location.hash.startsWith('#result')) { run(last.y, last.label); closeCal(); toast('보정 완료 · 방금 녹음을 다시 계산했어요'); } else { toast(`자동 보정 완료 · 보정값 ${c}`); if (last) run(last.y, last.label); }
       } catch (e) { out.textContent = '보정하지 못했어요. 다시 눌러 주세요.'; }
     };
@@ -3252,13 +3334,13 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
     $('#rBack').setAttribute('href', fromLog ? '#journal' : '#analyze'); $('#rH').textContent = fromLog ? '기록 상세' : '분석 결과';
     const main = r.main ? T[r.main].name : '뚜렷한 소리 없음';
     const n = Object.values(r.counts).reduce((a, b) => a + b, 0);
-    const worst = r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near') ? 'near' : r.checks.every((c) => c.st === 'na') ? 'na' : 'ok';
+    const worst = r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near' || c.st === 'hold') ? 'near' : r.checks.every((c) => c.st === 'na') ? 'na' : 'ok';
     const per = r.night ? '야간' : '주간';
     const lead = worst === 'over' ? `${per} 기준을 넘는 소리가 <b>${r.overLmax || n}번</b> 들렸어요` : worst === 'near' ? `${per} 기준에 가까운 소리가 들렸어요` : worst === 'ok' ? `${per} 기준 안쪽이에요` : '기준에 걸릴 만한 소리를 찾지 못했어요';
     const d = r.start, when = `${d.getMonth() + 1}/${d.getDate()}(${wk[d.getDay()]}) ${pad(d.getHours())}:${pad(d.getMinutes())}`;
     const rows = r.checks.filter((c) => c.st !== 'na');
     const label = { '직접충격 1분 등가소음도': '1분 평균', '직접충격 최고소음도': '최고 소음', '공기전달 5분 등가소음도': '5분 평균 (음악·TV)' };
-    const sub = { '직접충격 1분 등가소음도': (c) => c.note.startsWith('녹음이') ? '녹음 전체 평균' : '1분 창 최댓값', '직접충격 최고소음도': () => `기준 넘은 횟수 ${r.overLmax}회 (3회↑ 초과)`, '공기전달 5분 등가소음도': () => '녹음 전체 평균' };
+    const sub = { '직접충격 1분 등가소음도': (c) => c.note.startsWith('녹음이') ? '1분으로 환산' : '1분 창 최댓값', '직접충격 최고소음도': () => `기준 넘은 횟수 ${r.overLmax}회 (3회↑ 초과)`, '공기전달 5분 등가소음도': (c) => c.note.startsWith('녹음이') ? '5분으로 환산' : '5분 창 최댓값' };
     const comp = Object.entries(r.counts).sort((a, b) => b[1] - a[1]);
     const lb = r.label || '', how = r.how || (/예시/.test(lb) ? 'ex' : lb === '마이크 녹음' ? (calState() ? 'cal' : 'raw') : 'file'), isEx = how === 'ex', isMic = how === 'cal' || how === 'raw', calHow = how === 'cal';
     const srcTag = isEx ? '<span class="src-tag">예시</span>' : isMic ? (calHow ? '<span class="src-tag ok">보정됨</span>' : '<span class="src-tag warn">보정 전</span>') : '<span class="src-tag warn">파일 · dB 참고용</span>';
@@ -3269,8 +3351,10 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
     const h0 = fromLog ? r._harm : null;
     const NB = 64, lim0 = KE.STD.impact[r.period].lmax, seg = r.Lf.length / NB, lo0 = 25, hi0 = Math.max(lim0 + 10, r.lmax);
     const WAVE = Array.from({ length: NB }, (_, k) => { const v = Math.max(...r.Lf.slice(Math.floor(k * seg), Math.max(Math.floor(k * seg) + 1, Math.floor((k + 1) * seg)))); return `<i class="${v >= lim0 ? 'ov' : ''}" style="height:${Math.max(6, Math.min(100, (v - lo0) / (hi0 - lo0) * 100))}%"></i>`; }).join('');
-    const oe = r.ev.filter((e) => e.peak >= lim0);
-    const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
+    const gpk = (e) => e.peakFS != null && r.cal != null ? e.peakFS + r.cal : e.peak; // 그래프 막대와 같은 값(빠름 레벨)
+    const oe = r.ev.filter((e) => T[e.type] && T[e.type].group === 'impact' && gpk(e) >= lim0); // 직접충격 소리만, 그래프에서 기준선을 넘은 것과 같은 기준
+    const sure = r.unc && r.overLmax !== oe.length ? ` 측정 오차(±${r.unc}dB)를 빼도 확실히 넘는 건 ${r.overLmax}번이에요.` : '';
+    const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.${sure}</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
       <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span class="pill ${worst} wv-v">${vt}</span><span class="wv-src">${isEx ? '예시' : isMic ? (calHow ? '보정됨' : '보정 전') : '파일'}</span><span style="margin-left:auto" id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
@@ -3348,7 +3432,7 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
       ev: r.ev.slice(0, 300).map((e) => ({ t: +e.t.toFixed(2), span: +e.span.toFixed(2), type: e.type, peak: +e.peak.toFixed(1), conf: +e.conf.toFixed(2), why: e.why })) };
   }
   const restore = (x) => ({ ...x, start: new Date(x.start), ym: null });
-  const worstOf = (r) => r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near') ? 'near' : 'ok';
+  const worstOf = (r) => r.checks.some((c) => c.st === 'over') ? 'over' : r.checks.some((c) => c.st === 'near' || c.st === 'hold') ? 'near' : 'ok';
   let exCache = null;
   function exampleLog() {
     if (exCache) return exCache;
