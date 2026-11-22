@@ -71,7 +71,7 @@ td.q{color:var(--fg2)}
 /* 화면 */
 .phones{display:flex;justify-content:space-between;margin-top:6px}
 .ph{width:118px;text-align:center}
-.ph .fr{border:4px solid #26202e;border-radius:16px;overflow:hidden;height:240px;background:#fff}
+.ph .fr{border:4px solid #26202e;border-radius:16px;overflow:hidden;height:205px;background:#fff}
 .ph .fr img{width:100%;display:block}
 .ph b{display:block;font-size:11.5px;margin-top:5px}
 .ph span{font-size:9.6px;color:var(--fg2)}
@@ -150,6 +150,8 @@ td.q{color:var(--fg2)}
 .sv i b{display:block;height:100%;background:#A7A3AD;border-radius:5px}
 .sv em{font-style:normal;text-align:right;font-weight:700;color:var(--fg2)}
 .sv div.on{color:#1d1626;font-weight:700}.sv div.on i b{background:#5B21B6}.sv div.on em{color:#5B21B6}
+.rb{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:8px;padding:7px 14px;background:var(--soft);border-radius:12px}
+.rbt .st-h{font-size:11.5px}.rbn{margin-top:3px;font-size:9.6px;color:var(--fg2)}.rbn>b{font-size:16px;font-weight:800;color:#5B21B6;margin-right:7px}.rbn span b{color:#1d1626}
 /* 측정·보정 */
 .meas{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
 .meas h3{margin:0 0 3px;font-size:11px;font-weight:800}
@@ -258,7 +260,7 @@ td.q{color:var(--fg2)}
     </div>
     <div>
       <div class="st-h">피해를 겪어도 46%는 그냥 참는다</div>
-      <div class="cap">국민 3,040명 설문(2013) · 88%가 스트레스 경험</div>
+      <div class="cap">국민 3,040명 설문 · 88%가 스트레스 경험</div>
       <div class="sv">
         <div class="on"><span>참는다</span><i><b style="width:100.0%"></b></i><em>46%</em></div>
         <div class=""><span>찾아가 부탁</span><i><b style="width:54.3%"></b></i><em>25%</em></div>
@@ -277,6 +279,11 @@ td.q{color:var(--fg2)}
     </div>
   </div>
 
+  <div class="rb">
+    <div class="rbt"><div class="st-h">2026년, 상담이 다시 늘고 있다</div><div class="cap">이웃사이센터 전화상담 · 해마다 줄다가 올해 반등</div>
+      <div class="rbn"><b>하루 110건</b><span>1~8월 26,852건, 이미 지난해 연간의 <b>82%</b></span></div></div>
+    <svg width="360" height="58" viewBox="0 0 360 58" style="flex:none"><polyline points="20.0,14.8 84.0,22.8 148.0,27.9 212.0,32.3 276.0,32.8" fill="none" stroke="#A7A3AD" stroke-width="2"/><line x1="276.0" y1="32.8" x2="340.0" y2="40.3" stroke="#5B21B6" stroke-width="2" stroke-dasharray="3 3"/><circle cx="20.0" cy="14.8" r="2.6" fill="#A7A3AD"/><text x="20.0" y="9.8" text-anchor="middle" font-size="8" fill="#5d5666">4.7만</text><text x="20.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2021</text><circle cx="84.0" cy="22.8" r="2.6" fill="#A7A3AD"/><text x="84.0" y="17.8" text-anchor="middle" font-size="8" fill="#5d5666">4.0만</text><text x="84.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2022</text><circle cx="148.0" cy="27.9" r="2.6" fill="#A7A3AD"/><text x="148.0" y="22.9" text-anchor="middle" font-size="8" fill="#5d5666">3.6만</text><text x="148.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2023</text><circle cx="212.0" cy="32.3" r="2.6" fill="#A7A3AD"/><text x="212.0" y="27.3" text-anchor="middle" font-size="8" fill="#5d5666">3.3만</text><text x="212.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2024</text><circle cx="276.0" cy="32.8" r="2.6" fill="#A7A3AD"/><text x="276.0" y="27.8" text-anchor="middle" font-size="8" fill="#5d5666">3.3만</text><text x="276.0" y="57" text-anchor="middle" font-size="8" fill="#8b8494">2025</text><circle cx="340.0" cy="40.3" r="3.3" fill="#fff" stroke="#5B21B6" stroke-width="2"/><text x="340.0" y="34.3" text-anchor="middle" font-size="8" font-weight="700" fill="#5B21B6">2.7만</text><text x="340.0" y="57" text-anchor="middle" font-size="8" font-weight="700" fill="#5B21B6">2026(~8월)</text></svg>
+  </div>
   <div class="sec"><h2><i>02</i>문제를 겪는 사람</h2></div>
   <table>
     <tr><th style="width:28%">사용자</th><th style="width:38%">상황</th><th>쿵쾅으로 얻는 것</th></tr>
@@ -298,7 +305,7 @@ td.q{color:var(--fg2)}
     <div class="ph"><div class="fr"><img src="img/family.jpg"></div><b>가족 공유</b><span>가족이 함께 기록</span></div>
   </div>
 
-  <div class="foot"><span>출처: 국민권익위원회 110콜센터 층간소음 설문(3,040명, 2013) · MTN 2026.9.28(환경공단·LH 자료) · 뉴시스 2025.10.22(기후에너지환경부 자료)</span><span>1 / 2</span></div>
+  <div class="foot"><span>출처: 국민권익위 110콜센터 설문(3,040명) · 한국경제 2026.10.11·MTN 2026.9.28(한국환경공단 자료) · 뉴시스 2025.10.22(기후에너지환경부 자료)</span><span>1 / 2</span></div>
 </section>
 
 <!-- ===================== 2쪽 ===================== -->
