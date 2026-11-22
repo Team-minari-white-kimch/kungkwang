@@ -3240,16 +3240,17 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
   const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
   function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s" data-ai="summary">${D.pat}</p>${dxBadge(D)}`; }
   /* 소음일지 분석 맨 위 타일: 요일 × 3시간 잔디. 진하기 = 들린 소리 횟수(기록마다 감지된 소리 수의 합)
-     패턴 문장(언제 가장 많았는지)과 조언은 Gemini가 잔디 집계 숫자만 보고 씀. 최근 7일 기록이 없으면 AI를 부르지 않음.
+     패턴 문장(언제 가장 많았는지)과 조언은 Gemini가 잔디 집계 숫자만 보고 씀(기록이 적거나 오래돼도 추측 표현으로).
+     고른 기간에 들린 소리가 없으면 전체 기록으로 잔디를 그림.
      AI가 실패하면 가장 진한 칸으로 만든 규칙 문장을 보여 줌 */
   const HM_WD = ['월', '화', '수', '목', '금', '토', '일'];
   const HM_SLOT = ['새벽 0~3시', '새벽 3~6시', '아침 6~9시', '오전 9~12시', '낮 12~3시', '오후 3~6시', '저녁 6~9시', '밤 9시 이후'];
   const HM_LV = [0, 18, 36, 56, 78, 100]; // 단계별 진하기(%) — 0단계는 빈 칸
   const hmBg = (lv) => lv ? `color-mix(in srgb, var(--accent2) ${HM_LV[lv]}%, var(--sunk))` : 'var(--sunk)';
-  const HEAT_PROMPT = `너는 층간소음 기록 앱 '쿵쾅'의 분석 도우미야. 아래 JSON은 사용자가 고른 기간(period)의 요일(days, 월~일) × 시간대(slots, 3시간 단위) 칸별로 들린 소리 횟수(grid[요일][시간대])야.
-규칙: JSON에 있는 숫자만 근거로 쓰고 새 숫자나 추측을 만들지 마. 법적 판정이나 이웃에 대한 단정은 하지 마. 모든 문장은 '~해요/~어요/~예요'로 끝나는 차분한 해요체로 써.
-title: 소리가 가장 많이 몰린 때를 한 문장(35자 이내)으로. 한 칸만 튀면 그 요일·시간대를, 여러 요일에 같은 시간대가 반복되면 묶어서(예: 평일 밤 9시 이후) 말해. 강조할 요일·시간대 표현 하나를 [[ ]]로 감싸.
-advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문장(50자 이내). 숫자는 쓰지 마.
+  const HEAT_PROMPT = `너는 층간소음 기록 앱 '쿵쾅'의 분석 도우미야. 아래 JSON은 기간(period)의 요일(days, 월~일) × 시간대(slots, 3시간 단위) 칸별로 들린 소리 횟수(grid[요일][시간대])와 기록 정보(records: 기록 건수, recordDays: 기록한 날 수, lastDaysAgo: 마지막 기록이 며칠 전인지, fallback: 고른 기간에 기록이 없어 전체 기록을 쓴 경우 true)야.
+규칙: 숫자는 JSON에 있는 것만 쓰고 새로 만들지 마. 기록이 적거나 오래됐어도 지금 있는 기록으로 패턴을 추측해서 말해. 단, 추측일 때는 '~인 것 같아요', '~일 가능성이 있어요'처럼 추측임이 드러나게 써. 법적 판정이나 이웃에 대한 단정은 하지 마. 모든 문장은 '~해요/~어요/~예요'로 끝나는 차분한 해요체로 써.
+title: 소리가 가장 많이 몰린 때를 한 문장(35자 이내)으로. 한 칸만 튀면 그 요일·시간대를, 여러 요일에 같은 시간대가 반복되면 묶어서(예: 평일 밤 9시 이후) 말해. 기록이 적으면 추측 표현을 써. 강조할 요일·시간대 표현 하나를 [[ ]]로 감싸.
+advice: 이 패턴으로 추측해 볼 때 앞으로 언제 녹음해 두면 좋을지 한 문장(50자 이내). 숫자는 쓰지 마.
 다른 말 없이 {"title":"...","advice":"..."} 형식의 JSON만 답해.
 `;
   const HKEY = 'kungkwang.aiheat';
@@ -3270,20 +3271,24 @@ advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문
         return v; })
       .catch(() => null).finally(() => { if (tm) clearTimeout(tm); delete heatReq[k]; });
   }
+  const hmGrid = (E) => { const g = HM_WD.map(() => new Array(8).fill(0)); E.forEach((e) => { const d = new Date(e.ts); g[(d.getDay() + 6) % 7][Math.floor(d.getHours() / 3)] += Number.isFinite(e.count) ? e.count : 1; }); return g; }; // 감지 0회 기록은 0으로
   function heatTileHTML(E, lbl, E0 = E) { // E: 선택 기간 기록(잔디), E0: 전체 기록
-    const g = HM_WD.map(() => new Array(8).fill(0));
-    E.forEach((e) => { const d = new Date(e.ts); g[(d.getDay() + 6) % 7][Math.floor(d.getHours() / 3)] += Number.isFinite(e.count) ? e.count : 1; }); // 감지 0회 기록은 0으로
+    let g = hmGrid(E);
+    // 고른 기간(예: 최근 7일)에 들린 소리가 없으면 전체 기록으로 잔디를 그림
+    const fb = !g.flat().some(Boolean) && E0 !== E && hmGrid(E0).flat().some(Boolean);
+    if (fb) { g = hmGrid(E0); E = E0; lbl = '전체 기간'; }
     const mx = Math.max(0, ...g.flat());
     let br = -1, bc = -1; g.forEach((row, r) => row.forEach((v, c) => { if (v && (br < 0 || v > g[br][bc])) { br = r; bc = c; } }));
     const lvOf = (v) => v ? Math.max(1, Math.ceil(v / mx * 5)) : 0;
-    const recent = E0.some((e) => e.ts >= Date.now() - 7 * 864e5), useAI = !!AI_URL && recent && br >= 0;
+    const useAI = !!AI_URL && br >= 0; // 기록이 적거나 오래돼도 AI가 추측해서 인사이트를 씀
     const rule = br < 0 ? (E.length ? '이 기간에는 들린 소리가 없어요' : '기록이 쌓이면 요일·시간대별로 보여드려요')
       : `<em>${HM_WD[br]}요일 ${HM_SLOT[bc]}</em>${josa(HM_SLOT[bc], '이', '가').slice(HM_SLOT[bc].length)} 가장 시끄러웠어요`;
     const D = aiDiag(E0), seq = ++heatSeq;
-    const k = useAI ? JSON.stringify({ period: lbl, days: HM_WD, slots: HM_SLOT, grid: g }) : '', hit = useAI ? heatCache()[k] : null;
+    const last = E.reduce((m, e) => Math.max(m, e.ts), 0), recDays = new Set(E.map((e) => dayKey(e.ts))).size;
+    const k = useAI ? JSON.stringify({ period: lbl, fallback: fb, records: E.length, recordDays: recDays, lastDaysAgo: Math.floor((Date.now() - last) / 864e5), days: HM_WD, slots: HM_SLOT, grid: g }) : '', hit = useAI ? heatCache()[k] : null;
     heatCur = useAI && !hit ? { k, seq, rule, next: `${D.next}.` } : null;
     const head = hit ? heatTitle(hit.title) : useAI ? '<span class="hm-wait">AI가 소음 패턴을 분석하고 있어요…</span>' : rule;
-    const note = hit && hit.advice ? esc(hit.advice) : useAI ? `${D.next}.` : br >= 0 && !recent ? '최근 7일 기록이 없어 AI 인사이트는 만들지 않았어요. 새로 녹음하면 다시 만들어요.' : `${D.next}.`;
+    const note = hit && hit.advice ? esc(hit.advice) : `${D.next}.`;
     const top = useAI ? `<div class="dx-h"><i data-hb>${hit ? 'AI 인사이트' : '기록 분석'}</i>${lbl} 패턴</div>` : `<div class="dx-h">${lbl} 패턴</div>`;
     let cells = '<span></span>' + [0, 3, 6, 9, 12, 15, 18, 21].map((h) => `<span class="hx">${h}</span>`).join('');
     g.forEach((row, r) => { cells += `<span class="hy">${HM_WD[r]}</span>` + row.map((v, c) => `<i style="background:${hmBg(lvOf(v))}" title="${HM_WD[r]}요일 ${HM_SLOT[c]} · ${v}회"></i>`).join(''); });
@@ -3291,7 +3296,7 @@ advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문
     return `<div class="dx hmt" data-hs="${seq}">${top}<p class="dx-s" data-ht>${head}</p>
       <div class="hmg" role="img" aria-label="${alt}">${cells}</div>
       <div class="hml" aria-hidden="true"><span>적음</span>${HM_LV.map((_, lv) => `<i style="background:${hmBg(lv)}"></i>`).join('')}<span>많음</span></div>
-      <p class="dx-n" data-hn>${note}</p>
+      <p class="dx-n" data-hn>${note}</p>${fb ? '<p class="dx-n">고른 기간에 기록이 없어 전체 기록으로 보여 드려요.</p>' : ''}
       <a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
   }
   function heatEnhance(root) { // 렌더 후 AI 요청 → 같은 타일이 아직 화면에 있으면 문장 교체, 실패하면 규칙 문장
