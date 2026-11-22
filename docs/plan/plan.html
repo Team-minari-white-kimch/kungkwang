@@ -8,7 +8,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
 body{font-family:"Noto Sans CJK KR","Noto Sans KR",sans-serif;color:#1d1626;font-size:11px;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-:root{--ac:#5B21B6;--ac2:#6D28D9;--soft:#F3EEFC;--line:#E4E0EA;--fg2:#5d5666;--fg3:#8b8494}
+:root{--ac:#5B21B6;--ac2:#6D28D9;--soft:#F5F4F7;--line:#E4E0EA;--fg2:#5d5666;--fg3:#8b8494}
 .page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;padding:0 57px}
 .page:last-child{page-break-after:auto}
 b{font-weight:700}
@@ -162,6 +162,38 @@ td.q{color:var(--fg2)}
 .ver div{border:1px solid var(--line);border-radius:8px;padding:4px 7px;font-size:8.9px;color:var(--fg2);line-height:1.35}
 .ver div b{display:block;color:#1d1626;font-size:10.5px}
 .ver div b em{font-style:normal;color:var(--ac)}
+
+/* 보라색 줄이기: 강조색은 포인트에만 */
+.hero{background:#fff;color:#1d1626;border-bottom:1px solid var(--line);padding:30px 57px 20px}
+.hero .k{color:var(--fg2);opacity:1}
+.hero h1 .lg{background:var(--ac)}
+.hero h1 .lg svg{stroke:#fff}
+.hero .sub{color:#3c3545;opacity:1}
+.hero .sub b{color:var(--ac)}
+.hero .r{border-left:1px solid var(--line)}
+.hero .r .m{color:var(--fg2);opacity:1}
+.hero .r hr{border-top:1px solid var(--line)}
+.band{height:3px;background:var(--ac)}
+.sec .t.ac{color:var(--fg2);font-weight:500}
+.pipe span.on{background:#fff;color:var(--ac);border:1px solid var(--ac);padding:2px 8px}
+.kf .hd em{color:var(--fg2);font-weight:500}
+.kf li:before{background:#9c96a4}
+.kf .c.hl{background:#fff;color:#1d1626;box-shadow:inset 0 0 0 1.5px var(--ac)}
+.kf .c.hl .no{background:var(--ac);color:#fff}
+.kf .c.hl .hd em{color:var(--fg2)}
+.kf .c.hl li:before{background:var(--ac)}
+.kf .c.hl .st{border-color:var(--line)}
+.path>b{color:#1d1626}
+.path span:last-of-type{background:#fff;color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
+.ex b{color:#1d1626}
+.lp i{color:#1d1626}
+.pt em{color:var(--fg3)}
+.pt p b{color:#1d1626}
+.res .rh2 b{color:var(--ac)}
+.res .rf{border-top-color:var(--line)}
+.cmp td.k{background:var(--soft)}
+.kv .l{color:#1d1626}
+.feat small{color:var(--fg2)}
 </style>
 </head>
 <body>
