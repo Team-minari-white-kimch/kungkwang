@@ -99,6 +99,21 @@ td.q{color:var(--fg2)}
 .eff div{border-top:1px solid var(--line);padding-top:3px}
 .eff b{font-size:11px;display:block}
 .eff p{margin:1px 0 0;font-size:9.8px;color:var(--fg2);line-height:1.45}
+.kf{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.kf .c{background:var(--soft);border-radius:12px;padding:10px 11px 8px}
+.kf .st{display:block;width:100%;height:62px;object-fit:cover;border-radius:7px;border:1px solid var(--line);margin-bottom:5px;background:#fff}
+.kf .hd{display:flex;gap:8px;align-items:flex-start;margin-bottom:7px}
+.kf .no{width:24px;height:24px;border-radius:7px;background:var(--ac);color:#fff;font-weight:800;font-size:12.5px;display:grid;place-items:center;flex:none}
+.kf .hd b{display:block;font-size:14.5px;line-height:1.2;letter-spacing:-.2px}
+.kf .hd em{display:block;font-style:normal;font-size:9.4px;color:var(--ac);font-weight:600}
+.kf ul{margin:0;padding:0;list-style:none}
+.kf li{position:relative;padding-left:10px;font-size:10.4px;line-height:1.42;margin:3px 0}
+.kf li:before{content:"";position:absolute;left:1px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--ac)}
+.ex{margin-top:6px;font-size:9.4px;color:#3c3545;background:#F4F3F6;border-radius:8px;padding:5px 10px;line-height:1.45}
+.ex b{color:var(--ac)}.ex span{color:var(--fg3)}
+.lp{display:flex;gap:14px;align-items:baseline;margin-top:5px;font-size:9.5px;flex-wrap:wrap}
+.lp>b{font-size:10px}.lp i{font-style:normal;color:var(--ac);font-weight:700;margin-right:4px}.lp small{color:var(--fg2)}
+.role{display:flex;justify-content:space-between;font-size:10.2px;color:var(--fg2)}.role b{color:#1d1626;margin-right:3px}
 /* 측정·보정 */
 .meas{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
 .meas h3{margin:0 0 3px;font-size:11px;font-weight:800}
@@ -223,30 +238,35 @@ td.q{color:var(--fg2)}
   <div class="band"></div>
   <div class="rh"><span>쿵쾅 — 층간소음, 감정 대신 기록으로</span><span>팀 미나리 백김치 · 서비스 기획안</span></div>
 
-  <div class="sec" style="margin-top:8px"><h2><i>04</i>제작에 활용할 AI · 도구</h2><span class="t">소리는 휴대폰 밖으로 나가지 않습니다</span></div>
+  <div class="sec" style="margin-top:8px"><h2><i>04</i>핵심 기능 3가지</h2><span class="t ac">녹음 버튼 하나에서 해결 서류까지</span></div>
+  <div class="kf">
+    <div class="c" data-x="result">
+      <div class="hd"><span class="no">1</span><div><b>원터치 소리 판정</b><em>무슨 소리인지, 기준을 넘었는지</em></div></div><img class="st" src="img/k-result.jpg">
+      <ul><li>걷기·뛰기·망치·가구 끌기를 <b>AI가 구분</b></li><li>주·야간 <b>법정 기준 초과</b> 바로 판정</li><li>자는 동안 큰 소리만 <b>자동 기록</b></li></ul>
+    </div>
+    <div class="c" data-x="journal">
+      <div class="hd"><span class="no">2</span><div><b>AI 소음 일지</b><em>쌓인 기록이 그대로 근거가 되도록</em></div></div><img class="st" src="img/k-journal.jpg">
+      <ul><li>날짜·시간대·종류별 <b>자동 정리</b></li><li><b>AI 인사이트</b>로 반복 패턴 한 줄 요약</li><li>생활 피해 기록, <b>가족과 함께 기록</b></li></ul>
+    </div>
+    <div class="c" data-x="report">
+      <div class="hd"><span class="no">3</span><div><b>상황별 해결 도우미</b><em>다음에 무엇을 할지까지</em></div></div><img class="st" src="img/k-report.jpg">
+      <ul><li>기록에 맞는 <b>해결 방법 추천</b></li><li>AI가 <b>알림서·신청서</b> 초안 작성</li><li>대응 기록 → <b>조정 경위서</b> 자동 반영</li></ul>
+    </div>
+  </div>
+  <div class="ex"><b>AI가 쓴 알림서 예시</b> “23일간 34차례 기록, 뛰는 소리 225회·걷는 소리 128회·망치질 55회, 64%가 야간입니다. 사실관계 확인과 중단 권고를 요청합니다.”</div>
+
+  <div class="sec"><h2><i>05</i>제작에 활용할 AI · 도구</h2><span class="t">소리는 휴대폰 밖으로 나가지 않습니다</span></div>
   <div class="pipe"><span>녹음</span><i>→</i><span>소리 구간 찾기</span><i>→</i><span class="on">AI 1단 · 소리 인식</span><i>→</i><span class="on">AI 2단 · 판별 규칙</span><i>→</i><span>법정 기준 비교</span><i>→</i><span class="on">생성형 AI · 서류</span></div>
   <table>
     <tr><th style="width:17%">AI 요소</th><th style="width:44%">하는 일</th><th>이 방식을 고른 이유</th></tr>
     <tr><td class="h">소리 인식 AI</td><td>YAMNet이 발소리·망치·가구·음악·말소리를 구분</td><td>공개 모델을 기기 안에서 실행, 서버 비용 0·원본 전송 없음</td></tr>
-    <tr><td class="h">판별 규칙</td><td>걷기·뛰기·망치·가구 끌기를 저음 비중·길이·발걸음 간격으로 구분, 섞인 소리는 구간별 집계</td><td>범용 모델이 천장 너머 둔한 충격음을 음악·드럼으로 오인하는 점 보완</td></tr>
+    <tr><td class="h">판별 규칙</td><td>저음 비중·길이·발걸음 간격으로 4종 구분, 섞인 소리는 구간별 집계</td><td>범용 모델이 둔한 충격음을 음악·드럼으로 오인하는 점 보완</td></tr>
     <tr><td class="h">법정 기준 비교</td><td>1분 등가·최고소음도를 주간·야간 기준과 비교</td><td>판정 근거를 숫자·조문으로 보이려 산식으로 처리</td></tr>
     <tr><td class="h">생성형 AI</td><td>선택한 기록으로 알림서·상담 요청문·조정 신청 초안 작성</td><td>감정을 뺀 사실 중심 문장, 요약 숫자만 전달</td></tr>
   </table>
-  <div class="boxrow">
-    <div class="box">
-      <b>생성형 AI가 쓴 관리사무소 알림서</b> <span style="color:var(--fg2)">· PoC 예시 일지 34건으로 생성</span>
-      <p><b>1. 피해 상황</b> 10/8(목)~11/6(금) 23일에 걸쳐 34차례 소음을 기록했습니다. 뛰는 소리 225회, 걷는 소리 128회, 망치질 55회이며 64%가 야간입니다.</p>
-      <p><b>2. 요청 사항</b> 공동주택관리법 제20조 제2항에 따라 사실관계를 확인하고 중단을 권고해 주십시오. 신청인 동·호수는 알리지 말아 주십시오.</p>
-    </div>
-    <div class="plan">
-      <b style="font-size:10.8px">전용 AI 학습 계획</b>
-      <div class="r"><span class="l">데이터</span><span>실제 아파트 녹음 500건 수집<small>걷기·뛰기·망치·가구·문 5종 × 100건</small></span></div>
-      <div class="r"><span class="l">학습</span><span>YAMNet 위에 층간소음 분류층 추가<small>판별 규칙을 학습 모델로 대체, 기기 안 실행 유지</small></span></div>
-      <div class="r"><span class="l">목표</span><span>5종 분류 정확도 90% 이상<small>선행 연구: CNN 6종 분류 약 95% (Shin 외, 2020)</small></span></div>
-    </div>
-  </div>
+  <div class="lp"><b>전용 AI 학습 계획</b><span><i>데이터</i>실제 녹음 500건(5종×100)</span><span><i>학습</i>YAMNet+층간소음 분류층</span><span><i>목표</i>정확도 90%↑ <small>(선행 연구 약 95%, Shin 외 2020)</small></span></div>
 
-  <div class="sec"><h2><i>05</i>측정 정확도 · 소리 보정</h2><span class="t ac">공식 측정 방식에 맞춰 재고, 휴대폰마다 다른 마이크는 보정으로 맞춤</span></div>
+  <div class="sec"><h2><i>06</i>측정 정확도 · 소리 보정</h2><span class="t ac">공식 측정 방식에 맞춰 재고, 휴대폰마다 다른 마이크는 보정으로 맞춤</span></div>
   <div class="meas">
     <div>
       <h3>수음(소리 받기) 개선 <small>공식 측정 방식과 같은 계산·자리</small></h3>
@@ -261,20 +281,14 @@ td.q{color:var(--fg2)}
     <div>
       <h3>소리 보정 기능 <small>보정 수준만큼 판정에 오차범위 반영</small></h3>
       <div class="lvl top"><b>보정 전·파일</b><span>dB는 '참고용'으로 표시</span><span class="u">±8</span></div>
-      <div class="lvl"><b>자동 보정</b><span>휴대폰 1대로 8초(주변 2초·기준음 6초), 기준음이 주변보다 10dB 이상 커야 성공</span><span class="u">±6</span></div>
-      <div class="lvl"><b>정밀 보정</b><span>등급 2 이상 소음계와 나란히 10초 동시 측정</span><span class="u">±2</span></div>
+      <div class="lvl"><b>자동 보정</b><span>8초(주변 2초·기준음 6초), 기준음이 10dB 이상 커야 성공</span><span class="u">±6</span></div>
+      <div class="lvl"><b>정밀 보정</b><span>등급 2 소음계와 10초 동시 측정</span><span class="u">±2</span></div>
       <div style="font-size:9px;color:var(--fg2);margin-top:2px">오차범위가 기준과 겹치면 <b style="color:#1d1626">'기준 근처'</b>로 표시 (dB)</div>
       <div class="ev"><b>±8 근거</b> 보정 안 한 휴대폰 100대의 오차 표준편차 6.8(iOS)~9.6dB(Android) (Murphy·King, 2016)<br><b>±2 근거</b> 일반 측정용 소음계(등급 2) 허용오차 약 ±2.3dB (ANSI S1.4), 보정된 마이크는 ±1dB 이내 (미국 NIOSH, 2016)<br><b>±6 근거</b> 쿵쾅 실내 테스트 결과로 갱신</div>
     </div>
   </div>
   <div class="ver2"><b>합성 신호 검증</b><span>자동 기록과 분석 화면 차이 <b>−46.9 → 0.0dB</b></span><span>최고소음도 과다 집계 <b>+6.9 → 0.0dB</b></span><span>20초 녹음 등가소음도 오차 <b>+4.7 → +0.1dB</b></span><span class="pl">실내 테스트 완료 · 결과 수치 추가 예정</span></div>
 
-  <div class="sec"><h2><i>06</i>핵심 기능 3가지</h2></div>
-  <div class="feat">
-    <div><small>기능 1</small><b>원터치 소리 판정</b><p>자는 동안 자동 기록, 섞인 소리까지 AI가 구분해 법정 기준과 비교</p></div>
-    <div><small>기능 2</small><b>AI 소음 일지</b><p>날짜·시간대·종류별 자동 정리, 생활 피해 기록, 가족과 함께 기록</p></div>
-    <div><small>기능 3</small><b>상황별 해결 도우미</b><p>상황에 맞는 방법 추천, 대응 기록이 분쟁조정 경위서에 자동 반영</p></div>
-  </div>
 
   <div class="sec"><h2><i>07</i>다른 서비스와의 차별점</h2><span class="t ac">기록에서 끝나지 않고, 기준 판정과 해결 서류까지</span></div>
   <table class="cmp">
@@ -295,12 +309,7 @@ td.q{color:var(--fg2)}
   </div>
 
   <div class="sec"><h2><i>09</i>역할 분담</h2></div>
-  <div class="eff">
-    <div><b>김혜수 <span style="font-weight:400;color:var(--fg2)">· 대표</span></b><p>서비스 기획 총괄, PoC 개발·배포</p></div>
-    <div><b>김수희</b><p>서비스 기획 및 디자인</p></div>
-    <div><b>백승유</b><p>AI 에이전트 개발 및 구현</p></div>
-    <div><b>김채원</b><p>AI 에이전트 개발</p></div>
-  </div>
+  <div class="role"><span><b>김혜수</b> 대표 · 서비스 기획 총괄, PoC 개발·배포</span><span><b>김수희</b> 서비스 기획·디자인</span><span><b>백승유</b> AI 에이전트 개발·구현</span><span><b>김채원</b> AI 에이전트 개발</span></div>
 
   <div class="foot"><span>판정 기준: 「공동주택 층간소음의 범위와 기준에 관한 규칙」 · 문헌: Kardous·Shaw(JASA 2014·2016), Murphy·King(Appl. Acoust. 2016) · AI: Google YAMNet(Apache 2.0)</span><span>2 / 2</span></div>
 </section>
