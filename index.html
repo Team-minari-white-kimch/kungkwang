@@ -24,6 +24,7 @@
 .tour .t-nav{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
 .tour .t-nav button{min-height:44px;border:0;background:none;font:inherit;font-size:14px;color:var(--fg2);cursor:pointer;padding:0 6px}
 .tour .t-nav .primary{background:var(--accent);color:var(--accent-ink);border-radius:12px;padding:0 18px;font-weight:700}
+.tour .t-x{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;display:flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(17,12,24,.55);color:#fff;font:inherit;font-size:14px;font-weight:700;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 @media (prefers-reduced-motion:reduce){.tour .t-cur i,.tour .t-cur::after,.tour .t-ring::after,.tour-ask .ta-ic i,.tour-ask .ta{animation:none}.tour .t-ring,.tour .t-cur{transition:none}}
 </style><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#6020A8"><meta name="apple-mobile-web-app-title" content="쿵쾅"><meta name="apple-mobile-web-app-capable" content="yes"></head><body><title>쿵쾅</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -1912,6 +1913,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 </div>
 <div class="tour" id="tour" role="dialog" aria-modal="true" aria-labelledby="tT" hidden>
   <div class="t-ring" id="tRing"></div><div class="t-cur" id="tCur" aria-hidden="true"><i></i></div>
+  <button type="button" class="t-x" id="tX">튜토리얼 건너뛰기 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <div class="t-tip" id="tTip"><small id="tStep"></small><b id="tT"></b><p id="tD"></p>
     <div class="t-nav"><button type="button" id="tSkip">건너뛰기</button><button type="button" class="primary" id="tNext">다음</button></div></div>
 </div>
@@ -2926,14 +2928,17 @@ if (typeof module !== 'undefined') module.exports = KE;
   $('#tourNo').addEventListener('click', () => { $('#tourAsk').hidden = true; mark('tour'); });
   $('#tNext').addEventListener('click', (e) => { e.stopPropagation(); tourShow(TR.i + 1); });
   $('#tSkip').addEventListener('click', (e) => { e.stopPropagation(); tourEnd(false); });
+  $('#tX').addEventListener('click', (e) => { e.stopPropagation(); tourEnd(false); });
   $('#tour').addEventListener('click', (e) => { if (!e.target.closest('#tTip')) tourShow(TR.i + 1); });
   addEventListener('keydown', (e) => { if ($('#tour').hidden) return; if (e.key === 'Escape') tourEnd(false); else if (e.key === 'ArrowRight' || e.key === 'Enter') { e.preventDefault(); tourShow(TR.i + 1); } });
   addEventListener('resize', () => { if (!$('#tour').hidden) tourPlace(); });
   $('#reTour').addEventListener('click', tourStart);
   // 첫 방문: 안내 화면을 '나중에 하기'로 넘기면 바로, 이미 본 사람은 홈에서 한 번만 묻는다. ?tour 로 바로 시작(시연용)
   $('#onbSkip').addEventListener('click', () => setTimeout(tourAsk, 400));
-  if (/[?&]tour\b/.test(location.search)) setTimeout(tourStart, 600);
-  else setTimeout(() => { try { if (localStorage.getItem(ONBKEY) && (!location.hash || location.hash === '#analyze')) tourAsk(); } catch (e) {} }, 900);
+  // 시작 화면(스플래시)이 사라진 뒤에 띄운다
+  const afterSplash = (fn) => { const w = () => { const sp = $('#splash'); if (!sp || sp.classList.contains('out')) setTimeout(fn, 500); else setTimeout(w, 200); }; w(); };
+  if (/[?&]tour\b/.test(location.search)) afterSplash(tourStart);
+  else afterSplash(() => { try { if (localStorage.getItem(ONBKEY) && (!location.hash || location.hash === '#analyze')) tourAsk(); } catch (e) {} });
   function pinkBuffer(ctx, sec) {
     const n = Math.floor(ctx.sampleRate * sec), buf = ctx.createBuffer(1, n, ctx.sampleRate), d = buf.getChannelData(0);
     let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
