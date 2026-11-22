@@ -2261,13 +2261,13 @@ const KE = (() => {
     const hp = (w) => [c / (c + w), -c / (c + w), (w - c) / (c + w)], lp = (w) => [w / (c + w), w / (c + w), (w - c) / (c + w)];
     const S = [hp(W[0]), hp(W[0]), hp(W[1]), hp(W[2])].concat(fs >= 40000 ? [lp(W[3]), lp(W[3])] : [lp(W[3])]);
     const mag2 = (f) => { const z = 2 * Math.PI * f / fs; let m = 1; for (const [b0, b1, a1] of S) { const nr = b0 + b1 * Math.cos(z), ni = -b1 * Math.sin(z), dr = 1 + a1 * Math.cos(z), di = -a1 * Math.sin(z); m *= (nr * nr + ni * ni) / (dr * dr + di * di); } return m; };
-    const g = 1 / Math.sqrt(mag2(1000)), st = new Float64Array(S.length * 2); // 1 kHz에서 0 dB
+    const g = 1 / Math.sqrt(mag2(1000)), st = new Float64Array(S.length * 2), ns = S.length, C = Float64Array.from(S.flat()); // 1 kHz에서 0 dB
     return {
       process(x) { // 상태를 이어서 처리(실시간 블록 처리 가능)
-        const out = new Float64Array(x.length);
+        const out = new Float32Array(x.length); // 10분 녹음도 메모리 부담 적게(필터 상태는 Float64)
         for (let i = 0; i < x.length; i++) {
           let v = x[i] * g;
-          for (let s = 0; s < S.length; s++) { const [b0, b1, a1] = S[s], xp = st[2 * s], yp = st[2 * s + 1]; const yv = b0 * v + b1 * xp - a1 * yp; st[2 * s] = v; st[2 * s + 1] = yv; v = yv; }
+          for (let s = 0, k = 0; s < ns; s++, k += 3) { const yv = C[k] * v + C[k + 1] * st[2 * s] - C[k + 2] * st[2 * s + 1]; st[2 * s] = v; st[2 * s + 1] = yv; v = yv; }
           out[i] = v;
         }
         return out;
@@ -2280,7 +2280,8 @@ const KE = (() => {
   /* 실시간용: 한 블록의 A특성 등가 레벨(보정값 더하기 전). 자동 기록 모드가 분석과 같은 눈금을 쓰도록 함 */
   function meter(fs) {
     const aw = aWeighter(fs);
-    return (x) => { const y = aw.process(x); let s = 0; for (let i = 0; i < y.length; i++) s += y[i] * y[i]; return dbOf(s / y.length); };
+    return (x) => { let m = 0; for (let i = 0; i < x.length; i++) m += x[i]; m /= x.length || 1; // 블록 평균(직류) 제거
+      const y = aw.process(m ? Float32Array.from(x, (v) => v - m) : x); let s = 0; for (let i = 0; i < y.length; i++) s += y[i] * y[i]; return dbOf(s / y.length); };
   }
   /* 배경소음 보정 (소음·진동 공정시험기준 배경소음 보정 규정)
      차이 10 dB 이상: 보정 없음 / 3.0~9.9 dB: 보정치 -10·log(1-10^(-0.1·d)) / 3 dB 미만: 재측정(판정 불가) */
@@ -2355,7 +2356,9 @@ const KE = (() => {
     const { cal = 95, start = new Date(), yamnet = null, unc = 0 } = opts || {};
     const fr = frames(y16);
     // 레벨은 시간영역 A특성 필터 신호로 계산 (분류용 특징·사건 찾기는 기존 FFT 프레임 사용)
-    const ya = aWeighter(SR).process(y16);
+    let dc = 0; for (let i = 0; i < y16.length; i++) dc += y16[i]; dc /= y16.length || 1; // 마이크 직류 성분 제거(필터 시작 순간 가짜 큰 소리 방지)
+    let y0 = y16; if (dc) { y0 = new Float32Array(y16.length); for (let i = 0; i < y16.length; i++) y0[i] = y16[i] - dc; }
+    const ya = aWeighter(SR).process(y0);
     // 빠름(F, 125 ms) 시간가중: 샘플마다 지수평균(IEC 61672-1), 프레임 끝에서 값을 읽음
     const al = 1 - Math.exp(-1 / (FAST * SR));
     let acc = 0; for (let k = 0; k < Math.min(N, ya.length); k++) acc += ya[k] * ya[k]; acc /= Math.min(N, ya.length) || 1;
@@ -2393,7 +2396,7 @@ const KE = (() => {
     };
     const w1 = winLeq(60), w5 = winLeq(300);
     const c1 = ((c) => w1.padded && c.hold ? { ...c, hold: false } : c)(bgCorrect(w1.raw, bgRaw)), // 1분보다 짧아 배경소음으로 채운 경우는 '배경이 커서'가 아니므로 판정 불가로 두지 않음
-          cm = bgCorrect(Math.max(...LfRaw), bgRaw);
+          cm = bgCorrect(LfRaw.reduce((m, v) => v > m ? v : m, -Infinity), bgRaw); // 긴 녹음에서 Math.max(...배열) 인자 수 초과 방지
     // 공기전달(음악·TV)은 녹음 내내 이어지는 소리라 녹음 안에서 배경소음을 따로 알 수 없음 → 보정하지 않음
     const c5 = { v: w5.raw, corr: 0, d: Infinity, hold: false };
     const leq1 = c1.v + cal, leq5 = c5.v + cal, lmax = cm.v + cal;
@@ -3348,8 +3351,10 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
     const h0 = fromLog ? r._harm : null;
     const NB = 64, lim0 = KE.STD.impact[r.period].lmax, seg = r.Lf.length / NB, lo0 = 25, hi0 = Math.max(lim0 + 10, r.lmax);
     const WAVE = Array.from({ length: NB }, (_, k) => { const v = Math.max(...r.Lf.slice(Math.floor(k * seg), Math.max(Math.floor(k * seg) + 1, Math.floor((k + 1) * seg)))); return `<i class="${v >= lim0 ? 'ov' : ''}" style="height:${Math.max(6, Math.min(100, (v - lo0) / (hi0 - lo0) * 100))}%"></i>`; }).join('');
-    const oe = r.ev.filter((e) => T[e.type] && T[e.type].group === 'impact' && e.peak > lim0 + (r.unc || 0)); // 직접충격 소리만, 판정과 같은 기준(빠름 최고값 > 기준+오차)
-    const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
+    const gpk = (e) => e.peakFS != null && r.cal != null ? e.peakFS + r.cal : e.peak; // 그래프 막대와 같은 값(빠름 레벨)
+    const oe = r.ev.filter((e) => T[e.type] && T[e.type].group === 'impact' && gpk(e) >= lim0); // 직접충격 소리만, 그래프에서 기준선을 넘은 것과 같은 기준
+    const sure = r.unc && r.overLmax !== oe.length ? ` 측정 오차(±${r.unc}dB)를 빼도 확실히 넘는 건 ${r.overLmax}번이에요.` : '';
+    const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.${sure}</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
     el.innerHTML = `
       <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span class="pill ${worst} wv-v">${vt}</span><span class="wv-src">${isEx ? '예시' : isMic ? (calHow ? '보정됨' : '보정 전') : '파일'}</span><span style="margin-left:auto" id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}

@@ -94,5 +94,9 @@ for (const k of ['walk', 'run', 'hammer', 'drag']) {
   const w = (r) => r.checks.filter((c) => c.st !== 'na').map((c) => c.st).join('/');
   console.log(`| ${k} | ${a.lmax.toFixed(1)} dB, ${w(a)} | ${b.lmax.toFixed(1)} dB, ${w(b)} |`);
 }
+// 9) 마이크 직류(DC) 성분: 조용한 녹음에 0.05 직류가 섞여도 가짜 큰 소리가 생기지 않아야 함
+{ const q = Float32Array.from({ length: 3 * SR }, (_, i) => 0.05 + 0.0003 * Math.sin(i)), z = Float32Array.from({ length: 3 * SR }, (_, i) => 0.0003 * Math.sin(i));
+  const d = NEW.analyze(q, { cal: 95, start: day }).lmax - NEW.analyze(z, { cal: 95, start: day }).lmax;
+  console.log(`\n## 9. 직류 성분이 섞였을 때 최고소음도 변화: ${f1(d)} dB`); ok(Math.abs(d) < 1, `직류 성분 영향 ${d.toFixed(2)} dB`); }
 console.log(fail ? `\n실패 ${fail}건` : '\n모든 검사 통과');
 process.exit(fail ? 1 : 0);
