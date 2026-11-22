@@ -109,11 +109,41 @@ td.q{color:var(--fg2)}
 .kf ul{margin:0;padding:0;list-style:none}
 .kf li{position:relative;padding-left:10px;font-size:10.4px;line-height:1.42;margin:3px 0}
 .kf li:before{content:"";position:absolute;left:1px;top:6px;width:4px;height:4px;border-radius:50%;background:var(--ac)}
-.ex{margin-top:6px;font-size:9.4px;color:#3c3545;background:#F4F3F6;border-radius:8px;padding:5px 10px;line-height:1.45}
+.ex{margin-top:5px;font-size:9.4px;color:#3c3545;background:#F4F3F6;border-radius:8px;padding:5px 10px;line-height:1.45}
 .ex b{color:var(--ac)}.ex span{color:var(--fg3)}
 .lp{display:flex;gap:14px;align-items:baseline;margin-top:5px;font-size:9.5px;flex-wrap:wrap}
 .lp>b{font-size:10px}.lp i{font-style:normal;color:var(--ac);font-weight:700;margin-right:4px}.lp small{color:var(--fg2)}
 .role{display:flex;justify-content:space-between;font-size:10.2px;color:var(--fg2)}.role b{color:#1d1626;margin-right:3px}
+.acc{display:grid;grid-template-columns:1fr 1.25fr;gap:16px;margin-top:6px}
+.res{background:var(--soft);border-radius:12px;padding:10px 13px}
+.res .rt{font-size:9.2px;color:var(--fg2)}
+.res .rh2{font-size:14.5px;font-weight:800;margin:2px 0 8px;letter-spacing:-.2px}
+.res .rh2 b{color:var(--ac);font-size:19px}
+.bar{display:grid;grid-template-columns:64px 1fr 30px;align-items:center;gap:7px;margin:5px 0;font-size:9.6px}
+.bar .lb{color:var(--fg2)}
+.bar .tr{height:11px;background:#fff;border-radius:6px;overflow:hidden}
+.bar .tr i{display:block;height:100%;border-radius:6px}
+.bar b{text-align:right;font-size:10.5px}
+.res .rf{font-size:9px;color:var(--fg2);margin-top:6px;border-top:1px solid #E2D8F3;padding-top:4px}
+.res .rf b{color:var(--ac)}
+.pts .pt{display:flex;gap:9px;padding:5px 0;border-bottom:1px solid var(--line)}
+.pts .pt:first-child{padding-top:0}.pts .pt:last-child{border-bottom:0}
+.pn{width:20px;height:20px;border-radius:6px;background:var(--ac);color:#fff;font-weight:800;font-size:11px;display:grid;place-items:center;flex:none;margin-top:1px}
+.pt b{font-size:11.2px}
+.pt p{margin:1px 0 0;font-size:9.8px;line-height:1.42;color:#3c3545}
+.pt p b{font-size:9.8px;color:var(--ac)}
+.pt em{display:block;font-style:normal;font-size:8.7px;color:var(--ac);margin-top:1px}
+.nt{font-size:8.8px;color:var(--fg3);margin-top:4px}
+.kf .c.hl{background:var(--ac);color:#fff}
+.kf .c.hl .no{background:#fff;color:var(--ac)}
+.kf .c.hl .hd em{color:#E4D6FB}
+.kf .c.hl li:before{background:#fff}
+.kf .c.hl .st{border-color:transparent}
+.path{display:flex;align-items:center;gap:5px;margin-top:7px;font-size:9.6px;flex-wrap:nowrap}
+.path>b{color:var(--ac);font-size:10px;margin-right:3px;white-space:nowrap}
+.path span{background:var(--soft);border-radius:6px;padding:3px 7px;white-space:nowrap}
+.path span:last-of-type{background:var(--ac);color:#fff;font-weight:700}
+.path i{font-style:normal;color:var(--fg3)}
 /* 측정·보정 */
 .meas{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
 .meas h3{margin:0 0 3px;font-size:11px;font-weight:800}
@@ -142,7 +172,7 @@ td.q{color:var(--fg2)}
     <div>
       <div class="k">과기부 × 엘리스 AI 챌린지 · 서비스 기획안</div>
       <h1><span class="lg"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5B21B6" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6.5h14"/><path d="M4 14h2.5l2-4.5 3 8 2.5-6 2 4 1.5-1.5H20"/></svg></span>쿵쾅 — 층간소음, 감정 대신 기록으로</h1>
-      <div class="sub">층간소음을 녹음하면 AI가 <b>무슨 소리인지, 기준을 넘었는지</b> 알려 주는 앱</div>
+      <div class="sub">층간소음을 녹음하면 AI가 소리를 판정하고, <b>해결 방법과 서류까지</b> 챙겨 주는 앱</div>
     </div>
     <div class="r">
       <b>팀 미나리 백김치 · 성인 부문</b>
@@ -238,7 +268,7 @@ td.q{color:var(--fg2)}
   <div class="band"></div>
   <div class="rh"><span>쿵쾅 — 층간소음, 감정 대신 기록으로</span><span>팀 미나리 백김치 · 서비스 기획안</span></div>
 
-  <div class="sec" style="margin-top:8px"><h2><i>04</i>핵심 기능 3가지</h2><span class="t ac">녹음 버튼 하나에서 해결 서류까지</span></div>
+  <div class="sec" style="margin-top:8px"><h2><i>04</i>핵심 기능 3가지</h2><span class="t ac">기준 판정에서 멈추지 않고, 해결까지</span></div>
   <div class="kf">
     <div class="c" data-x="result">
       <div class="hd"><span class="no">1</span><div><b>원터치 소리 판정</b><em>무슨 소리인지, 기준을 넘었는지</em></div></div><img class="st" src="img/k-result.jpg">
@@ -248,12 +278,13 @@ td.q{color:var(--fg2)}
       <div class="hd"><span class="no">2</span><div><b>AI 소음 일지</b><em>쌓인 기록이 그대로 근거가 되도록</em></div></div><img class="st" src="img/k-journal.jpg">
       <ul><li>날짜·시간대·종류별 <b>자동 정리</b></li><li><b>AI 인사이트</b>로 반복 패턴 한 줄 요약</li><li>생활 피해 기록, <b>가족과 함께 기록</b></li></ul>
     </div>
-    <div class="c" data-x="report">
+    <div class="c hl" data-x="report">
       <div class="hd"><span class="no">3</span><div><b>상황별 해결 도우미</b><em>다음에 무엇을 할지까지</em></div></div><img class="st" src="img/k-report.jpg">
       <ul><li>기록에 맞는 <b>해결 방법 추천</b></li><li>AI가 <b>알림서·신청서</b> 초안 작성</li><li>대응 기록 → <b>조정 경위서</b> 자동 반영</li></ul>
     </div>
   </div>
-  <div class="ex"><b>AI가 쓴 알림서 예시</b> “23일간 34차례 기록, 뛰는 소리 225회·걷는 소리 128회·망치질 55회, 64%가 야간입니다. 사실관계 확인과 중단 권고를 요청합니다.”</div>
+  <div class="path"><b>해결 경로</b><span>이웃에게 알리기</span><i>→</i><span>관리사무소 사실 확인·중단 권고</span><i>→</i><span>관리위원회 조정</span><i>→</i><span>이웃사이센터 상담·측정</span><i>→</i><span>분쟁조정 신청</span></div>
+  <div class="ex">단계마다 <b>AI가 서류 초안 작성</b> — 예: 관리사무소 알림서 “23일간 34차례 기록, 64%가 야간입니다. 사실관계 확인과 중단 권고를 요청합니다.”</div>
 
   <div class="sec"><h2><i>05</i>제작에 활용할 AI · 도구</h2><span class="t">소리는 휴대폰 밖으로 나가지 않습니다</span></div>
   <div class="pipe"><span>녹음</span><i>→</i><span>소리 구간 찾기</span><i>→</i><span class="on">AI 1단 · 소리 인식</span><i>→</i><span class="on">AI 2단 · 판별 규칙</span><i>→</i><span>법정 기준 비교</span><i>→</i><span class="on">생성형 AI · 서류</span></div>
@@ -266,29 +297,23 @@ td.q{color:var(--fg2)}
   </table>
   <div class="lp"><b>전용 AI 학습 계획</b><span><i>데이터</i>실제 녹음 500건(5종×100)</span><span><i>학습</i>YAMNet+층간소음 분류층</span><span><i>목표</i>정확도 90%↑ <small>(선행 연구 약 95%, Shin 외 2020)</small></span></div>
 
-  <div class="sec"><h2><i>06</i>측정 정확도 · 소리 보정</h2><span class="t ac">공식 측정 방식에 맞춰 재고, 휴대폰마다 다른 마이크는 보정으로 맞춤</span></div>
-  <div class="meas">
-    <div>
-      <h3>수음(소리 받기) 개선 <small>공식 측정 방식과 같은 계산·자리</small></h3>
-      <table>
-        <tr><td class="h">음성 처리 끄기</td><td>통화용 자동 처리(에코 제거·잡음 억제·자동 음량)를 끄고 꺼졌는지 확인, 못 끄면 보정 중단</td><td class="src">W3C 표준</td></tr>
-        <tr><td class="h">A특성·빠름(F)</td><td>A특성 필터·125ms 시간가중으로 계산, 31.5Hz 오차 +6.2 → 0.0dB</td><td class="src">KS C IEC 61672-1</td></tr>
-        <tr><td class="h">법정 지표 산식</td><td>1분 등가·최고소음도를 주간 39/57·야간 34/52dB와 비교, 짧은 녹음은 1분으로 환산</td><td class="src">층간소음 규칙</td></tr>
-        <tr><td class="h">배경소음 보정</td><td>배경과 차이 10dB 이상 그대로, 3~9.9dB 보정, 3dB 미만 '판정 불가'</td><td class="src">공정시험기준</td></tr>
-        <tr><td class="h">휴대폰 두는 곳</td><td>바닥에서 1.2~1.5m, 벽·가구 1m 이상, 진동 막게 거치대 위에. 소리 깨짐도 감지</td><td class="src">ES 03305.1</td></tr>
-      </table>
+  <div class="sec"><h2><i>06</i>측정 정확도 · 소리 보정</h2><span class="t ac">해결 절차에서 근거로 쓸 수 있는 기록이 되도록</span></div>
+  <div class="acc">
+    <div class="res">
+      <div class="rt">실내 테스트 · 아이폰 16 · 같은 소리를 세 번 측정</div>
+      <div class="rh2">보정 후, 외부 측정 앱과 <b>0.6dB</b> 차이</div>
+      <div class="bar"><span class="lb">쿵쾅 보정 전</span><span class="tr"><i style="width:84%;background:#C9C3D3"></i></span><b>56.1</b></div>
+      <div class="bar"><span class="lb">쿵쾅 보정 후</span><span class="tr"><i style="width:47%;background:var(--ac)"></i></span><b class="ac">39.0</b></div>
+      <div class="bar"><span class="lb">외부 측정 앱</span><span class="tr"><i style="width:45.5%;background:#8B8494"></i></span><b>38.4</b></div>
+      <div class="rf">평균 소음(Leq, dB) · 오차 +17.7 → <b>+0.6dB</b></div>
     </div>
-    <div>
-      <h3>소리 보정 기능 <small>보정 수준만큼 판정에 오차범위 반영</small></h3>
-      <div class="lvl top"><b>보정 전·파일</b><span>dB는 '참고용'으로 표시</span><span class="u">±8</span></div>
-      <div class="lvl"><b>자동 보정</b><span>8초(주변 2초·기준음 6초), 기준음이 10dB 이상 커야 성공</span><span class="u">±6</span></div>
-      <div class="lvl"><b>정밀 보정</b><span>등급 2 소음계와 10초 동시 측정</span><span class="u">±2</span></div>
-      <div style="font-size:9px;color:var(--fg2);margin-top:2px">오차범위가 기준과 겹치면 <b style="color:#1d1626">'기준 근처'</b>로 표시 (dB)</div>
-      <div class="ev"><b>±8 근거</b> 보정 안 한 휴대폰 100대의 오차 표준편차 6.8(iOS)~9.6dB(Android) (Murphy·King, 2016)<br><b>±2 근거</b> 일반 측정용 소음계(등급 2) 허용오차 약 ±2.3dB (ANSI S1.4), 보정된 마이크는 ±1dB 이내 (미국 NIOSH, 2016)<br><b>±6 근거</b> 실내 테스트(아이폰 16) 보정 후 평균 오차 +0.6dB</div>
+    <div class="pts">
+      <div class="pt"><span class="pn">1</span><div><b>공식 측정 방식 그대로</b><p>A특성·빠름(F) 계산, 1분 등가·최고소음도, 배경소음 보정, 휴대폰 두는 자리 안내</p><em>KS C IEC 61672-1 · 소음·진동 공정시험기준</em></div></div>
+      <div class="pt"><span class="pn">2</span><div><b>휴대폰마다 8초 보정</b><p>통화용 자동 음량·잡음 억제를 끄고, 기준음으로 마이크 감도를 맞춤. 소음계가 있으면 정밀 보정</p><em>보정 안 한 휴대폰은 오차 표준편차 6.8~9.6dB (Murphy·King, 2016)</em></div></div>
+      <div class="pt"><span class="pn">3</span><div><b>오차를 숨기지 않는 판정</b><p>보정 수준별 오차범위 <b>±8 · ±6 · ±2dB</b>를 반영, 겹치면 '기준 근처'로 표시</p><em>±2dB: 일반 소음계(등급 2) 허용오차 수준 (ANSI S1.4)</em></div></div>
     </div>
   </div>
-  <div class="ver2"><b>검증 결과</b><span>자동 기록과 분석 화면 차이 <b>−46.9 → 0.0dB</b></span><span>최고소음도 과다 집계 <b>+6.9 → 0.0dB</b></span><span>20초 녹음 등가소음도 오차 <b>+4.7 → +0.1dB</b></span><span class="pl">실내 테스트(아이폰 16, 외부 측정 앱 대비) 평균 소음 오차 <b>+17.7 → +0.6dB</b> · 기종·음량 늘려 재검증 예정</span></div>
-
+  <div class="nt">다음 검증: 휴대폰 기종과 음량을 늘리고, 소음계와 같은 순간에 나란히 측정</div>
 
   <div class="sec"><h2><i>07</i>다른 서비스와의 차별점</h2><span class="t ac">기록에서 끝나지 않고, 기준 판정과 해결 서류까지</span></div>
   <table class="cmp">
