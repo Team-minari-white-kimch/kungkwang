@@ -1641,6 +1641,11 @@ body.scrolled .home>.phd,body.scrolled #v-journal>.phd,body.scrolled #v-report>.
 /* 온보딩 사용법 영상: 세로(9:16) 화면 녹화 기준, 화면 높이에 맞춰 줄어듦 */
 .onb-vid{position:relative;width:100%;max-width:min(100%,calc(56vh * 9 / 16));aspect-ratio:9/16;margin:0 auto;border-radius:20px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
 .onb-vid video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.onb-vbtn{position:absolute;inset:0;width:100%;height:100%;border:0;padding:0;background:transparent;cursor:pointer;display:grid;place-items:center;color:#fff;-webkit-tap-highlight-color:transparent}
+.onb-vbtn svg{width:60px;height:60px;padding:16px;border-radius:50%;background:rgba(20,12,30,.55);display:none}
+.onb-vbtn[data-st="paused"] .i-play,.onb-vbtn[data-st="ended"] .i-replay{display:block}
+.onb-vbtn[data-st="playing"]:focus-visible .i-pause{display:block}.onb-vbtn:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.onb-vbar{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.25)}.onb-vbar i{display:block;height:100%;width:0;background:var(--accent2)}
 .onb-vph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:20px;text-align:center;word-break:keep-all}
 .onb-vph .pl{width:56px;height:56px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:6px}.onb-vph .pl svg{width:24px;height:24px;margin-left:3px}
 .onb-vph b{font-size:15px}.onb-vph span{font-size:13px;color:var(--fg2)}
@@ -1900,7 +1905,9 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
     <h2 id="onbVH">영상으로 보는 사용법</h2>
     <p class="lead">녹음부터 일지, 알리기까지<br>쿵쾅 쓰는 법을 짧은 영상으로 살펴봐요.</p>
     <div class="onb-vid">
-      <video id="onbV" controls playsinline preload="none" aria-labelledby="onbVH" hidden></video>
+      <video id="onbV" muted playsinline webkit-playsinline disablepictureinpicture preload="none" aria-labelledby="onbVH" hidden></video>
+      <button type="button" class="onb-vbtn" id="onbVBtn" aria-label="영상 멈추기" hidden><svg class="i-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg><svg class="i-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><svg class="i-replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+      <div class="onb-vbar" id="onbVBar" hidden><i id="onbVProg"></i></div>
       <div class="onb-vph" id="onbVph"><span class="pl" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span><b>사용법 영상을 준비하고 있어요</b><span>곧 이 자리에서 볼 수 있어요.</span></div>
     </div>
     <div class="onb-acts"><button type="button" class="btn primary" id="onbNext2">다음</button></div>
@@ -2843,19 +2850,34 @@ if (typeof module !== 'undefined') module.exports = KE;
   const ONBKEY = 'kungkwang.onboarded';
   /* 사용법 영상: 파일을 이 경로에 올리면 온보딩 2단계에 나옴(mp4 권장, 세로 9:16).
      유튜브를 쓰려면 youtube.com/watch?v=… 또는 youtu.be/… 주소를 넣으면 됨. 파일이 없으면 '준비 중' 안내 */
-  const ONB_VIDEO = 'video/onboarding.mp4', ONB_POSTER = '';
+  const ONB_VIDEO = 'video/onboarding.mp4', ONB_POSTER = 'video/onboarding.jpg';
   const onbVStop = () => { const v = $('#onbV'); if (v && !v.paused) v.pause(); const f = $('#onbYT'); if (f) f.remove(); };
+  /* 소리 없는 영상: 2단계로 넘어오면 자동 재생(음소거라 브라우저가 막지 않음), 화면을 누르면 멈춤/재생, 끝나면 다시 보기 */
+  const onbVPlay = () => { const v = $('#onbV'); if (v.dataset.state === 'ok' && !$('#onbPV').hidden) { v.muted = true; const p = v.play(); if (p && p.catch) p.catch(() => onbVSync()); } };
+  function onbVSync() {
+    const v = $('#onbV'), b = $('#onbVBtn'), st = v.ended ? 'ended' : v.paused ? 'paused' : 'playing';
+    b.dataset.st = st; b.setAttribute('aria-label', st === 'playing' ? '영상 멈추기' : st === 'ended' ? '영상 처음부터 다시 보기' : '영상 재생');
+  }
+  (() => {
+    const v = $('#onbV');
+    ['play', 'pause', 'ended'].forEach((k) => v.addEventListener(k, onbVSync));
+    v.addEventListener('timeupdate', () => { $('#onbVProg').style.width = v.duration ? `${v.currentTime / v.duration * 100}%` : '0'; });
+    $('#onbVBtn').addEventListener('click', () => { if (v.ended) { v.currentTime = 0; v.play(); } else if (v.paused) v.play(); else v.pause(); });
+  })();
   function onbVLoad() {
     const v = $('#onbV'), ph = $('#onbVph'), box = v.parentElement; if (!ONB_VIDEO) return;
     const yt = ONB_VIDEO.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
     if (yt) { if (!$('#onbYT')) { const f = document.createElement('iframe'); f.id = 'onbYT'; f.src = `https://www.youtube-nocookie.com/embed/${yt[1]}?playsinline=1&rel=0`; f.title = '쿵쾅 사용법 영상'; f.allow = 'encrypted-media; picture-in-picture; fullscreen'; f.allowFullscreen = true; f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0'; box.appendChild(f); } ph.hidden = true; return; }
-    if (v.dataset.state) return; v.dataset.state = 'loading';
-    v.addEventListener('loadedmetadata', () => { v.dataset.state = 'ok'; v.hidden = false; ph.hidden = true; }, { once: true });
-    v.addEventListener('error', () => { v.dataset.state = 'none'; v.hidden = true; ph.hidden = false; }, { once: true });
-    if (ONB_POSTER) v.poster = ONB_POSTER; v.preload = 'metadata'; v.src = ONB_VIDEO;
+    if (v.dataset.state === 'ok') { onbVPlay(); return; } if (v.dataset.state) return; v.dataset.state = 'loading';
+    const ui = (on) => { v.hidden = !on; ph.hidden = on; $('#onbVBtn').hidden = !on; $('#onbVBar').hidden = !on; };
+    v.addEventListener('loadedmetadata', () => { v.dataset.state = 'ok'; onbVSync(); onbVPlay(); }, { once: true });
+    v.addEventListener('error', () => { v.dataset.state = 'none'; ui(false); }, { once: true });
+    // 표지 그림을 바로 보여 주고, '다음'을 누른 순간(사용자 동작) 재생을 시작해 iOS에서도 자동 재생되게 함
+    if (ONB_POSTER) v.poster = ONB_POSTER; ui(true); onbVSync(); v.preload = 'auto'; v.src = ONB_VIDEO; v.muted = true;
+    const p = v.play(); if (p && p.catch) p.catch(() => onbVSync());
   }
   const onbDone = () => { try { localStorage.setItem(ONBKEY, '1'); } catch (e) {} onbVStop(); $('#onb').hidden = true; };
-  function showOnb() { $('#onbP1').hidden = false; $('#onbPV').hidden = true; $('#onbP2').hidden = true; $('#onb').hidden = false; $('#onbNext').focus(); }
+  function showOnb() { const v = $('#onbV'); if (v.dataset.state === 'ok') { v.pause(); v.currentTime = 0; } $('#onbP1').hidden = false; $('#onbPV').hidden = true; $('#onbP2').hidden = true; $('#onb').hidden = false; $('#onbNext').focus(); }
   $('#onbNext').addEventListener('click', () => { $('#onbP1').hidden = true; $('#onbPV').hidden = false; onbVLoad(); $('#onbNext2').focus(); });
   $('#onbNext2').addEventListener('click', () => { onbVStop(); $('#onbPV').hidden = true; $('#onbP2').hidden = false; $('#onbNight').hidden = !isNight(); $('#onbCal').focus(); });
   $('#onbSkip').addEventListener('click', () => { onbDone(); go('analyze'); });
