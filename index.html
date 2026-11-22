@@ -1847,6 +1847,13 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .dx-b{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:700;border-radius:999px;padding:5px 11px;width:max-content;max-width:100%}
 .dx-b.ok{background:var(--ok-soft);color:var(--ok)}.dx-b.wait{background:var(--warn-soft);color:var(--warn)}
 .dx-bar{height:8px;border-radius:99px;background:var(--sunk);overflow:hidden}.dx-bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.hmt .dx-s{font-size:17px}
+.hmg{display:grid;grid-template-columns:22px repeat(8,minmax(0,1fr));gap:6px;align-items:center}
+.hmg .hx{font-size:11px;color:var(--fg2);text-align:center;font-variant-numeric:tabular-nums}
+.hmg .hy{font-size:12px;font-weight:700;color:var(--fg2)}
+.hmg i{display:block;height:22px;border-radius:6px}
+.hml{display:flex;align-items:center;justify-content:space-between;gap:6px;font-size:11px;color:var(--fg2);margin-top:2px}
+.hml i{flex:1;max-width:28px;height:12px;border-radius:4px}
 .dx-go{display:flex;justify-content:space-between;font-size:14px;font-weight:700;color:var(--accent);border-top:1px solid var(--line);padding-top:10px;text-decoration:none}
 .dash>.dx{margin-bottom:12px}#aiHome{margin-bottom:12px}#pg>.dx{margin:4px 0 14px}.resbody>.dx{margin:0}
 </style>
@@ -3231,11 +3238,27 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
   }
   const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
   function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s" data-ai="summary">${D.pat}</p>${dxBadge(D)}`; }
-  function aiStatsHTML(E) {
-    const D = aiDiag(E);
-    return `<div class="dx">${dxHead('기록 진단 · 최근 7일 패턴')}<p class="dx-s" data-ai="summary">${D.pat}</p>${weekCmp(E).replace('class="wcmp"', 'class="wcmp dx-n"')}
-      ${dxBadge(D)}
-      <p class="dx-n" data-ai="advice">${D.next}.</p><a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
+  /* 소음일지 분석 맨 위 타일: 요일 × 3시간 잔디. 진하기 = 들린 소리 횟수(기록마다 감지된 소리 수의 합) */
+  const HM_WD = ['월', '화', '수', '목', '금', '토', '일'];
+  const HM_SLOT = ['새벽 0~3시', '새벽 3~6시', '아침 6~9시', '오전 9~12시', '낮 12~3시', '오후 3~6시', '저녁 6~9시', '밤 9시 이후'];
+  const HM_LV = [0, 18, 36, 56, 78, 100]; // 단계별 진하기(%) — 0단계는 빈 칸
+  const hmBg = (lv) => lv ? `color-mix(in srgb, var(--accent2) ${HM_LV[lv]}%, var(--sunk))` : 'var(--sunk)';
+  function heatTileHTML(E, lbl) {
+    const g = HM_WD.map(() => new Array(8).fill(0));
+    E.forEach((e) => { const d = new Date(e.ts); g[(d.getDay() + 6) % 7][Math.floor(d.getHours() / 3)] += e.count || 1; });
+    const mx = Math.max(0, ...g.flat());
+    let br = -1, bc = -1; g.forEach((row, r) => row.forEach((v, c) => { if (v && (br < 0 || v > g[br][bc])) { br = r; bc = c; } }));
+    const lvOf = (v) => v ? Math.max(1, Math.ceil(v / mx * 5)) : 0;
+    const head = br < 0 ? '기록이 쌓이면 요일·시간대별로 보여드려요'
+      : `<em>${HM_WD[br]}요일 ${HM_SLOT[bc]}</em>${josa(HM_SLOT[bc], '이', '가').slice(HM_SLOT[bc].length)} 가장 시끄러웠어요`;
+    let cells = '<span></span>' + [0, 3, 6, 9, 12, 15, 18, 21].map((h) => `<span class="hx">${h}</span>`).join('');
+    g.forEach((row, r) => { cells += `<span class="hy">${HM_WD[r]}</span>` + row.map((v, c) => `<i style="background:${hmBg(lvOf(v))}" title="${HM_WD[r]}요일 ${HM_SLOT[c]} · ${v}회"></i>`).join(''); });
+    const alt = br < 0 ? '기록 없음' : `요일·시간대별 소음 횟수. ${HM_WD[br]}요일 ${josa(HM_SLOT[bc], '이', '가')} ${g[br][bc]}회로 가장 많음`;
+    return `<div class="dx hmt"><p class="dx-s">${head}</p>
+      <div class="hmg" role="img" aria-label="${alt}">${cells}</div>
+      <div class="hml" aria-hidden="true"><span>적음</span>${HM_LV.map((_, lv) => `<i style="background:${hmBg(lv)}"></i>`).join('')}<span>많음</span></div>
+      <p class="dx-n">${lbl} · 칸이 진할수록 소리가 자주 들렸어요</p>
+      <a class="dx-go" href="#report"><span>이 기록으로 알리기</span><span>›</span></a></div>`;
   }
   function aiResHTML(r, worst) {
     const ts = r.start.getTime(), E = entries(), has = E.some((e) => e.ts === ts);
@@ -3516,7 +3539,7 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
     const head = over ? `기준 초과 <em>${over}건</em>` : near ? `기준 근접 <em>${near}건</em>` : E.length ? '기준 이내' : '기록 없음';
     const sub = E.length ? `소리의 <b>${npct}%</b>가 밤 10시 이후 · 가장 잦은 시각 <b>${ph}시</b> · 주로 <b>${topType}</b>` : '이 기간에 저장한 기록이 없어요.';
     const per = `<div class="pchips" role="group" aria-label="기간">${[['7', '7일'], ['30', '30일'], ['all', '전체']].map(([k, l]) => `<button type="button" data-per="${k}" aria-pressed="${String(dper) === k}">${l}</button>`).join('')}</div>`;
-    return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>${aiStatsHTML(E0)}
+    return `<div class="dtool">${per}<span class="sp"></span><button type="button" class="txtbtn ic" id="copyLog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>상담용 일지 복사</button></div>${heatTileHTML(E, lbl)}
       <div class="dcols">
         <section class="dcard2">
           <div class="dc-h"><h3>소음 패턴</h3></div>
