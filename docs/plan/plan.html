@@ -144,6 +144,12 @@ td.q{color:var(--fg2)}
 .path span{background:var(--soft);border-radius:6px;padding:3px 7px;white-space:nowrap}
 .path span:last-of-type{background:var(--ac);color:#fff;font-weight:700}
 .path i{font-style:normal;color:var(--fg3)}
+.sv{margin-top:7px}
+.sv div{display:grid;grid-template-columns:70px 1fr 44px;align-items:center;gap:8px;margin:5px 0;font-size:10px;color:var(--fg2)}
+.sv i{height:9px;background:#EEECF1;border-radius:5px;overflow:hidden;display:block}
+.sv i b{display:block;height:100%;background:#A7A3AD;border-radius:5px}
+.sv em{font-style:normal;text-align:right;font-weight:700;color:var(--fg2)}
+.sv div.on{color:#1d1626;font-weight:700}.sv div.on i b{background:#5B21B6}.sv div.on em{color:#5B21B6}
 /* 측정·보정 */
 .meas{display:grid;grid-template-columns:1.4fr 1fr;gap:16px}
 .meas h3{margin:0 0 3px;font-size:11px;font-weight:800}
@@ -251,23 +257,14 @@ td.q{color:var(--fg2)}
       <div class="cap">분쟁조정 성립률<br>신청 148건 중 13건</div>
     </div>
     <div>
-      <div class="st-h">원인의 74%가 뛰거나 걷는 소리</div>
-      <div class="cap">2024년 원인별 접수 7,033건</div>
-      <div class="donut">
-        <svg width="92" height="92" viewBox="0 0 42 42" style="flex:none">
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#E8E6EC" stroke-width="6"/>
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#5B21B6" stroke-width="6" stroke-dasharray="74 26" stroke-dashoffset="25"/>
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#A7A3AD" stroke-width="6" stroke-dasharray="12.9 87.1" stroke-dashoffset="-49"/>
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="#C9C6CE" stroke-width="6" stroke-dasharray="4.6 95.4" stroke-dashoffset="-61.9"/>
-          <text x="21" y="21" text-anchor="middle" font-size="6.4" font-weight="800" fill="#5B21B6">74%</text>
-          <text x="21" y="27" text-anchor="middle" font-size="3.6" fill="#5d5666">발소리</text>
-        </svg>
-        <div class="lg2">
-          <div><i style="background:#5B21B6"></i><b>뛰거나 걷는 소리</b><em>74.0%</em></div>
-          <div><i style="background:#A7A3AD"></i>망치질<em>12.9%</em></div>
-          <div><i style="background:#C9C6CE"></i>가구 끌기<em>4.6%</em></div>
-          <div><i style="background:#E8E6EC"></i>기타<em>8.5%</em></div>
-        </div>
+      <div class="st-h">피해를 겪어도 46%는 그냥 참는다</div>
+      <div class="cap">국민 3,040명 설문(2013) · 88%가 스트레스 경험</div>
+      <div class="sv">
+        <div class="on"><span>참는다</span><i><b style="width:100.0%"></b></i><em>46%</em></div>
+        <div class=""><span>찾아가 부탁</span><i><b style="width:54.3%"></b></i><em>25%</em></div>
+        <div class=""><span>경비실에 알림</span><i><b style="width:41.3%"></b></i><em>19%</em></div>
+        <div class=""><span>찾아가 항의</span><i><b style="width:15.2%"></b></i><em>7%</em></div>
+        <div class=""><span>공식 신고</span><i><b style="width:1.7%"></b></i><em>1% 미만</em></div>
       </div>
     </div>
     <div>
@@ -291,7 +288,7 @@ td.q{color:var(--fg2)}
   <div class="sec"><h2><i>03</i>서비스명 · 제작 목적 · 주요 화면</h2></div>
   <div class="kv">
     <span class="l">서비스명</span><span><b>쿵쾅</b> — 층간소음 AI 소음 일지 (휴대폰 웹앱, 설치·가입 없음)</span>
-    <span class="l">제작 목적</span><span>감정 대신 <b>믿을 만한 기록</b>으로 대화하게 해, 다툼 전에 공식 절차로 해결하도록 돕기</span>
+    <span class="l">제작 목적</span><span>감정 대신 <b>믿을 만한 기록</b>으로, 다툼 전에 이웃·관리사무소·상담 기관 등 여러 곳의 도움을 받아 해결하도록 돕기</span>
   </div>
   <div class="phones">
     <div class="ph"><div class="fr"><img src="img/home.jpg"></div><b>홈</b><span>이번 주 요약·AI 인사이트</span></div>
@@ -301,7 +298,7 @@ td.q{color:var(--fg2)}
     <div class="ph"><div class="fr"><img src="img/family.jpg"></div><b>가족 공유</b><span>가족이 함께 기록</span></div>
   </div>
 
-  <div class="foot"><span>출처: 한국환경공단 층간소음 원인별 분석(공공데이터포털 15093156, 2024) · MTN 2026.9.28(환경공단·LH 자료) · 뉴시스 2025.10.22(기후에너지환경부 자료)</span><span>1 / 2</span></div>
+  <div class="foot"><span>출처: 국민권익위원회 110콜센터 층간소음 설문(3,040명, 2013) · MTN 2026.9.28(환경공단·LH 자료) · 뉴시스 2025.10.22(기후에너지환경부 자료)</span><span>1 / 2</span></div>
 </section>
 
 <!-- ===================== 2쪽 ===================== -->
@@ -368,7 +365,7 @@ td.q{color:var(--fg2)}
 
   <div class="sec"><h2><i>08</i>서비스 기대 효과</h2></div>
   <div class="eff">
-    <div><b>피해 세대</b><p>감정 대신 근거로 말하고, 직접 대면 없이 공식 절차를 밟음</p></div>
+    <div><b>피해 세대</b><p>기록을 근거로 공식 절차뿐 아니라 여러 곳에서 도움을 받음</p></div>
     <div><b>관리사무소</b><p>시각·종류가 정리된 기록으로 사실 확인과 중단 권고</p></div>
     <div><b>상담 기관</b><p>상담 전 자료로 측정이 필요한 세대를 먼저 판단</p></div>
     <div><b>사회</b><p>이웃 간 다툼이 폭력·형사 사건으로 번지기 전에 차단</p></div>
