@@ -3253,20 +3253,22 @@ advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문
 다른 말 없이 {"title":"...","advice":"..."} 형식의 JSON만 답해.
 `;
   const HKEY = 'kungkwang.aiheat';
-  let heatCur = null, heatSeq = 0; // 지금 화면의 잔디 집계(AI 요청용)
+  let heatCur = null, heatSeq = 0; const heatReq = {}; // 지금 화면의 잔디 집계(AI 요청용), 진행 중인 요청
   const heatCache = () => { try { return JSON.parse(localStorage.getItem(HKEY) || '{}') || {}; } catch (e) { return {}; } };
   const heatTitle = (t) => esc(t).replace(/\[\[(.+?)\]\]/g, '<em>$1</em>').replace(/\[\[|\]\]/g, '');
   function heatAsk(k) {
     const C = heatCache(); if (C[k]) return Promise.resolve(C[k]);
+    if (heatReq[k]) return heatReq[k]; // 같은 집계로 이미 요청 중이면 그 응답을 기다림
     const ac = typeof AbortController !== 'undefined' ? new AbortController() : null, tm = ac && setTimeout(() => ac.abort(), 10000);
-    return fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: HEAT_PROMPT + k }), signal: ac ? ac.signal : undefined })
+    return heatReq[k] = fetch(AI_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ prompt: HEAT_PROMPT + k }), signal: ac ? ac.signal : undefined })
       .then((r) => r.ok ? r.json() : null)
       .then((j) => { let v = null; try { v = JSON.parse(String(j && j.text || '').replace(/^```(json)?|```$/gm, '').trim()); } catch (e) {}
         if (!v || typeof v.title !== 'string' || !v.title.trim()) return null;
+        if (!/[월화수목금토일]요일|평일|주말|새벽|아침|오전|낮|오후|저녁|밤/.test(v.title)) return null; // 요일·시간대가 없는 엉뚱한 문장은 버리고 규칙 문장
         v = { title: v.title.trim().slice(0, 60), advice: String(v.advice || '').trim().slice(0, 80) };
         const C2 = heatCache(), ks = Object.keys(C2); if (ks.length >= 6) delete C2[ks[0]]; C2[k] = v; try { localStorage.setItem(HKEY, JSON.stringify(C2)); } catch (e) {}
         return v; })
-      .catch(() => null).finally(() => tm && clearTimeout(tm));
+      .catch(() => null).finally(() => { if (tm) clearTimeout(tm); delete heatReq[k]; });
   }
   function heatTileHTML(E, lbl, E0 = E) { // E: 선택 기간 기록(잔디), E0: 전체 기록
     const g = HM_WD.map(() => new Array(8).fill(0));
