@@ -1532,6 +1532,11 @@ li.done.now{border:1.5px solid var(--accent)}
 .ivmod-v{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
 .ivmod-v video{width:100%;height:100%;display:block;object-fit:contain;background:#000}
 .ivmod-err{position:absolute;inset:0;margin:0;display:grid;place-items:center;padding:20px;text-align:center;color:#fff;font-size:14px;word-break:keep-all}
+.ivmod-sp{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.ivmod-sp span{font-size:12.5px;color:rgba(255,255,255,.72);margin-right:2px}
+.ivmod-sp button{min-width:52px;min-height:36px;padding:0 10px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;font:inherit;font-size:13px;font-weight:700;cursor:pointer;font-variant-numeric:tabular-nums}
+.ivmod-sp button[aria-pressed="true"]{background:#fff;color:#2A1050;border-color:#fff}
+.ivmod-sp button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 .ivmod-n{margin:0;font-size:12.5px;color:rgba(255,255,255,.72);text-align:center;word-break:keep-all}
 .dmod-c{width:min(340px,100%);background:var(--surface);border-radius:22px;padding:22px 20px 18px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;box-shadow:0 20px 50px -20px rgba(17,10,24,.6);animation:dmPop .28s cubic-bezier(.3,1.4,.5,1)}
 .dmod-ic{width:52px;height:52px;border-radius:50%;background:var(--bad-soft);color:var(--bad);display:grid;place-items:center}
@@ -2215,6 +2220,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
   <div class="ivmod-c">
     <div class="ivmod-h"><h2 id="ivH">쿵쾅 소개 영상</h2><button type="button" class="ivmod-x" id="ivX" aria-label="닫기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
     <div class="ivmod-v"><video id="ivV" controls playsinline preload="none" poster="video/intro.jpg" aria-labelledby="ivH"></video><p class="ivmod-err" id="ivErr" hidden>영상을 불러오지 못했어요. 인터넷 연결을 확인하고 다시 열어 주세요.</p></div>
+    <div class="ivmod-sp" role="group" aria-label="재생 속도"><span>재생 속도</span><button type="button" data-ivr="0.75">0.75×</button><button type="button" data-ivr="1">1×</button><button type="button" data-ivr="1.25">1.25×</button><button type="button" data-ivr="1.5">1.5×</button><button type="button" data-ivr="2">2×</button></div>
     <p class="ivmod-n">1분 · 소리가 나와요. 가로로 돌리거나 전체 화면으로 크게 볼 수 있어요.</p>
   </div>
 </div>
@@ -2890,8 +2896,16 @@ if (typeof module !== 'undefined') module.exports = KE;
   function openIntro(from) {
     const m = $('#ivMod'), v = $('#ivV'); ivFrom = from || null; m.hidden = false; $('#ivErr').hidden = true;
     if (!v.src) { v.preload = 'auto'; v.src = 'video/intro.mp4'; v.addEventListener('error', () => { $('#ivErr').hidden = false; }); }
-    const p = v.play(); if (p && p.catch) p.catch(() => {}); $('#ivX').focus();
+    ivSet(ivRate()); const p = v.play(); if (p && p.catch) p.catch(() => {}); $('#ivX').focus();
   }
+  /* 재생 속도: 사용자가 고른 값을 기억(기본 1×). 브라우저 기본 메뉴로 바꿔도 버튼 표시가 따라감 */
+  const IVR = 'kungkwang.ivRate', IVRS = [0.75, 1, 1.25, 1.5, 2];
+  const ivRate = () => { const r = +(localStorage.getItem(IVR) || 1); return IVRS.includes(r) ? r : 1; };
+  const ivMark = (r) => $$('#ivMod [data-ivr]').forEach((b) => b.setAttribute('aria-pressed', String(+b.dataset.ivr === r)));
+  const ivSet = (r) => { const v = $('#ivV'); v.defaultPlaybackRate = r; v.playbackRate = r; try { localStorage.setItem(IVR, String(r)); } catch (e) {} ivMark(r); };
+  $$('#ivMod [data-ivr]').forEach((b) => b.addEventListener('click', () => ivSet(+b.dataset.ivr)));
+  $('#ivV').addEventListener('ratechange', () => { const r = $('#ivV').playbackRate; ivMark(r); if (IVRS.includes(r)) try { localStorage.setItem(IVR, String(r)); } catch (e) {} });
+  $('#ivV').addEventListener('loadedmetadata', () => ivSet(ivRate())); // 처음 불러올 때 속도가 1로 돌아가는 브라우저 대비
   function closeIntro() { const m = $('#ivMod'); if (m.hidden) return; const v = $('#ivV'); v.pause(); m.hidden = true; if (ivFrom && ivFrom.isConnected) ivFrom.focus(); }
   $('#ivX').addEventListener('click', closeIntro);
   $('#ivMod').addEventListener('click', (e) => { if (e.target.id === 'ivMod') closeIntro(); });
