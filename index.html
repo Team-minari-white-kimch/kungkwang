@@ -1020,6 +1020,10 @@ footer{font-size:12px;color:var(--fg2);display:flex;flex-direction:column;gap:6p
 .rpane{display:flex;flex-direction:column;gap:14px}
 .racts.big{display:grid;grid-template-columns:1fr 1.4fr;gap:8px}
 .racts.big .btn,.racts.big button{min-height:50px;font-size:15px}
+.rauth{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:10px 14px}
+.rauth .ra-t{display:flex;flex-direction:column;gap:1px;min-width:0;flex:1}.rauth .ra-t b{font-size:15px;font-weight:800;display:flex;align-items:center;gap:6px}
+.rauth .ra-t small{font-size:12px;color:var(--fg2)}.rauth .ra-t .me{font-size:11px;font-weight:700;color:var(--accent);background:color-mix(in srgb,var(--accent) 12%,transparent);padding:1px 6px;border-radius:999px}
+.rauth .src-tag{margin-left:auto;flex:none}
 .hsum{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
 .hsum b{font-size:14px;margin-right:4px}
 .hsum .memo{flex-basis:100%;font-size:13px;color:var(--fg2)}
@@ -3437,7 +3441,15 @@ advice: 이 패턴으로 추측해 볼 때 앞으로 언제 녹음해 두면 좋
     const oe = r.ev.filter((e) => T[e.type] && T[e.type].group === 'impact' && gpk(e) >= lim0); // 직접충격 소리만, 그래프에서 기준선을 넘은 것과 같은 기준
     const sure = r.unc && r.overLmax !== oe.length ? ` 측정 오차(±${r.unc}dB)를 빼도 확실히 넘는 건 ${r.overLmax}번이에요.` : '';
     const INS = oe.length ? `<div class="ins"><i>✦</i><span><b>${Math.floor(oe[0].t)}~${Math.ceil(oe[oe.length - 1].t + oe[oe.length - 1].span)}초 구간에서</b>기준(${lim0}dB)을 넘는 큰 소리가 ${oe.length}번 감지됐어요.${sure}</span></div>` : `<div class="ins"><i>✦</i><span><b>기준을 넘는 순간은 없었어요</b>최고 ${r.lmax.toFixed(1)}dB · ${per} 기준 ${lim0}dB</span></div>`; $('#rS').textContent = `${when} · ${r.durSec.toFixed(0)}초 녹음${isEx ? ' · 예시' : ''}`;
-    el.innerHTML = `
+    // 기록 상세: 누가 작성했는지(가족공유 닉네임, 없으면 '나')
+    const le0 = fromLog ? entries().concat(log).find((e) => e.ts === ts) : null;
+    let AUTH = '';
+    if (le0) {
+      const me0 = famMe(), an = authorOf(le0) || '', nm = an || '나', mine = !an || (me0 && an === me0.nick) || (!me0 && !le0.example);
+      const dd = new Date(le0.ts), full = `${dd.getFullYear()}년 ${dd.getMonth() + 1}월 ${dd.getDate()}일 (${wk[dd.getDay()]}) ${pad(dd.getHours())}:${pad(dd.getMinutes())}`;
+      AUTH = `<div class="rauth">${avHTML(nm, 34)}<span class="ra-t"><b>${esc(nm)}${an && mine ? ' <small class="me">나</small>' : ''}</b><small class="num">${full} 작성${le0.auto ? ' · 자동 기록' : ''}</small></span>${le0.author && le0.vis ? `<span class="src-tag">${le0.vis === 'private' ? '나만 보기' : '가족 공개'}</span>` : ''}</div>`;
+    }
+    el.innerHTML = `${AUTH}
       <div class="wvc"><div class="wv-r"><button type="button" class="wv-p" id="wvP" aria-label="녹음 다시 듣기" ${!fromLog && last && last.y ? '' : 'disabled'}><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button><div class="wv" id="wv">${WAVE}</div></div><div class="wv-t num"><span class="pill ${worst} wv-v">${vt}</span><span class="wv-src">${isEx ? '예시' : isMic ? (calHow ? '보정됨' : '보정 전') : '파일'}</span><span style="margin-left:auto" id="wvC">00:00</span><span>${mmss(r.durSec)}</span></div></div>
       ${fromLog ? `<div class="hsum">${harmChips(h0) ? `<b>생활 피해</b>${harmChips(h0)}${h0.memo ? `<span class="memo">${esc(h0.memo)}</span>` : ''}` : '<b>생활 피해</b><span class="note">아직 남기지 않았어요</span>'}<button type="button" class="txtbtn" id="hEdit">${harmChips(h0) ? '고치기' : '남기기'} ›</button></div>` : ''}
       ${fromLog ? '' : aiResHTML(r, worst)}
