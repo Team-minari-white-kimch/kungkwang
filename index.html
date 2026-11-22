@@ -1840,7 +1840,7 @@ button.rl-empty b{display:block;color:var(--accent);margin-top:4px}
 .dx{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:16px;display:flex;flex-direction:column;gap:10px;color:var(--fg);text-decoration:none;box-sizing:border-box;width:100%}
 .dx.soft{background:var(--accent-soft);border-color:transparent}
 .dx-h{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--accent)}
-.dx-h i{font-style:normal;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:2px 6px;font-size:11px}
+.dx-h i{font-style:normal;background:var(--accent);color:var(--accent-ink);border-radius:6px;padding:2px 6px;font-size:11px;white-space:nowrap;flex-shrink:0}
 .dx-s{font-size:16px;font-weight:800;line-height:1.45;margin:0}
 .dx-s em{font-style:normal;color:var(--accent)}
 .dx-n{font-size:13px;color:var(--fg2);line-height:1.5;margin:0}.dx-n b{color:var(--fg)}
@@ -3235,7 +3235,7 @@ summary: 최근 소음 패턴 한 문장(60자 이내). advice: checks에 ok=fal
   function aiEnhance(root) {
     if (!root || !root.querySelector('[data-ai]')) return;
     aiAsk().then((v) => { if (!v) return; root.querySelectorAll('[data-ai]').forEach((el) => { const t = v[el.dataset.ai]; if (t) el.textContent = t; });
-      root.querySelectorAll('[data-aib]').forEach((el) => { el.textContent = 'AI 분석'; }); });
+      root.querySelectorAll('[data-aib]').forEach((el) => { el.textContent = 'AI 인사이트'; }); });
   }
   const dxBadge = (D) => `<span class="dx-b ${D.ready ? 'ok' : 'wait'}">${D.ready ? '✓ 분석에 충분한 기록이 모였어요' : `● 분석을 위한 정보가 아직 부족해요 (${D.nOk}/4)`}</span>`;
   function aiHomeHTML(E) { const D = aiDiag(E); return `${dxHead('이번 주 소음')}<p class="dx-s" data-ai="summary">${D.pat}</p>${dxBadge(D)}`; }
@@ -3283,8 +3283,8 @@ advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문
     const k = useAI ? JSON.stringify({ period: lbl, days: HM_WD, slots: HM_SLOT, grid: g }) : '', hit = useAI ? heatCache()[k] : null;
     heatCur = useAI && !hit ? { k, seq, rule, next: `${D.next}.` } : null;
     const head = hit ? heatTitle(hit.title) : useAI ? '<span class="hm-wait">AI가 소음 패턴을 분석하고 있어요…</span>' : rule;
-    const note = hit && hit.advice ? esc(hit.advice) : useAI ? `${D.next}.` : br >= 0 && !recent ? '최근 7일 기록이 없어 AI 분석은 하지 않았어요. 새로 녹음하면 다시 분석해요.' : `${D.next}.`;
-    const top = useAI ? `<div class="dx-h"><i data-hb>${hit ? 'AI 분석' : '기록 분석'}</i>${lbl} 패턴</div>` : `<div class="dx-h">${lbl} 패턴</div>`;
+    const note = hit && hit.advice ? esc(hit.advice) : useAI ? `${D.next}.` : br >= 0 && !recent ? '최근 7일 기록이 없어 AI 인사이트는 만들지 않았어요. 새로 녹음하면 다시 만들어요.' : `${D.next}.`;
+    const top = useAI ? `<div class="dx-h"><i data-hb>${hit ? 'AI 인사이트' : '기록 분석'}</i>${lbl} 패턴</div>` : `<div class="dx-h">${lbl} 패턴</div>`;
     let cells = '<span></span>' + [0, 3, 6, 9, 12, 15, 18, 21].map((h) => `<span class="hx">${h}</span>`).join('');
     g.forEach((row, r) => { cells += `<span class="hy">${HM_WD[r]}</span>` + row.map((v, c) => `<i style="background:${hmBg(lvOf(v))}" title="${HM_WD[r]}요일 ${HM_SLOT[c]} · ${v}회"></i>`).join(''); });
     const alt = br < 0 ? '기록 없음' : `요일·시간대별 소음 횟수. ${HM_WD[br]}요일 ${josa(HM_SLOT[bc], '이', '가')} ${g[br][bc]}회로 가장 많음`;
@@ -3299,7 +3299,7 @@ advice: 이 패턴을 보고 앞으로 언제 녹음해 두면 좋을지 한 문
     heatAsk(cur.k).then((v) => {
       const el = root.querySelector(`.hmt[data-hs="${cur.seq}"]`); if (!el) return;
       const t = el.querySelector('[data-ht]'), n = el.querySelector('[data-hn]'), b = el.querySelector('[data-hb]');
-      if (v) { t.innerHTML = heatTitle(v.title); if (v.advice) n.textContent = v.advice; if (b) b.textContent = 'AI 분석'; }
+      if (v) { t.innerHTML = heatTitle(v.title); if (v.advice) n.textContent = v.advice; if (b) b.textContent = 'AI 인사이트'; }
       else t.innerHTML = cur.rule;
     });
   }
